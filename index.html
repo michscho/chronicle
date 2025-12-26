@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chronicle - Vom Urknall bis Heute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #030308;
+            --bg-secondary: #080812;
+            --bg-tertiary: #10101f;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --ereignis: #f43f5e;
+            --wissenschaft: #3b82f6;
+            --kultur: #f59e0b;
+            --politik: #10b981;
+            --person: #ec4899;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            height: 100dvh;
+            user-select: none;
+            touch-action: pan-x;
+        }
+
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 100% 60% at 50% 0%, rgba(99, 102, 241, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 10% 100%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            background: linear-gradient(180deg, var(--bg-primary) 60%, transparent 100%);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #8b5cf6, var(--accent));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .current-time {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .zoom-info {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .ctrl-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 8px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ctrl-btn:hover, .ctrl-btn:active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .ctrl-btn:disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Search */
+        .search-container {
+            position: fixed;
+            top: 52px;
+            left: 12px;
+            right: 12px;
+            z-index: 150;
+            display: none;
+        }
+
+        .search-container.active {
+            display: block;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 40px 10px 14px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-close {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-close:hover {
+            color: var(--text-primary);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            max-height: 50vh;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result {
+            padding: 10px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--glass-border);
+            transition: background 0.15s ease;
+        }
+
+        .search-result:last-child {
+            border-bottom: none;
+        }
+
+        .search-result:hover, .search-result:active {
+            background: var(--glass-bg);
+        }
+
+        .search-result-title {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .search-result-meta {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-result-cat {
+            color: var(--accent);
+        }
+
+        .search-no-results {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            position: fixed;
+            top: 48px;
+            left: 0;
+            right: 0;
+            z-index: 90;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--glass-border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            padding: 4px 10px;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            background: var(--bg-tertiary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .cat-btn.active {
+            color: var(--text-primary);
+            border-color: var(--cat-color);
+            background: color-mix(in srgb, var(--cat-color) 15%, var(--bg-tertiary));
+        }
+
+        .cat-btn[data-category="epoche"] { --cat-color: #a855f7; }
+        .cat-btn[data-category="ereignis"] { --cat-color: var(--ereignis); }
+        .cat-btn[data-category="wissenschaft"] { --cat-color: var(--wissenschaft); }
+        .cat-btn[data-category="kultur"] { --cat-color: var(--kultur); }
+        .cat-btn[data-category="politik"] { --cat-color: var(--politik); }
+        .cat-btn[data-category="person"] { --cat-color: var(--person); }
+
+        .cat-icon {
+            font-size: 0.75rem;
+        }
+
+        /* Timeline Viewport */
+        .timeline-viewport {
+            position: fixed;
+            top: 82px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            cursor: grab;
+            touch-action: pan-x;
+        }
+
+        .timeline-viewport:active {
+            cursor: grabbing;
+        }
+
+        .timeline-container {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Epochs */
+        .epochs-area {
+            flex: 0 0 auto;
+            height: 70px;
+            position: relative;
+            padding: 6px 0;
+            overflow: hidden;
+        }
+
+        .epoch-rows {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .epoch-row {
+            position: relative;
+            flex: 1;
+            min-height: 14px;
+        }
+
+        .epoch-bar {
+            position: absolute;
+            height: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            opacity: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            transition: opacity 0.2s ease;
+        }
+
+        .epoch-bar.visible {
+            opacity: 1;
+        }
+
+        .epoch-bar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                var(--epoch-color) 0%,
+                color-mix(in srgb, var(--epoch-color) 40%, transparent) 100%
+            );
+            opacity: 0.3;
+        }
+
+        .epoch-bar::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--epoch-color);
+        }
+
+        .epoch-bar-text {
+            position: relative;
+            z-index: 1;
+            font-size: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Axis */
+        .axis-area {
+            position: relative;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .timeline-axis {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                rgba(99, 102, 241, 0.1) 0%,
+                rgba(99, 102, 241, 0.4) 50%,
+                rgba(99, 102, 241, 0.1) 100%
+            );
+            transform: translateY(-50%);
+        }
+
+        .center-indicator {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+            transform: translateX(-50%);
+            box-shadow: 0 0 8px var(--accent-glow);
+            z-index: 100;
+        }
+
+        .center-indicator::before,
+        .center-indicator::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+        }
+
+        .center-indicator::before {
+            top: -4px;
+            border-bottom-color: var(--accent);
+        }
+
+        .center-indicator::after {
+            bottom: -4px;
+            border-top-color: var(--accent);
+        }
+
+        .time-markers {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(4px);
+        }
+
+        .time-marker {
+            position: absolute;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-marker-tick {
+            width: 1px;
+            height: 6px;
+            background: rgba(99, 102, 241, 0.3);
+            margin-bottom: 2px;
+        }
+
+        .time-marker.major .time-marker-tick {
+            height: 10px;
+            background: rgba(99, 102, 241, 0.5);
+        }
+
+        .time-marker-label {
+            font-size: 0.45rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .time-marker.major .time-marker-label {
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Events */
+        .events-area {
+            flex: 1;
+            position: relative;
+            min-height: 120px;
+            padding-top: 8px;
+            overflow: hidden;
+        }
+
+        .timeline-event {
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+            z-index: 10;
+        }
+
+        .timeline-event.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .timeline-event.highlight {
+            z-index: 50;
+        }
+
+        .timeline-event.highlight .event-node {
+            transform: scale(1.5);
+            box-shadow: 0 0 20px var(--event-color, var(--accent));
+        }
+
+        .event-node {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--event-color, var(--accent));
+            position: relative;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .event-node::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: var(--event-color, var(--accent));
+            opacity: 0.2;
+        }
+
+        .timeline-event[data-importance="1"] .event-node { width: 12px; height: 12px; }
+        .timeline-event[data-importance="2"] .event-node { width: 8px; height: 8px; }
+        .timeline-event[data-importance="3"] .event-node { width: 6px; height: 6px; }
+
+        .event-stem {
+            width: 1px;
+            height: 8px;
+            background: linear-gradient(to bottom, var(--event-color, var(--accent)), transparent);
+        }
+
+        .event-content {
+            text-align: center;
+            max-width: 70px;
+            padding-top: 2px;
+        }
+
+        .event-time {
+            font-size: 0.4rem;
+            font-weight: 600;
+            color: var(--event-color, var(--accent));
+            margin-bottom: 1px;
+        }
+
+        .event-title {
+            font-size: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.15;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .timeline-event[data-category="ereignis"] { --event-color: var(--ereignis); }
+        .timeline-event[data-category="wissenschaft"] { --event-color: var(--wissenschaft); }
+        .timeline-event[data-category="kultur"] { --event-color: var(--kultur); }
+        .timeline-event[data-category="politik"] { --event-color: var(--politik); }
+        .timeline-event[data-category="person"] { --event-color: var(--person); }
+
+        .timeline-event[data-row="0"] { top: 0; }
+        .timeline-event[data-row="1"] { top: 50px; }
+        .timeline-event[data-row="2"] { top: 100px; }
+        .timeline-event[data-row="3"] { top: 150px; }
+
+        /* Info Panel */
+        .info-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--glass-border);
+            border-radius: 16px 16px 0 0;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 45vh;
+            overflow-y: auto;
+        }
+
+        .info-panel.visible {
+            transform: translateY(0);
+        }
+
+        .info-panel-handle {
+            width: 36px;
+            height: 4px;
+            background: var(--glass-border);
+            border-radius: 2px;
+            margin: 8px auto;
+        }
+
+        .info-panel-content {
+            padding: 0 16px 20px;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .info-time {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .info-category {
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .info-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .info-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .info-description {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .info-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 8px;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Nav Buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 12px;
+            left: 8px;
+            right: 8px;
+            z-index: 60;
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
+            transition: opacity 0.2s ease;
+        }
+
+        .info-panel.visible ~ .nav-buttons {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .nav-btn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 14px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.55rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover, .nav-btn:active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Loading */
+        .loading {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--bg-tertiary);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll Hint */
+        .scroll-hint {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-hint-icon {
+            animation: scrollHint 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollHint {
+            0%, 100% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+        }
+
+        .info-panel.visible ~ .scroll-hint {
+            opacity: 0;
+        }
+
+        /* Desktop */
+        @media (min-width: 768px) {
+            .header {
+                padding: 12px 20px;
+            }
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .current-time {
+                font-size: 1.3rem;
+            }
+
+            .filter-bar {
+                top: 56px;
+                padding: 8px 20px;
+            }
+
+            .cat-btn {
+                padding: 5px 12px;
+                font-size: 0.65rem;
+            }
+
+            .timeline-viewport {
+                top: 94px;
+            }
+
+            .epochs-area {
+                height: 90px;
+            }
+
+            .epoch-bar-text {
+                font-size: 0.55rem;
+            }
+
+            .events-area {
+                min-height: 180px;
+            }
+
+            .event-content {
+                max-width: 90px;
+            }
+
+            .event-time {
+                font-size: 0.45rem;
+            }
+
+            .event-title {
+                font-size: 0.55rem;
+            }
+
+            .timeline-event[data-row="1"] { top: 60px; }
+            .timeline-event[data-row="2"] { top: 120px; }
+            .timeline-event[data-row="3"] { top: 180px; }
+
+            .info-panel {
+                max-height: 35vh;
+            }
+
+            .nav-buttons {
+                bottom: 16px;
+            }
+
+            .nav-btn {
+                padding: 8px 14px;
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .search-container {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                width: 400px;
+            }
+
+            .epochs-area {
+                height: 100px;
+            }
+
+            .events-area {
+                min-height: 220px;
+            }
+
+            .timeline-event[data-row="1"] { top: 70px; }
+            .timeline-event[data-row="2"] { top: 140px; }
+            .timeline-event[data-row="3"] { top: 210px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer"></div>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">🌌</div>
+                <span class="logo-text">Chronicle</span>
+            </div>
+        </div>
+
+        <div class="header-center">
+            <div class="current-time" id="currentTime">2000</div>
+            <div class="zoom-info" id="zoomInfo">±100 Jahre sichtbar</div>
+        </div>
+
+        <div class="header-right">
+            <button class="ctrl-btn" id="searchBtn" title="Suchen">🔍</button>
+            <button class="ctrl-btn" id="zoomOut" title="−">−</button>
+            <button class="ctrl-btn" id="zoomIn" title="+">+</button>
+        </div>
+    </header>
+
+    <!-- Search -->
+    <div class="search-container" id="searchContainer">
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="Ereignis, Person, Epoche suchen...">
+            <button class="search-close" id="searchClose">✕</button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <button class="cat-btn active" data-category="epoche">
+            <span class="cat-icon">🏛️</span> Epochen
+        </button>
+        <button class="cat-btn active" data-category="ereignis">
+            <span class="cat-icon">⚡</span> Ereignisse
+        </button>
+        <button class="cat-btn active" data-category="wissenschaft">
+            <span class="cat-icon">🔬</span> Wissenschaft
+        </button>
+        <button class="cat-btn active" data-category="kultur">
+            <span class="cat-icon">🎨</span> Kultur
+        </button>
+        <button class="cat-btn active" data-category="politik">
+            <span class="cat-icon">⚖️</span> Politik
+        </button>
+        <button class="cat-btn active" data-category="person">
+            <span class="cat-icon">👤</span> Personen
+        </button>
+    </div>
+
+    <!-- Timeline -->
+    <main class="timeline-viewport" id="viewport">
+        <div class="center-indicator"></div>
+        <div class="timeline-container">
+            <section class="epochs-area">
+                <div class="epoch-rows" id="epochRows"></div>
+            </section>
+
+            <section class="axis-area">
+                <div class="timeline-axis"></div>
+                <div class="time-markers" id="timeMarkers"></div>
+            </section>
+
+            <section class="events-area" id="eventsArea"></section>
+        </div>
+    </main>
+
+    <!-- Info Panel -->
+    <aside class="info-panel" id="infoPanel">
+        <div class="info-panel-handle"></div>
+        <button class="info-close" id="closeInfo">✕</button>
+        <div class="info-panel-content">
+            <div class="info-header">
+                <div class="info-time" id="infoTime">2000</div>
+                <span class="info-category" id="infoCategory">Ereignis</span>
+            </div>
+            <h2 class="info-title" id="infoTitle">Titel</h2>
+            <p class="info-subtitle" id="infoSubtitle">Untertitel</p>
+            <p class="info-description" id="infoDescription">Beschreibung</p>
+        </div>
+    </aside>
+
+    <!-- Navigation -->
+    <div class="nav-buttons" id="navButtons">
+        <button class="nav-btn" data-goto="-13800000000">🌌 Urknall</button>
+        <button class="nav-btn" data-goto="-66000000">🦖 Dinos</button>
+        <button class="nav-btn" data-goto="-3000">🏛️ Antike</button>
+        <button class="nav-btn" data-goto="1500">🎨 Renaissance</button>
+        <button class="nav-btn" data-goto="1870">🖼️ Impressionismus</button>
+        <button class="nav-btn" data-goto="1945">💣 1945</button>
+        <button class="nav-btn" data-goto="2023">📱 Heute</button>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+        <span class="scroll-hint-icon">↔</span>
+        <span>Ziehen zum Navigieren</span>
+    </div>
+
+    <script>
+        // ============================================
+        // DATA - EPOCHS (with proper row assignment to avoid overlaps)
+        // ============================================
+        const epochs = [
+            // Row 0 - Major geological/cosmic eras (non-overlapping)
+            { id: "cosmic", title: "Kosmische Ära", start: -13800000000, end: -4600000000, color: "#8b5cf6", row: 0 },
+            { id: "hadean", title: "Hadaikum", start: -4600000000, end: -4000000000, color: "#dc2626", row: 0 },
+            { id: "archean", title: "Archaikum", start: -4000000000, end: -2500000000, color: "#10b981", row: 0 },
+            { id: "proterozoic", title: "Proterozoikum", start: -2500000000, end: -540000000, color: "#3b82f6", row: 0 },
+            { id: "phanerozoic", title: "Phanerozoikum", start: -540000000, end: 2025, color: "#ef4444", row: 0 },
+
+            // Row 1 - Human prehistory and medieval (non-overlapping within row)
+            { id: "paleolithic", title: "Altsteinzeit", start: -2500000, end: -10000, color: "#78716c", row: 1 },
+            { id: "neolithic", title: "Jungsteinzeit", start: -10000, end: -3000, color: "#84cc16", row: 1 },
+            { id: "bronze", title: "Bronzezeit", start: -3000, end: -1200, color: "#f59e0b", row: 1 },
+            { id: "iron", title: "Eisenzeit", start: -1200, end: -500, color: "#6b7280", row: 1 },
+            { id: "antiquity", title: "Antike", start: -500, end: 500, color: "#ef4444", row: 1 },
+            { id: "medieval", title: "Mittelalter", start: 500, end: 1500, color: "#8b5cf6", row: 1 },
+            { id: "modern", title: "Neuzeit", start: 1500, end: 2025, color: "#3b82f6", row: 1 },
+
+            // Row 2 - Cultural/Art movements (non-overlapping within row)
+            { id: "renaissance", title: "Renaissance", start: 1400, end: 1600, color: "#06b6d4", row: 2 },
+            { id: "baroque", title: "Barock", start: 1600, end: 1750, color: "#d946ef", row: 2 },
+            { id: "classicism", title: "Klassizismus", start: 1750, end: 1830, color: "#14b8a6", row: 2 },
+            { id: "romanticism", title: "Romantik", start: 1800, end: 1850, color: "#f472b6", row: 3 },
+            { id: "realism", title: "Realismus", start: 1840, end: 1880, color: "#78716c", row: 2 },
+            { id: "impressionism", title: "Impressionismus", start: 1860, end: 1910, color: "#38bdf8", row: 3 },
+            { id: "expressionism", title: "Expressionismus", start: 1905, end: 1930, color: "#ef4444", row: 2 },
+            { id: "modernism", title: "Moderne", start: 1900, end: 1970, color: "#6366f1", row: 3 },
+            { id: "postmodern", title: "Postmoderne", start: 1970, end: 2000, color: "#a855f7", row: 2 },
+            { id: "digital", title: "Digital", start: 1990, end: 2025, color: "#3b82f6", row: 3 },
+
+            // Row 3 - Political/Historical periods
+            { id: "enlightenment", title: "Aufklärung", start: 1685, end: 1800, color: "#fbbf24", row: 2 },
+            { id: "industrial", title: "Industrialisierung", start: 1760, end: 1914, color: "#64748b", row: 0 },
+            { id: "ww1", title: "1. Weltkrieg", start: 1914, end: 1918, color: "#991b1b", row: 0 },
+            { id: "interwar", title: "Zwischenkrieg", start: 1918, end: 1939, color: "#a16207", row: 0 },
+            { id: "ww2", title: "2. Weltkrieg", start: 1939, end: 1945, color: "#7f1d1d", row: 0 },
+            { id: "coldwar", title: "Kalter Krieg", start: 1947, end: 1991, color: "#1e40af", row: 0 }
+        ];
+
+        // ============================================
+        // DATA - EVENTS
+        // ============================================
+        const events = [
+            // Cosmic & Geological (imp 1 only - most important)
+            { id: 1, time: -13800000000, title: "Urknall", subtitle: "Beginn von allem", desc: "Der Urknall markiert den Beginn des Universums - Raum, Zeit, Materie und Energie entstehen.", cat: "ereignis", imp: 1 },
+            { id: 2, time: -4600000000, title: "Erde entsteht", subtitle: "Unser Planet", desc: "Die Erde formt sich aus Gas und Staub um die junge Sonne.", cat: "ereignis", imp: 1 },
+            { id: 3, time: -3800000000, title: "Erstes Leben", subtitle: "Einzeller", desc: "In den Urmeeren entstehen die ersten Lebensformen.", cat: "wissenschaft", imp: 1 },
+            { id: 4, time: -540000000, title: "Kambrische Explosion", subtitle: "Artenvielfalt", desc: "Fast alle Tierstämme entstehen in kurzer Zeit.", cat: "wissenschaft", imp: 1 },
+            { id: 5, time: -66000000, title: "Dinosaurier Aussterben", subtitle: "Asteroid", desc: "Ein Asteroideneinschlag beendet die Ära der Dinosaurier.", cat: "ereignis", imp: 1 },
+
+            // Human Evolution
+            { id: 10, time: -300000, title: "Homo Sapiens", subtitle: "Moderner Mensch", desc: "Der anatomisch moderne Mensch entsteht in Afrika.", cat: "wissenschaft", imp: 1 },
+            { id: 11, time: -40000, title: "Höhlenmalerei", subtitle: "Erste Kunst", desc: "In Lascaux und Altamira entstehen beeindruckende Kunstwerke.", cat: "kultur", imp: 2 },
+            { id: 12, time: -10000, title: "Neolithische Revolution", subtitle: "Sesshaftigkeit", desc: "Menschen werden sesshaft, beginnen Ackerbau und Viehzucht.", cat: "ereignis", imp: 1 },
+
+            // Ancient History
+            { id: 20, time: -3500, title: "Erfindung der Schrift", subtitle: "Keilschrift", desc: "In Mesopotamien entsteht die Schrift.", cat: "wissenschaft", imp: 1 },
+            { id: 21, time: -2560, title: "Cheops-Pyramide", subtitle: "Weltwunder", desc: "Die größte Pyramide wird erbaut.", cat: "kultur", imp: 1 },
+            { id: 22, time: -776, title: "Olympische Spiele", subtitle: "Erste Olympiade", desc: "Die ersten gesamtgriechischen Spiele.", cat: "kultur", imp: 2 },
+            { id: 23, time: -469, title: "Sokrates geboren", subtitle: "Philosoph", desc: "Begründer der westlichen Philosophie.", cat: "person", imp: 2 },
+            { id: 24, time: -356, title: "Alexander der Große", subtitle: "Welteneroberer", desc: "Der makedonische König wird geboren.", cat: "person", imp: 1 },
+            { id: 25, time: -44, title: "Caesar ermordet", subtitle: "Iden des März", desc: "Julius Caesar wird im Senat erstochen.", cat: "ereignis", imp: 1 },
+            { id: 26, time: 0, title: "Zeitenwende", subtitle: "Jahr 0", desc: "Beginn unserer Zeitrechnung.", cat: "ereignis", imp: 1 },
+            { id: 27, time: 79, title: "Vesuv-Ausbruch", subtitle: "Pompeji", desc: "Der Vulkan begräbt Pompeji unter Asche.", cat: "ereignis", imp: 2 },
+            { id: 28, time: 476, title: "Fall Westroms", subtitle: "Ende der Antike", desc: "Das Weströmische Reich endet.", cat: "ereignis", imp: 1 },
+
+            // Medieval
+            { id: 30, time: 622, title: "Beginn des Islam", subtitle: "Hidschra", desc: "Mohammed flieht nach Medina.", cat: "ereignis", imp: 1 },
+            { id: 31, time: 800, title: "Karl der Große", subtitle: "Kaiserkrönung", desc: "Karl wird zum Kaiser gekrönt.", cat: "politik", imp: 1 },
+            { id: 32, time: 1096, title: "Erster Kreuzzug", subtitle: "Heiliges Land", desc: "Die Kreuzzüge beginnen.", cat: "ereignis", imp: 1 },
+            { id: 33, time: 1347, title: "Schwarzer Tod", subtitle: "Pest", desc: "Ein Drittel Europas stirbt.", cat: "ereignis", imp: 1 },
+            { id: 34, time: 1453, title: "Fall Konstantinopels", subtitle: "Ende Byzanz", desc: "Die Osmanen erobern die Stadt.", cat: "ereignis", imp: 1 },
+
+            // Renaissance & Early Modern
+            { id: 40, time: 1440, title: "Buchdruck", subtitle: "Gutenberg", desc: "Erfindung des Buchdrucks mit beweglichen Lettern.", cat: "wissenschaft", imp: 1 },
+            { id: 41, time: 1452, title: "Leonardo da Vinci", subtitle: "Universalgenie", desc: "Das Renaissance-Genie wird geboren.", cat: "person", imp: 1 },
+            { id: 42, time: 1492, title: "Amerika entdeckt", subtitle: "Kolumbus", desc: "Kolumbus erreicht die Neue Welt.", cat: "ereignis", imp: 1 },
+            { id: 43, time: 1503, title: "Mona Lisa", subtitle: "Leonardo", desc: "Das berühmteste Gemälde entsteht.", cat: "kultur", imp: 1 },
+            { id: 44, time: 1517, title: "95 Thesen", subtitle: "Luther", desc: "Die Reformation beginnt.", cat: "ereignis", imp: 1 },
+            { id: 45, time: 1543, title: "Heliozentrisches Weltbild", subtitle: "Kopernikus", desc: "Die Erde dreht sich um die Sonne.", cat: "wissenschaft", imp: 1 },
+            { id: 46, time: 1564, title: "Shakespeare geboren", subtitle: "Dramatiker", desc: "Der größte Dichter der englischen Sprache.", cat: "person", imp: 1 },
+            { id: 47, time: 1564, title: "Galileo geboren", subtitle: "Wissenschaftler", desc: "Vater der modernen Naturwissenschaft.", cat: "person", imp: 2 },
+            { id: 48, time: 1618, title: "30-jähriger Krieg", subtitle: "Religionskrieg", desc: "Der verheerendste Krieg vor dem 20. Jh.", cat: "ereignis", imp: 1 },
+            { id: 49, time: 1687, title: "Newtons Principia", subtitle: "Physik", desc: "Grundlagen der klassischen Mechanik.", cat: "wissenschaft", imp: 1 },
+
+            // 18th Century
+            { id: 50, time: 1685, title: "J.S. Bach geboren", subtitle: "Komponist", desc: "Der Meister des Barock.", cat: "person", imp: 2 },
+            { id: 51, time: 1756, title: "Mozart geboren", subtitle: "Wunderkind", desc: "Wolfgang Amadeus Mozart.", cat: "person", imp: 1 },
+            { id: 52, time: 1769, title: "Napoleon geboren", subtitle: "Kaiser", desc: "Der Mann, der Europa umgestaltete.", cat: "person", imp: 1 },
+            { id: 53, time: 1770, title: "Beethoven geboren", subtitle: "Komponist", desc: "Ludwig van Beethoven.", cat: "person", imp: 1 },
+            { id: 54, time: 1776, title: "US-Unabhängigkeit", subtitle: "Neue Nation", desc: "Die USA entstehen.", cat: "politik", imp: 1 },
+            { id: 55, time: 1789, title: "Französische Revolution", subtitle: "Bastille", desc: "Die Revolution verändert Europa.", cat: "politik", imp: 1 },
+
+            // 19th Century
+            { id: 60, time: 1804, title: "Napoleon Kaiser", subtitle: "Kaiserkrönung", desc: "Napoleon krönt sich selbst.", cat: "politik", imp: 2 },
+            { id: 61, time: 1815, title: "Waterloo", subtitle: "Napoleons Ende", desc: "Die endgültige Niederlage.", cat: "ereignis", imp: 1 },
+            { id: 62, time: 1824, title: "9. Symphonie", subtitle: "Beethoven", desc: "Mit der Ode an die Freude.", cat: "kultur", imp: 2 },
+            { id: 63, time: 1839, title: "Fotografie erfunden", subtitle: "Daguerre", desc: "Die Daguerreotypie wird vorgestellt.", cat: "wissenschaft", imp: 2 },
+            { id: 64, time: 1848, title: "Kommunistisches Manifest", subtitle: "Marx & Engels", desc: "Das Manifest verändert die Politik.", cat: "politik", imp: 1 },
+            { id: 65, time: 1859, title: "Evolutionstheorie", subtitle: "Darwin", desc: "Die Entstehung der Arten.", cat: "wissenschaft", imp: 1 },
+
+            // Impressionism Era
+            { id: 70, time: 1840, title: "Monet geboren", subtitle: "Impressionist", desc: "Claude Monet, Begründer des Impressionismus.", cat: "person", imp: 2 },
+            { id: 71, time: 1841, title: "Renoir geboren", subtitle: "Impressionist", desc: "Pierre-Auguste Renoir.", cat: "person", imp: 3 },
+            { id: 72, time: 1855, title: "Das Atelier des Malers", subtitle: "Courbet", desc: "Programmatisches Werk des Realismus.", cat: "kultur", imp: 3 },
+            { id: 73, time: 1863, title: "Frühstück im Grünen", subtitle: "Manet", desc: "Édouard Manet schockiert Paris.", cat: "kultur", imp: 2 },
+            { id: 74, time: 1872, title: "Impression, Sonnenaufgang", subtitle: "Monet", desc: "Das namensgebende Werk.", cat: "kultur", imp: 1 },
+            { id: 75, time: 1874, title: "Erste Impressionisten-Ausstellung", subtitle: "Paris", desc: "Monet, Renoir, Degas stellen aus.", cat: "kultur", imp: 1 },
+            { id: 76, time: 1876, title: "Telefon erfunden", subtitle: "Bell", desc: "Revolution der Kommunikation.", cat: "wissenschaft", imp: 1 },
+            { id: 77, time: 1879, title: "Glühbirne", subtitle: "Edison", desc: "Elektrisches Licht verändert den Alltag.", cat: "wissenschaft", imp: 1 },
+            { id: 78, time: 1886, title: "Grande Jatte", subtitle: "Seurat", desc: "Pointillismus als neue Technik.", cat: "kultur", imp: 2 },
+            { id: 79, time: 1888, title: "Sternennacht", subtitle: "Van Gogh", desc: "Van Goghs berühmtestes Werk.", cat: "kultur", imp: 1 },
+            { id: 80, time: 1889, title: "Eiffelturm", subtitle: "Paris", desc: "Zur Weltausstellung errichtet.", cat: "kultur", imp: 1 },
+            { id: 81, time: 1893, title: "Der Schrei", subtitle: "Munch", desc: "Expressionistisches Meisterwerk.", cat: "kultur", imp: 1 },
+            { id: 82, time: 1895, title: "Erster Film", subtitle: "Lumière", desc: "Die Geburt des Kinos.", cat: "kultur", imp: 1 },
+            { id: 83, time: 1895, title: "Röntgenstrahlen", subtitle: "Röntgen", desc: "Revolution der Medizin.", cat: "wissenschaft", imp: 1 },
+            { id: 84, time: 1900, title: "Der Kuss", subtitle: "Klimt", desc: "Jugendstil-Meisterwerk.", cat: "kultur", imp: 2 },
+            { id: 85, time: 1900, title: "Traumdeutung", subtitle: "Freud", desc: "Beginn der Psychoanalyse.", cat: "wissenschaft", imp: 1 },
+
+            // 20th Century
+            { id: 90, time: 1903, title: "Erster Motorflug", subtitle: "Wright", desc: "Der Mensch fliegt.", cat: "wissenschaft", imp: 1 },
+            { id: 91, time: 1905, title: "Relativitätstheorie", subtitle: "Einstein", desc: "E=mc² revolutioniert die Physik.", cat: "wissenschaft", imp: 1 },
+            { id: 92, time: 1907, title: "Demoiselles d'Avignon", subtitle: "Picasso", desc: "Beginn des Kubismus.", cat: "kultur", imp: 1 },
+            { id: 93, time: 1912, title: "Titanic sinkt", subtitle: "Katastrophe", desc: "Das unsinkbare Schiff geht unter.", cat: "ereignis", imp: 1 },
+            { id: 94, time: 1914, title: "Erster Weltkrieg", subtitle: "Sarajevo", desc: "Die Urkatastrophe beginnt.", cat: "ereignis", imp: 1 },
+            { id: 95, time: 1917, title: "Russische Revolution", subtitle: "Lenin", desc: "Der Kommunismus siegt.", cat: "politik", imp: 1 },
+            { id: 96, time: 1918, title: "Kriegsende", subtitle: "11. November", desc: "17 Millionen Tote.", cat: "ereignis", imp: 1 },
+            { id: 97, time: 1919, title: "Bauhaus gegründet", subtitle: "Gropius", desc: "Revolutionäre Designschule.", cat: "kultur", imp: 1 },
+            { id: 98, time: 1928, title: "Penicillin", subtitle: "Fleming", desc: "Beginn der Antibiotika-Ära.", cat: "wissenschaft", imp: 1 },
+            { id: 99, time: 1929, title: "Börsencrash", subtitle: "Schwarzer Freitag", desc: "Weltwirtschaftskrise beginnt.", cat: "ereignis", imp: 1 },
+            { id: 100, time: 1933, title: "Hitler Reichskanzler", subtitle: "NS-Diktatur", desc: "Der Weg in die Katastrophe.", cat: "politik", imp: 1 },
+            { id: 101, time: 1937, title: "Guernica", subtitle: "Picasso", desc: "Anti-Kriegs-Meisterwerk.", cat: "kultur", imp: 1 },
+            { id: 102, time: 1939, title: "Zweiter Weltkrieg", subtitle: "Überfall Polen", desc: "Der verheerendste Krieg beginnt.", cat: "ereignis", imp: 1 },
+            { id: 103, time: 1945, title: "Hiroshima", subtitle: "Atombombe", desc: "Erste Atombombe auf eine Stadt.", cat: "ereignis", imp: 1 },
+            { id: 104, time: 1945, title: "Kriegsende", subtitle: "Kapitulation", desc: "60 Millionen Tote.", cat: "ereignis", imp: 1 },
+            { id: 105, time: 1948, title: "Menschenrechtserklärung", subtitle: "UN", desc: "Universelle Menschenrechte.", cat: "politik", imp: 1 },
+            { id: 106, time: 1953, title: "DNA-Struktur", subtitle: "Watson & Crick", desc: "Die Doppelhelix entdeckt.", cat: "wissenschaft", imp: 1 },
+            { id: 107, time: 1957, title: "Sputnik", subtitle: "Erster Satellit", desc: "Beginn des Weltraumzeitalters.", cat: "wissenschaft", imp: 1 },
+            { id: 108, time: 1961, title: "Berliner Mauer", subtitle: "Teilung", desc: "Die Mauer wird gebaut.", cat: "ereignis", imp: 1 },
+            { id: 109, time: 1961, title: "Gagarin im All", subtitle: "Erster Mensch", desc: "Juri Gagarin umrundet die Erde.", cat: "wissenschaft", imp: 1 },
+            { id: 110, time: 1963, title: "Kennedy ermordet", subtitle: "Dallas", desc: "JFKs Tod traumatisiert Amerika.", cat: "ereignis", imp: 1 },
+            { id: 111, time: 1963, title: "I Have a Dream", subtitle: "MLK", desc: "Historische Bürgerrechtsrede.", cat: "politik", imp: 1 },
+            { id: 112, time: 1969, title: "Mondlandung", subtitle: "Apollo 11", desc: "Der Mensch betritt den Mond.", cat: "wissenschaft", imp: 1 },
+            { id: 113, time: 1989, title: "Mauerfall", subtitle: "9. November", desc: "Die Berliner Mauer fällt.", cat: "ereignis", imp: 1 },
+            { id: 114, time: 1991, title: "Ende der UdSSR", subtitle: "Kalter Krieg vorbei", desc: "Die Sowjetunion löst sich auf.", cat: "politik", imp: 1 },
+            { id: 115, time: 1991, title: "World Wide Web", subtitle: "Internet", desc: "Das WWW wird öffentlich.", cat: "wissenschaft", imp: 1 },
+
+            // 21st Century
+            { id: 120, time: 2001, title: "9/11", subtitle: "Terror", desc: "Die Anschläge auf das WTC.", cat: "ereignis", imp: 1 },
+            { id: 121, time: 2007, title: "iPhone", subtitle: "Smartphones", desc: "Apple revolutioniert die Kommunikation.", cat: "wissenschaft", imp: 1 },
+            { id: 122, time: 2008, title: "Finanzkrise", subtitle: "Lehman Brothers", desc: "Größte Wirtschaftskrise seit 1929.", cat: "ereignis", imp: 1 },
+            { id: 123, time: 2011, title: "Arabischer Frühling", subtitle: "Revolutionen", desc: "Aufstände erschüttern die arabische Welt.", cat: "politik", imp: 2 },
+            { id: 124, time: 2020, title: "COVID-19", subtitle: "Pandemie", desc: "Das Coronavirus legt die Welt lahm.", cat: "ereignis", imp: 1 },
+            { id: 125, time: 2022, title: "Ukraine-Krieg", subtitle: "Invasion", desc: "Russland greift die Ukraine an.", cat: "ereignis", imp: 1 },
+            { id: 126, time: 2023, title: "ChatGPT", subtitle: "KI-Revolution", desc: "Künstliche Intelligenz wird Mainstream.", cat: "wissenschaft", imp: 1 }
+        ];
+
+        // ============================================
+        // ZOOM LEVELS
+        // ============================================
+        const zoomLevels = [
+            { halfRange: 14000000000, maxImp: 1, name: "Kosmisch" },
+            { halfRange: 500000000, maxImp: 1, name: "Geologisch" },
+            { halfRange: 50000000, maxImp: 1, name: "Erdgeschichte" },
+            { halfRange: 2000000, maxImp: 1, name: "Prähistorisch" },
+            { halfRange: 50000, maxImp: 1, name: "Urzeit" },
+            { halfRange: 3000, maxImp: 1, name: "Geschichte" },
+            { halfRange: 800, maxImp: 2, name: "Epochen" },
+            { halfRange: 200, maxImp: 2, name: "Jahrhundert" },
+            { halfRange: 50, maxImp: 3, name: "Detailliert" },
+            { halfRange: 15, maxImp: 3, name: "Fein" }
+        ];
+
+        // ============================================
+        // STATE
+        // ============================================
+        const MAX_TIME = 2025;
+        let centerTime = 1900;
+        let zoomIndex = 7;
+        let categories = new Set(['epoche', 'ereignis', 'wissenschaft', 'kultur', 'politik', 'person']);
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartTime = 0;
+        let velocity = 0;
+        let lastDragX = 0;
+        let lastDragTime = 0;
+        let animationFrame = null;
+        let highlightedEventId = null;
+
+        // ============================================
+        // DOM
+        // ============================================
+        const viewport = document.getElementById('viewport');
+        const epochRows = document.getElementById('epochRows');
+        const eventsArea = document.getElementById('eventsArea');
+        const timeMarkers = document.getElementById('timeMarkers');
+        const infoPanel = document.getElementById('infoPanel');
+        const loading = document.getElementById('loading');
+        const searchContainer = document.getElementById('searchContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        // ============================================
+        // INIT
+        // ============================================
+        function init() {
+            buildEpochs();
+            buildEvents();
+            bindEvents();
+            update();
+            setTimeout(() => loading.classList.add('hidden'), 300);
+        }
+
+        function buildEpochs() {
+            const maxRow = Math.max(...epochs.map(e => e.row)) + 1;
+            let html = '';
+            for (let r = 0; r < maxRow; r++) {
+                html += `<div class="epoch-row" data-row="${r}"></div>`;
+            }
+            epochRows.innerHTML = html;
+
+            epochs.forEach(ep => {
+                const bar = document.createElement('div');
+                bar.className = 'epoch-bar';
+                bar.dataset.id = ep.id;
+                bar.dataset.start = ep.start;
+                bar.dataset.end = Math.min(ep.end, MAX_TIME);
+                bar.style.setProperty('--epoch-color', ep.color);
+                bar.innerHTML = `<span class="epoch-bar-text">${ep.title}</span>`;
+                bar.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPanel(ep, 'epoch');
+                });
+
+                const rowEl = epochRows.querySelector(`[data-row="${ep.row}"]`);
+                if (rowEl) rowEl.appendChild(bar);
+            });
+        }
+
+        function buildEvents() {
+            eventsArea.innerHTML = '';
+
+            // Assign rows based on time proximity
+            const sortedEvents = [...events].sort((a, b) => a.time - b.time);
+            const rowEndTimes = [0, 0, 0, 0];
+
+            sortedEvents.forEach(ev => {
+                let bestRow = 0;
+                let minEnd = rowEndTimes[0];
+
+                for (let r = 0; r < rowEndTimes.length; r++) {
+                    if (rowEndTimes[r] < ev.time) {
+                        bestRow = r;
+                        break;
+                    }
+                    if (rowEndTimes[r] < minEnd) {
+                        minEnd = rowEndTimes[r];
+                        bestRow = r;
+                    }
+                }
+
+                ev.row = bestRow;
+                rowEndTimes[bestRow] = ev.time + 50; // Buffer
+            });
+
+            events.forEach(ev => {
+                const el = document.createElement('div');
+                el.className = 'timeline-event';
+                el.dataset.id = ev.id;
+                el.dataset.time = ev.time;
+                el.dataset.category = ev.cat;
+                el.dataset.importance = ev.imp;
+                el.dataset.row = ev.row;
+                el.innerHTML = `
+                    <div class="event-node"></div>
+                    <div class="event-stem"></div>
+                    <div class="event-content">
+                        <div class="event-time">${formatTime(ev.time)}</div>
+                        <div class="event-title">${ev.title}</div>
+                    </div>
+                `;
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPanel(ev, 'event');
+                });
+                eventsArea.appendChild(el);
+            });
+        }
+
+        // ============================================
+        // FORMAT
+        // ============================================
+        function formatTime(t) {
+            const abs = Math.abs(t);
+            if (abs >= 1e9) return `${(t / 1e9).toFixed(1)} Mrd`;
+            if (abs >= 1e6) return `${(t / 1e6).toFixed(1)} Mio`;
+            if (abs >= 10000) return `${(t / 1000).toFixed(0)}k`;
+            if (t < 0) return `${Math.abs(Math.round(t))} v.Chr.`;
+            return `${Math.round(t)}`;
+        }
+
+        function formatTimeDisplay(t) {
+            const abs = Math.abs(t);
+            if (abs >= 1e9) return `${(t / 1e9).toFixed(1)} Mrd`;
+            if (abs >= 1e6) return `${(t / 1e6).toFixed(1)} Mio`;
+            if (abs >= 10000) return `${Math.round(t / 1000)}k`;
+            if (t < 0) return `${Math.abs(Math.round(t))} v.Chr.`;
+            return `${Math.round(t)}`;
+        }
+
+        // ============================================
+        // UPDATE
+        // ============================================
+        function update() {
+            const z = zoomLevels[zoomIndex];
+
+            // Clamp center time so we don't go past today
+            const minCenter = -13800000000 + z.halfRange;
+            const maxCenter = MAX_TIME - z.halfRange;
+            centerTime = Math.max(minCenter, Math.min(maxCenter, centerTime));
+
+            const viewStart = centerTime - z.halfRange;
+            const viewEnd = Math.min(centerTime + z.halfRange, MAX_TIME);
+            const viewRange = viewEnd - viewStart;
+
+            // Update header
+            document.getElementById('currentTime').textContent = formatTimeDisplay(centerTime);
+            document.getElementById('zoomInfo').textContent = `±${formatTime(z.halfRange)} sichtbar`;
+            document.getElementById('zoomIn').disabled = zoomIndex >= zoomLevels.length - 1;
+            document.getElementById('zoomOut').disabled = zoomIndex <= 0;
+
+            // Update epochs
+            document.querySelectorAll('.epoch-bar').forEach(bar => {
+                const st = +bar.dataset.start;
+                const en = +bar.dataset.end;
+                const inRange = en > viewStart && st < viewEnd;
+                const catOk = categories.has('epoche');
+
+                if (inRange && catOk) {
+                    bar.classList.add('visible');
+                    const clampSt = Math.max(st, viewStart);
+                    const clampEn = Math.min(en, viewEnd);
+                    const left = ((clampSt - viewStart) / viewRange) * 100;
+                    const width = Math.max(0.5, ((clampEn - clampSt) / viewRange) * 100);
+                    bar.style.left = `${left}%`;
+                    bar.style.width = `${width}%`;
+                } else {
+                    bar.classList.remove('visible');
+                }
+            });
+
+            // Update events
+            document.querySelectorAll('.timeline-event').forEach(el => {
+                const time = +el.dataset.time;
+                const imp = +el.dataset.importance;
+                const cat = el.dataset.category;
+                const id = +el.dataset.id;
+
+                const inRange = time >= viewStart && time <= viewEnd;
+                const impOk = imp <= z.maxImp;
+                const catOk = categories.has(cat);
+                const isHighlighted = id === highlightedEventId;
+
+                const left = ((time - viewStart) / viewRange) * 100;
+                el.style.left = `${left}%`;
+
+                el.classList.toggle('highlight', isHighlighted);
+
+                if ((inRange && impOk && catOk) || isHighlighted) {
+                    el.classList.add('visible');
+                } else {
+                    el.classList.remove('visible');
+                }
+            });
+
+            updateMarkers(viewStart, viewEnd, viewRange);
+        }
+
+        function updateMarkers(start, end, range) {
+            timeMarkers.innerHTML = '';
+
+            let interval;
+            if (range > 1e10) interval = 2e9;
+            else if (range > 1e9) interval = 2e8;
+            else if (range > 1e8) interval = 1e7;
+            else if (range > 1e7) interval = 1e6;
+            else if (range > 1e6) interval = 1e5;
+            else if (range > 100000) interval = 10000;
+            else if (range > 10000) interval = 1000;
+            else if (range > 2000) interval = 500;
+            else if (range > 500) interval = 100;
+            else if (range > 100) interval = 20;
+            else if (range > 30) interval = 5;
+            else interval = 2;
+
+            const startM = Math.ceil(start / interval) * interval;
+
+            for (let t = startM; t <= end; t += interval) {
+                if (t > MAX_TIME) break;
+                const pos = ((t - start) / range) * 100;
+                if (pos < 2 || pos > 98) continue;
+
+                const m = document.createElement('div');
+                const isMajor = Math.abs(t % (interval * 5)) < 0.001;
+                m.className = `time-marker ${isMajor ? 'major' : ''}`;
+                m.style.left = `${pos}%`;
+                m.innerHTML = `
+                    <div class="time-marker-tick"></div>
+                    <span class="time-marker-label">${formatTime(t)}</span>
+                `;
+                timeMarkers.appendChild(m);
+            }
+        }
+
+        // ============================================
+        // SEARCH
+        // ============================================
+        function openSearch() {
+            searchContainer.classList.add('active');
+            searchInput.focus();
+        }
+
+        function closeSearch() {
+            searchContainer.classList.remove('active');
+            searchResults.classList.remove('active');
+            searchInput.value = '';
+        }
+
+        function performSearch(query) {
+            if (!query.trim()) {
+                searchResults.classList.remove('active');
+                return;
+            }
+
+            const q = query.toLowerCase();
+            const results = [];
+
+            // Search events
+            events.forEach(ev => {
+                if (ev.title.toLowerCase().includes(q) ||
+                    ev.subtitle.toLowerCase().includes(q) ||
+                    ev.desc.toLowerCase().includes(q)) {
+                    results.push({ type: 'event', item: ev });
+                }
+            });
+
+            // Search epochs
+            epochs.forEach(ep => {
+                if (ep.title.toLowerCase().includes(q)) {
+                    results.push({ type: 'epoch', item: ep });
+                }
+            });
+
+            // Render results
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-no-results">Keine Ergebnisse gefunden</div>';
+            } else {
+                searchResults.innerHTML = results.slice(0, 20).map(r => {
+                    const item = r.item;
+                    const time = r.type === 'epoch'
+                        ? `${formatTime(item.start)} - ${formatTime(item.end)}`
+                        : formatTime(item.time);
+                    const cat = r.type === 'epoch' ? 'Epoche' : catName(item.cat);
+
+                    return `
+                        <div class="search-result" data-type="${r.type}" data-id="${item.id}">
+                            <div class="search-result-title">${item.title}</div>
+                            <div class="search-result-meta">
+                                <span>${time}</span>
+                                <span class="search-result-cat">${cat}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            searchResults.classList.add('active');
+        }
+
+        function handleSearchResultClick(e) {
+            const result = e.target.closest('.search-result');
+            if (!result) return;
+
+            const type = result.dataset.type;
+            const id = result.dataset.id;
+
+            closeSearch();
+
+            if (type === 'event') {
+                const ev = events.find(e => e.id == id);
+                if (ev) {
+                    highlightedEventId = ev.id;
+                    goToTime(ev.time);
+                    setTimeout(() => showPanel(ev, 'event'), 700);
+                }
+            } else {
+                const ep = epochs.find(e => e.id == id);
+                if (ep) {
+                    const midTime = (ep.start + Math.min(ep.end, MAX_TIME)) / 2;
+                    goToTime(midTime);
+                    setTimeout(() => showPanel(ep, 'epoch'), 700);
+                }
+            }
+        }
+
+        // ============================================
+        // INFO PANEL
+        // ============================================
+        function showPanel(item, type) {
+            if (type === 'epoch') {
+                document.getElementById('infoTime').textContent = `${formatTime(item.start)} – ${formatTime(Math.min(item.end, MAX_TIME))}`;
+                document.getElementById('infoTitle').textContent = item.title;
+                document.getElementById('infoSubtitle').textContent = '';
+                document.getElementById('infoDescription').textContent = item.desc || '';
+                const cat = document.getElementById('infoCategory');
+                cat.textContent = 'Epoche';
+                cat.style.background = item.color;
+            } else {
+                document.getElementById('infoTime').textContent = formatTime(item.time);
+                document.getElementById('infoTitle').textContent = item.title;
+                document.getElementById('infoSubtitle').textContent = item.subtitle || '';
+                document.getElementById('infoDescription').textContent = item.desc || '';
+                const cat = document.getElementById('infoCategory');
+                cat.textContent = catName(item.cat);
+                cat.style.background = catColor(item.cat);
+            }
+            infoPanel.classList.add('visible');
+        }
+
+        function hidePanel() {
+            infoPanel.classList.remove('visible');
+            highlightedEventId = null;
+            update();
+        }
+
+        function catName(c) {
+            return {
+                ereignis: 'Ereignis',
+                wissenschaft: 'Wissenschaft',
+                kultur: 'Kultur',
+                politik: 'Politik',
+                person: 'Person'
+            }[c] || c;
+        }
+
+        function catColor(c) {
+            return {
+                ereignis: '#f43f5e',
+                wissenschaft: '#3b82f6',
+                kultur: '#f59e0b',
+                politik: '#10b981',
+                person: '#ec4899'
+            }[c] || '#6366f1';
+        }
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        function zoomIn() {
+            if (zoomIndex < zoomLevels.length - 1) {
+                zoomIndex++;
+                update();
+            }
+        }
+
+        function zoomOut() {
+            if (zoomIndex > 0) {
+                zoomIndex--;
+                update();
+            }
+        }
+
+        function goToTime(t) {
+            const startTime = centerTime;
+            const duration = 500;
+            const startTs = performance.now();
+
+            // Adjust zoom
+            const targetTime = Math.min(t, MAX_TIME);
+            if (Math.abs(targetTime) > 1e8) zoomIndex = Math.min(2, zoomIndex);
+            else if (Math.abs(targetTime) > 1e6) zoomIndex = Math.max(3, Math.min(4, zoomIndex));
+            else if (Math.abs(targetTime) > 5000) zoomIndex = Math.max(5, Math.min(6, zoomIndex));
+            else zoomIndex = Math.max(7, zoomIndex);
+
+            function animate(ts) {
+                const elapsed = ts - startTs;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+
+                centerTime = startTime + (targetTime - startTime) * eased;
+                update();
+
+                if (progress < 1) requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // ============================================
+        // DRAG
+        // ============================================
+        function startDrag(x) {
+            isDragging = true;
+            dragStartX = x;
+            dragStartTime = centerTime;
+            lastDragX = x;
+            lastDragTime = performance.now();
+            velocity = 0;
+
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
+        }
+
+        function doDrag(x) {
+            if (!isDragging) return;
+
+            const z = zoomLevels[zoomIndex];
+            const viewportWidth = viewport.offsetWidth;
+            const timePerPixel = (z.halfRange * 2) / viewportWidth;
+
+            const deltaX = dragStartX - x;
+            centerTime = dragStartTime + deltaX * timePerPixel;
+
+            const now = performance.now();
+            const dt = now - lastDragTime;
+            if (dt > 0) {
+                velocity = (lastDragX - x) * timePerPixel / dt * 16;
+            }
+            lastDragX = x;
+            lastDragTime = now;
+
+            update();
+        }
+
+        function endDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+
+            if (Math.abs(velocity) > 0.5) {
+                applyMomentum();
+            }
+        }
+
+        function applyMomentum() {
+            const friction = 0.92;
+
+            function animate() {
+                if (Math.abs(velocity) < 0.5 || isDragging) {
+                    animationFrame = null;
+                    return;
+                }
+
+                centerTime += velocity;
+                velocity *= friction;
+                update();
+
+                animationFrame = requestAnimationFrame(animate);
+            }
+            animationFrame = requestAnimationFrame(animate);
+        }
+
+        // ============================================
+        // EVENTS
+        // ============================================
+        function bindEvents() {
+            // Zoom
+            document.getElementById('zoomIn').addEventListener('click', zoomIn);
+            document.getElementById('zoomOut').addEventListener('click', zoomOut);
+
+            // Search
+            document.getElementById('searchBtn').addEventListener('click', openSearch);
+            document.getElementById('searchClose').addEventListener('click', closeSearch);
+            searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+            searchResults.addEventListener('click', handleSearchResultClick);
+
+            // Info panel
+            document.getElementById('closeInfo').addEventListener('click', hidePanel);
+
+            // Navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => goToTime(+btn.dataset.goto));
+            });
+
+            // Category filters
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const c = btn.dataset.category;
+                    if (categories.has(c)) {
+                        categories.delete(c);
+                        btn.classList.remove('active');
+                    } else {
+                        categories.add(c);
+                        btn.classList.add('active');
+                    }
+                    update();
+                });
+            });
+
+            // Mouse drag
+            viewport.addEventListener('mousedown', (e) => {
+                if (e.target.closest('.timeline-event') || e.target.closest('.epoch-bar')) return;
+                startDrag(e.clientX);
+            });
+            document.addEventListener('mousemove', (e) => doDrag(e.clientX));
+            document.addEventListener('mouseup', endDrag);
+
+            // Touch drag
+            viewport.addEventListener('touchstart', (e) => {
+                if (e.target.closest('.timeline-event') || e.target.closest('.epoch-bar')) return;
+                startDrag(e.touches[0].clientX);
+            }, { passive: true });
+            viewport.addEventListener('touchmove', (e) => {
+                doDrag(e.touches[0].clientX);
+            }, { passive: true });
+            viewport.addEventListener('touchend', endDrag);
+
+            // Wheel zoom
+            viewport.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                e.deltaY > 0 ? zoomOut() : zoomIn();
+            }, { passive: false });
+
+            // Keyboard
+            document.addEventListener('keydown', (e) => {
+                if (searchContainer.classList.contains('active')) {
+                    if (e.key === 'Escape') closeSearch();
+                    return;
+                }
+
+                if (e.key === 'Escape') hidePanel();
+                if (e.key === '+' || e.key === '=') zoomIn();
+                if (e.key === '-') zoomOut();
+                if (e.key === 'ArrowLeft') {
+                    centerTime -= zoomLevels[zoomIndex].halfRange * 0.15;
+                    update();
+                }
+                if (e.key === 'ArrowRight') {
+                    centerTime += zoomLevels[zoomIndex].halfRange * 0.15;
+                    update();
+                }
+                if (e.key === '/' || e.key === 'f') {
+                    e.preventDefault();
+                    openSearch();
+                }
+            });
+
+            // Click outside
+            document.addEventListener('click', (e) => {
+                if (infoPanel.classList.contains('visible') &&
+                    !e.target.closest('.info-panel') &&
+                    !e.target.closest('.timeline-event') &&
+                    !e.target.closest('.epoch-bar') &&
+                    !e.target.closest('.nav-btn')) {
+                    hidePanel();
+                }
+            });
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>
