@@ -22,15 +22,15 @@
             --kultur: #f59e0b;
             --politik: #10b981;
             --person: #ec4899;
+            --success: #22c55e;
+            --error: #ef4444;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
@@ -41,7 +41,6 @@
             user-select: none;
             touch-action: pan-x;
         }
-
         .bg-layer {
             position: fixed;
             inset: 0;
@@ -50,7 +49,6 @@
                 radial-gradient(ellipse 60% 40% at 10% 100%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
             pointer-events: none;
         }
-
         /* Header */
         .header {
             position: fixed;
@@ -65,20 +63,17 @@
             gap: 8px;
             background: linear-gradient(180deg, var(--bg-primary) 60%, transparent 100%);
         }
-
         .header-left {
             display: flex;
             align-items: center;
             gap: 8px;
             flex-shrink: 0;
         }
-
         .logo {
             display: flex;
             align-items: center;
             gap: 6px;
         }
-
         .logo-icon {
             width: 28px;
             height: 28px;
@@ -90,13 +85,11 @@
             font-size: 0.85rem;
             box-shadow: 0 0 15px var(--accent-glow);
         }
-
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-size: 1rem;
             font-weight: 700;
         }
-
         .header-center {
             flex: 1;
             display: flex;
@@ -104,7 +97,6 @@
             align-items: center;
             min-width: 0;
         }
-
         .current-time {
             font-family: 'Playfair Display', serif;
             font-size: 1.1rem;
@@ -112,19 +104,16 @@
             color: var(--accent);
             white-space: nowrap;
         }
-
         .zoom-info {
             font-size: 0.55rem;
             color: var(--text-muted);
         }
-
         .header-right {
             display: flex;
             align-items: center;
             gap: 6px;
             flex-shrink: 0;
         }
-
         .ctrl-btn {
             width: 32px;
             height: 32px;
@@ -140,17 +129,14 @@
             align-items: center;
             justify-content: center;
         }
-
         .ctrl-btn:hover, .ctrl-btn:active {
             background: var(--accent);
             color: white;
         }
-
         .ctrl-btn:disabled {
             opacity: 0.3;
             pointer-events: none;
         }
-
         /* Search */
         .search-container {
             position: fixed;
@@ -160,15 +146,12 @@
             z-index: 150;
             display: none;
         }
-
         .search-container.active {
             display: block;
         }
-
         .search-box {
             position: relative;
         }
-
         .search-input {
             width: 100%;
             padding: 10px 40px 10px 14px;
@@ -180,16 +163,13 @@
             outline: none;
             transition: all 0.2s ease;
         }
-
         .search-input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-glow);
         }
-
         .search-input::placeholder {
             color: var(--text-muted);
         }
-
         .search-close {
             position: absolute;
             right: 8px;
@@ -206,11 +186,9 @@
             align-items: center;
             justify-content: center;
         }
-
         .search-close:hover {
             color: var(--text-primary);
         }
-
         .search-results {
             position: absolute;
             top: 100%;
@@ -224,32 +202,26 @@
             overflow-y: auto;
             display: none;
         }
-
         .search-results.active {
             display: block;
         }
-
         .search-result {
             padding: 10px 14px;
             cursor: pointer;
             border-bottom: 1px solid var(--glass-border);
             transition: background 0.15s ease;
         }
-
         .search-result:last-child {
             border-bottom: none;
         }
-
         .search-result:hover, .search-result:active {
             background: var(--glass-bg);
         }
-
         .search-result-title {
             font-size: 0.8rem;
             font-weight: 500;
             color: var(--text-primary);
         }
-
         .search-result-meta {
             font-size: 0.65rem;
             color: var(--text-muted);
@@ -257,18 +229,15 @@
             display: flex;
             gap: 8px;
         }
-
         .search-result-cat {
             color: var(--accent);
         }
-
         .search-no-results {
             padding: 20px;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.8rem;
         }
-
         /* Filter Bar */
         .filter-bar {
             position: fixed;
@@ -286,11 +255,9 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
-
         .filter-bar::-webkit-scrollbar {
             display: none;
         }
-
         .cat-btn {
             padding: 4px 10px;
             border: 1px solid transparent;
@@ -306,24 +273,20 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-
         .cat-btn.active {
             color: var(--text-primary);
             border-color: var(--cat-color);
             background: color-mix(in srgb, var(--cat-color) 15%, var(--bg-tertiary));
         }
-
         .cat-btn[data-category="epoche"] { --cat-color: #a855f7; }
         .cat-btn[data-category="ereignis"] { --cat-color: var(--ereignis); }
         .cat-btn[data-category="wissenschaft"] { --cat-color: var(--wissenschaft); }
         .cat-btn[data-category="kultur"] { --cat-color: var(--kultur); }
         .cat-btn[data-category="politik"] { --cat-color: var(--politik); }
         .cat-btn[data-category="person"] { --cat-color: var(--person); }
-
         .cat-icon {
             font-size: 0.75rem;
         }
-
         /* Timeline Viewport */
         .timeline-viewport {
             position: fixed;
@@ -337,18 +300,15 @@
             cursor: grab;
             touch-action: pan-x;
         }
-
         .timeline-viewport:active {
             cursor: grabbing;
         }
-
         .timeline-container {
             position: relative;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-
         /* Epochs */
         .epochs-area {
             flex: 0 0 auto;
@@ -357,7 +317,6 @@
             padding: 6px 0;
             overflow: hidden;
         }
-
         .epoch-rows {
             position: relative;
             height: 100%;
@@ -365,13 +324,11 @@
             flex-direction: column;
             gap: 2px;
         }
-
         .epoch-row {
             position: relative;
             flex: 1;
             min-height: 14px;
         }
-
         .epoch-bar {
             position: absolute;
             height: 100%;
@@ -384,11 +341,9 @@
             padding: 0 6px;
             transition: opacity 0.2s ease;
         }
-
         .epoch-bar.visible {
             opacity: 1;
         }
-
         .epoch-bar::before {
             content: '';
             position: absolute;
@@ -399,7 +354,6 @@
             );
             opacity: 0.3;
         }
-
         .epoch-bar::after {
             content: '';
             position: absolute;
@@ -409,7 +363,6 @@
             width: 2px;
             background: var(--epoch-color);
         }
-
         .epoch-bar-text {
             position: relative;
             z-index: 1;
@@ -420,14 +373,12 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         /* Axis */
         .axis-area {
             position: relative;
             height: 40px;
             flex-shrink: 0;
         }
-
         .timeline-axis {
             position: absolute;
             top: 50%;
@@ -441,7 +392,6 @@
             );
             transform: translateY(-50%);
         }
-
         .center-indicator {
             position: absolute;
             left: 50%;
@@ -453,7 +403,6 @@
             box-shadow: 0 0 8px var(--accent-glow);
             z-index: 100;
         }
-
         .center-indicator::before,
         .center-indicator::after {
             content: '';
@@ -462,17 +411,14 @@
             transform: translateX(-50%);
             border: 4px solid transparent;
         }
-
         .center-indicator::before {
             top: -4px;
             border-bottom-color: var(--accent);
         }
-
         .center-indicator::after {
             bottom: -4px;
             border-top-color: var(--accent);
         }
-
         .time-markers {
             position: absolute;
             top: 50%;
@@ -480,7 +426,6 @@
             right: 0;
             transform: translateY(4px);
         }
-
         .time-marker {
             position: absolute;
             transform: translateX(-50%);
@@ -488,31 +433,26 @@
             flex-direction: column;
             align-items: center;
         }
-
         .time-marker-tick {
             width: 1px;
             height: 6px;
             background: rgba(99, 102, 241, 0.3);
             margin-bottom: 2px;
         }
-
         .time-marker.major .time-marker-tick {
             height: 10px;
             background: rgba(99, 102, 241, 0.5);
         }
-
         .time-marker-label {
             font-size: 0.45rem;
             color: var(--text-muted);
             white-space: nowrap;
         }
-
         .time-marker.major .time-marker-label {
             font-size: 0.55rem;
             color: var(--text-secondary);
             font-weight: 500;
         }
-
         /* Events */
         .events-area {
             flex: 1;
@@ -521,7 +461,6 @@
             padding-top: 8px;
             overflow: hidden;
         }
-
         .timeline-event {
             position: absolute;
             top: 0;
@@ -535,21 +474,24 @@
             transition: opacity 0.2s ease;
             z-index: 10;
         }
-
         .timeline-event.visible {
             opacity: 1;
             visibility: visible;
         }
-
         .timeline-event.highlight {
             z-index: 50;
         }
-
         .timeline-event.highlight .event-node {
             transform: scale(1.5);
             box-shadow: 0 0 20px var(--event-color, var(--accent));
         }
-
+        .timeline-event.ai-generated .event-node::after {
+            content: '✨';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 0.5rem;
+        }
         .event-node {
             width: 8px;
             height: 8px;
@@ -559,7 +501,6 @@
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
-
         .event-node::before {
             content: '';
             position: absolute;
@@ -568,30 +509,25 @@
             background: var(--event-color, var(--accent));
             opacity: 0.2;
         }
-
         .timeline-event[data-importance="1"] .event-node { width: 12px; height: 12px; }
         .timeline-event[data-importance="2"] .event-node { width: 8px; height: 8px; }
         .timeline-event[data-importance="3"] .event-node { width: 6px; height: 6px; }
-
         .event-stem {
             width: 1px;
             height: 8px;
             background: linear-gradient(to bottom, var(--event-color, var(--accent)), transparent);
         }
-
         .event-content {
             text-align: center;
             max-width: 70px;
             padding-top: 2px;
         }
-
         .event-time {
             font-size: 0.4rem;
             font-weight: 600;
             color: var(--event-color, var(--accent));
             margin-bottom: 1px;
         }
-
         .event-title {
             font-size: 0.5rem;
             font-weight: 500;
@@ -602,18 +538,15 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         .timeline-event[data-category="ereignis"] { --event-color: var(--ereignis); }
         .timeline-event[data-category="wissenschaft"] { --event-color: var(--wissenschaft); }
         .timeline-event[data-category="kultur"] { --event-color: var(--kultur); }
         .timeline-event[data-category="politik"] { --event-color: var(--politik); }
         .timeline-event[data-category="person"] { --event-color: var(--person); }
-
         .timeline-event[data-row="0"] { top: 0; }
         .timeline-event[data-row="1"] { top: 50px; }
         .timeline-event[data-row="2"] { top: 100px; }
         .timeline-event[data-row="3"] { top: 150px; }
-
         /* Info Panel */
         .info-panel {
             position: fixed;
@@ -629,11 +562,9 @@
             max-height: 45vh;
             overflow-y: auto;
         }
-
         .info-panel.visible {
             transform: translateY(0);
         }
-
         .info-panel-handle {
             width: 36px;
             height: 4px;
@@ -641,11 +572,9 @@
             border-radius: 2px;
             margin: 8px auto;
         }
-
         .info-panel-content {
             padding: 0 16px 20px;
         }
-
         .info-header {
             display: flex;
             align-items: flex-start;
@@ -653,14 +582,12 @@
             gap: 12px;
             margin-bottom: 8px;
         }
-
         .info-time {
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--accent);
         }
-
         .info-category {
             padding: 3px 8px;
             border-radius: 8px;
@@ -671,25 +598,31 @@
             color: white;
             flex-shrink: 0;
         }
-
         .info-title {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 4px;
         }
-
         .info-subtitle {
             font-size: 0.75rem;
             color: var(--text-secondary);
             margin-bottom: 8px;
         }
-
         .info-description {
             font-size: 0.7rem;
             color: var(--text-muted);
             line-height: 1.5;
         }
-
+        .info-ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            background: linear-gradient(135deg, #8b5cf6, var(--accent));
+            border-radius: 4px;
+            font-size: 0.5rem;
+            margin-left: 8px;
+        }
         .info-close {
             position: absolute;
             top: 12px;
@@ -706,7 +639,347 @@
             align-items: center;
             justify-content: center;
         }
-
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .modal-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-close {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-body {
+            padding: 16px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .form-hint {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5558e3;
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+        }
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+        }
+        .btn-full {
+            width: 100%;
+        }
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+        /* Settings */
+        .settings-section {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+        .settings-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .api-key-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .api-key-status.connected {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        .api-key-status.disconnected {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .status-dot.connected {
+            background: var(--success);
+        }
+        .status-dot.disconnected {
+            background: var(--error);
+        }
+        .api-key-text {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        /* Quiz */
+        .quiz-container {
+            text-align: center;
+        }
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .quiz-progress-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .quiz-progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .quiz-progress-text {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+        .quiz-score {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .quiz-question {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .quiz-hint {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            padding: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .quiz-option {
+            padding: 12px 16px;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+        .quiz-option:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.1);
+        }
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(34, 197, 94, 0.15);
+        }
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.15);
+        }
+        .quiz-option:disabled {
+            cursor: default;
+        }
+        .quiz-result {
+            padding: 20px;
+        }
+        .quiz-result-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .quiz-result-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .quiz-result-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .quiz-result-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        /* AI Generator */
+        .ai-prompt-area {
+            margin-bottom: 16px;
+        }
+        .ai-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .ai-suggestion {
+            padding: 4px 10px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .ai-suggestion:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+        .ai-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+        }
+        .ai-loading-spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--bg-tertiary);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .ai-loading-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .ai-result {
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+        .ai-result-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .ai-result-meta {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .ai-result-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
         /* Nav Buttons */
         .nav-buttons {
             position: fixed;
@@ -720,12 +993,10 @@
             flex-wrap: wrap;
             transition: opacity 0.2s ease;
         }
-
         .info-panel.visible ~ .nav-buttons {
             opacity: 0;
             pointer-events: none;
         }
-
         .nav-btn {
             padding: 6px 10px;
             border: none;
@@ -738,13 +1009,11 @@
             transition: all 0.2s ease;
             white-space: nowrap;
         }
-
         .nav-btn:hover, .nav-btn:active {
             background: var(--accent);
             color: white;
             border-color: var(--accent);
         }
-
         /* Loading */
         .loading {
             position: fixed;
@@ -756,12 +1025,10 @@
             z-index: 9999;
             transition: opacity 0.4s ease;
         }
-
         .loading.hidden {
             opacity: 0;
             pointer-events: none;
         }
-
         .spinner {
             width: 32px;
             height: 32px;
@@ -770,11 +1037,6 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         /* Scroll Hint */
         .scroll-hint {
             position: fixed;
@@ -793,95 +1055,106 @@
             gap: 6px;
             transition: opacity 0.3s ease;
         }
-
         .scroll-hint-icon {
             animation: scrollHint 1.5s ease-in-out infinite;
         }
-
         @keyframes scrollHint {
             0%, 100% { transform: translateX(-2px); }
             50% { transform: translateX(2px); }
         }
-
         .info-panel.visible ~ .scroll-hint {
             opacity: 0;
         }
-
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            z-index: 400;
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toast.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast.success {
+            border-color: var(--success);
+        }
+        .toast.error {
+            border-color: var(--error);
+        }
         /* Desktop */
         @media (min-width: 768px) {
             .header {
                 padding: 12px 20px;
             }
-
             .logo-icon {
                 width: 32px;
                 height: 32px;
             }
-
             .logo-text {
                 font-size: 1.1rem;
             }
-
             .current-time {
                 font-size: 1.3rem;
             }
-
             .filter-bar {
                 top: 56px;
                 padding: 8px 20px;
             }
-
             .cat-btn {
                 padding: 5px 12px;
                 font-size: 0.65rem;
             }
-
             .timeline-viewport {
                 top: 94px;
             }
-
             .epochs-area {
                 height: 90px;
             }
-
             .epoch-bar-text {
                 font-size: 0.55rem;
             }
-
             .events-area {
                 min-height: 180px;
             }
-
             .event-content {
                 max-width: 90px;
             }
-
             .event-time {
                 font-size: 0.45rem;
             }
-
             .event-title {
                 font-size: 0.55rem;
             }
-
             .timeline-event[data-row="1"] { top: 60px; }
             .timeline-event[data-row="2"] { top: 120px; }
             .timeline-event[data-row="3"] { top: 180px; }
-
             .info-panel {
                 max-height: 35vh;
             }
-
             .nav-buttons {
                 bottom: 16px;
             }
-
             .nav-btn {
                 padding: 8px 14px;
                 font-size: 0.6rem;
             }
+            .modal {
+                max-width: 450px;
+            }
         }
-
         @media (min-width: 1024px) {
             .search-container {
                 left: 50%;
@@ -889,15 +1162,12 @@
                 transform: translateX(-50%);
                 width: 400px;
             }
-
             .epochs-area {
                 height: 100px;
             }
-
             .events-area {
                 min-height: 220px;
             }
-
             .timeline-event[data-row="1"] { top: 70px; }
             .timeline-event[data-row="2"] { top: 140px; }
             .timeline-event[data-row="3"] { top: 210px; }
@@ -906,7 +1176,6 @@
 </head>
 <body>
     <div class="bg-layer"></div>
-
     <div class="loading" id="loading">
         <div class="spinner"></div>
     </div>
@@ -919,14 +1188,15 @@
                 <span class="logo-text">Chronicle</span>
             </div>
         </div>
-
         <div class="header-center">
             <div class="current-time" id="currentTime">2000</div>
             <div class="zoom-info" id="zoomInfo">±100 Jahre sichtbar</div>
         </div>
-
         <div class="header-right">
             <button class="ctrl-btn" id="searchBtn" title="Suchen">🔍</button>
+            <button class="ctrl-btn" id="quizBtn" title="Quiz">🎯</button>
+            <button class="ctrl-btn" id="aiBtn" title="KI hinzufügen">✨</button>
+            <button class="ctrl-btn" id="settingsBtn" title="Einstellungen">⚙️</button>
             <button class="ctrl-btn" id="zoomOut" title="−">−</button>
             <button class="ctrl-btn" id="zoomIn" title="+">+</button>
         </div>
@@ -970,12 +1240,10 @@
             <section class="epochs-area">
                 <div class="epoch-rows" id="epochRows"></div>
             </section>
-
             <section class="axis-area">
                 <div class="timeline-axis"></div>
                 <div class="time-markers" id="timeMarkers"></div>
             </section>
-
             <section class="events-area" id="eventsArea"></section>
         </div>
     </main>
@@ -1011,19 +1279,113 @@
         <span>Ziehen zum Navigieren</span>
     </div>
 
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">⚙️ Einstellungen</div>
+                <button class="modal-close" id="closeSettings">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <div class="settings-section-title">🤖 OpenAI API</div>
+                    <div class="api-key-status" id="apiKeyStatus">
+                        <div class="status-dot disconnected" id="statusDot"></div>
+                        <span class="api-key-text" id="apiKeyText">Kein API-Key konfiguriert</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">API-Key</label>
+                        <input type="password" class="form-input" id="apiKeyInput" placeholder="sk-...">
+                        <p class="form-hint">Dein Key wird nur lokal gespeichert und nie an Server gesendet.</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" id="saveApiKey">Speichern</button>
+                        <button class="btn btn-secondary" id="clearApiKey">Löschen</button>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <div class="settings-section-title">📊 Statistiken</div>
+                    <p class="form-hint">
+                        <strong id="eventCount">0</strong> Ereignisse geladen<br>
+                        <strong id="aiEventCount">0</strong> davon KI-generiert
+                    </p>
+                </div>
+                <div class="settings-section">
+                    <div class="settings-section-title">🗑️ Daten</div>
+                    <button class="btn btn-secondary btn-full" id="clearAiEvents">KI-Ereignisse löschen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Generator Modal -->
+    <div class="modal-overlay" id="aiModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">✨ KI-Ereignis erstellen</div>
+                <button class="modal-close" id="closeAi">✕</button>
+            </div>
+            <div class="modal-body" id="aiModalBody">
+                <div class="ai-prompt-area">
+                    <div class="form-group">
+                        <label class="form-label">Beschreibe das Ereignis, das du hinzufügen möchtest</label>
+                        <textarea class="form-textarea" id="aiPrompt" placeholder="z.B. 'Die Erfindung des Telefons' oder 'Leben von Marie Curie' oder 'Wichtige Ereignisse der Französischen Revolution'"></textarea>
+                    </div>
+                    <div class="ai-suggestions">
+                        <button class="ai-suggestion" data-prompt="Die wichtigsten Erfindungen des 20. Jahrhunderts">Erfindungen 20. Jh.</button>
+                        <button class="ai-suggestion" data-prompt="Berühmte Wissenschaftlerinnen der Geschichte">Wissenschaftlerinnen</button>
+                        <button class="ai-suggestion" data-prompt="Die Geschichte der Raumfahrt">Raumfahrt</button>
+                        <button class="ai-suggestion" data-prompt="Wichtige Kunstbewegungen">Kunstbewegungen</button>
+                        <button class="ai-suggestion" data-prompt="Die Geschichte des Internets">Internet</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Anzahl Ereignisse</label>
+                    <select class="form-select" id="aiCount">
+                        <option value="1">1 Ereignis</option>
+                        <option value="3" selected>3 Ereignisse</option>
+                        <option value="5">5 Ereignisse</option>
+                        <option value="10">10 Ereignisse</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-full" id="generateAi">
+                    ✨ Mit KI generieren
+                </button>
+                <p class="form-hint" style="margin-top: 8px; text-align: center;">
+                    Benötigt einen OpenAI API-Key in den Einstellungen.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div class="modal-overlay" id="quizModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">🎯 Geschichts-Quiz</div>
+                <button class="modal-close" id="closeQuiz">✕</button>
+            </div>
+            <div class="modal-body" id="quizModalBody">
+                <!-- Quiz content inserted dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
     <script>
         // ============================================
-        // DATA - EPOCHS (with proper row assignment to avoid overlaps)
+        // DATA - EPOCHS
         // ============================================
         const epochs = [
-            // Row 0 - Major geological/cosmic eras (non-overlapping)
+            // Row 0 - Major geological/cosmic eras
             { id: "cosmic", title: "Kosmische Ära", start: -13800000000, end: -4600000000, color: "#8b5cf6", row: 0 },
             { id: "hadean", title: "Hadaikum", start: -4600000000, end: -4000000000, color: "#dc2626", row: 0 },
             { id: "archean", title: "Archaikum", start: -4000000000, end: -2500000000, color: "#10b981", row: 0 },
             { id: "proterozoic", title: "Proterozoikum", start: -2500000000, end: -540000000, color: "#3b82f6", row: 0 },
             { id: "phanerozoic", title: "Phanerozoikum", start: -540000000, end: 2025, color: "#ef4444", row: 0 },
-
-            // Row 1 - Human prehistory and medieval (non-overlapping within row)
+            // Row 1 - Human prehistory and medieval
             { id: "paleolithic", title: "Altsteinzeit", start: -2500000, end: -10000, color: "#78716c", row: 1 },
             { id: "neolithic", title: "Jungsteinzeit", start: -10000, end: -3000, color: "#84cc16", row: 1 },
             { id: "bronze", title: "Bronzezeit", start: -3000, end: -1200, color: "#f59e0b", row: 1 },
@@ -1031,8 +1393,7 @@
             { id: "antiquity", title: "Antike", start: -500, end: 500, color: "#ef4444", row: 1 },
             { id: "medieval", title: "Mittelalter", start: 500, end: 1500, color: "#8b5cf6", row: 1 },
             { id: "modern", title: "Neuzeit", start: 1500, end: 2025, color: "#3b82f6", row: 1 },
-
-            // Row 2 - Cultural/Art movements (non-overlapping within row)
+            // Row 2 - Cultural/Art movements
             { id: "renaissance", title: "Renaissance", start: 1400, end: 1600, color: "#06b6d4", row: 2 },
             { id: "baroque", title: "Barock", start: 1600, end: 1750, color: "#d946ef", row: 2 },
             { id: "classicism", title: "Klassizismus", start: 1750, end: 1830, color: "#14b8a6", row: 2 },
@@ -1043,7 +1404,6 @@
             { id: "modernism", title: "Moderne", start: 1900, end: 1970, color: "#6366f1", row: 3 },
             { id: "postmodern", title: "Postmoderne", start: 1970, end: 2000, color: "#a855f7", row: 2 },
             { id: "digital", title: "Digital", start: 1990, end: 2025, color: "#3b82f6", row: 3 },
-
             // Row 3 - Political/Historical periods
             { id: "enlightenment", title: "Aufklärung", start: 1685, end: 1800, color: "#fbbf24", row: 2 },
             { id: "industrial", title: "Industrialisierung", start: 1760, end: 1914, color: "#64748b", row: 0 },
@@ -1054,121 +1414,272 @@
         ];
 
         // ============================================
-        // DATA - EVENTS
+        // DATA - EVENTS (Expanded)
         // ============================================
-        const events = [
-            // Cosmic & Geological (imp 1 only - most important)
-            { id: 1, time: -13800000000, title: "Urknall", subtitle: "Beginn von allem", desc: "Der Urknall markiert den Beginn des Universums - Raum, Zeit, Materie und Energie entstehen.", cat: "ereignis", imp: 1 },
-            { id: 2, time: -4600000000, title: "Erde entsteht", subtitle: "Unser Planet", desc: "Die Erde formt sich aus Gas und Staub um die junge Sonne.", cat: "ereignis", imp: 1 },
-            { id: 3, time: -3800000000, title: "Erstes Leben", subtitle: "Einzeller", desc: "In den Urmeeren entstehen die ersten Lebensformen.", cat: "wissenschaft", imp: 1 },
-            { id: 4, time: -540000000, title: "Kambrische Explosion", subtitle: "Artenvielfalt", desc: "Fast alle Tierstämme entstehen in kurzer Zeit.", cat: "wissenschaft", imp: 1 },
-            { id: 5, time: -66000000, title: "Dinosaurier Aussterben", subtitle: "Asteroid", desc: "Ein Asteroideneinschlag beendet die Ära der Dinosaurier.", cat: "ereignis", imp: 1 },
+        let events = [
+            // Cosmic & Geological
+            { id: 1, time: -13800000000, title: "Urknall", subtitle: "Beginn von allem", desc: "Der Urknall markiert den Beginn des Universums - Raum, Zeit, Materie und Energie entstehen in einer gewaltigen Explosion aus einem unendlich dichten Punkt.", cat: "ereignis", imp: 1 },
+            { id: 2, time: -13400000000, title: "Erste Sterne", subtitle: "Kosmische Dämmerung", desc: "Die ersten Sterne entstehen aus Wasserstoff und Helium und beenden das dunkle Zeitalter des Universums.", cat: "wissenschaft", imp: 2 },
+            { id: 3, time: -4600000000, title: "Erde entsteht", subtitle: "Unser Planet", desc: "Die Erde formt sich aus Gas und Staub um die junge Sonne durch Akkretion von Planetesimalen.", cat: "ereignis", imp: 1 },
+            { id: 4, time: -4500000000, title: "Mond entsteht", subtitle: "Theia-Einschlag", desc: "Ein marsgroßer Protoplanet kollidiert mit der Erde, das herausgeschleuderte Material formt unseren Mond.", cat: "ereignis", imp: 2 },
+            { id: 5, time: -3800000000, title: "Erstes Leben", subtitle: "Einzeller", desc: "In den Urmeeren entstehen die ersten prokaryotischen Lebensformen - ein Wunder der chemischen Evolution.", cat: "wissenschaft", imp: 1 },
+            { id: 6, time: -2400000000, title: "Große Sauerstoffkatastrophe", subtitle: "Atmosphärenwandel", desc: "Cyanobakterien produzieren Sauerstoff, der die Atmosphäre grundlegend verändert und viele Lebensformen auslöscht.", cat: "wissenschaft", imp: 2 },
+            { id: 7, time: -540000000, title: "Kambrische Explosion", subtitle: "Artenvielfalt", desc: "In nur 20 Millionen Jahren entstehen fast alle modernen Tierstämme - eine beispiellose evolutionäre Radiation.", cat: "wissenschaft", imp: 1 },
+            { id: 8, time: -252000000, title: "Perm-Trias-Aussterben", subtitle: "Das große Sterben", desc: "Das schlimmste Massenaussterben der Erdgeschichte: 96% aller Meeresarten und 70% aller Landwirbeltiere sterben aus.", cat: "ereignis", imp: 1 },
+            { id: 9, time: -66000000, title: "Dinosaurier Aussterben", subtitle: "Chicxulub-Asteroid", desc: "Ein 10km großer Asteroid schlägt in Mexiko ein und beendet die 165 Millionen Jahre währende Herrschaft der Dinosaurier.", cat: "ereignis", imp: 1 },
 
             // Human Evolution
-            { id: 10, time: -300000, title: "Homo Sapiens", subtitle: "Moderner Mensch", desc: "Der anatomisch moderne Mensch entsteht in Afrika.", cat: "wissenschaft", imp: 1 },
-            { id: 11, time: -40000, title: "Höhlenmalerei", subtitle: "Erste Kunst", desc: "In Lascaux und Altamira entstehen beeindruckende Kunstwerke.", cat: "kultur", imp: 2 },
-            { id: 12, time: -10000, title: "Neolithische Revolution", subtitle: "Sesshaftigkeit", desc: "Menschen werden sesshaft, beginnen Ackerbau und Viehzucht.", cat: "ereignis", imp: 1 },
+            { id: 10, time: -7000000, title: "Menschenaffen-Vorfahren", subtitle: "Sahelanthropus", desc: "Die frühesten bekannten Hominiden lebten in Afrika und gingen bereits aufrecht.", cat: "wissenschaft", imp: 2 },
+            { id: 11, time: -2500000, title: "Erste Steinwerkzeuge", subtitle: "Oldowan-Kultur", desc: "Homo habilis fertigt die ersten Steinwerkzeuge an - der Beginn der technologischen Evolution.", cat: "wissenschaft", imp: 2 },
+            { id: 12, time: -1800000, title: "Homo erectus", subtitle: "Wanderungen", desc: "Homo erectus verlässt Afrika und besiedelt als erste Menschenart Eurasien.", cat: "wissenschaft", imp: 2 },
+            { id: 13, time: -800000, title: "Feuernutzung", subtitle: "Kontrolle über Flammen", desc: "Menschen lernen, Feuer zu kontrollieren - ein entscheidender Schritt in der Kulturentwicklung.", cat: "wissenschaft", imp: 1 },
+            { id: 14, time: -300000, title: "Homo Sapiens", subtitle: "Moderner Mensch", desc: "Der anatomisch moderne Mensch entsteht in Afrika - unsere direkte Abstammungslinie beginnt.", cat: "wissenschaft", imp: 1 },
+            { id: 15, time: -70000, title: "Kognitive Revolution", subtitle: "Symbolisches Denken", desc: "Menschen entwickeln Sprache, abstrakte Kunst und komplexe soziale Strukturen.", cat: "wissenschaft", imp: 1 },
+            { id: 16, time: -40000, title: "Höhlenmalerei", subtitle: "Erste Kunst", desc: "In Lascaux, Altamira und anderen Höhlen entstehen beeindruckende Kunstwerke, die von spirituellem Denken zeugen.", cat: "kultur", imp: 2 },
+            { id: 17, time: -30000, title: "Aussterben der Neandertaler", subtitle: "Letzte Verwandte", desc: "Die letzten Neandertaler sterben aus - Homo sapiens bleibt als einzige Menschenart übrig.", cat: "wissenschaft", imp: 2 },
+            { id: 18, time: -12000, title: "Ende der Eiszeit", subtitle: "Klimawandel", desc: "Die letzte Eiszeit endet, Gletscher schmelzen, der Meeresspiegel steigt um 120 Meter.", cat: "ereignis", imp: 2 },
+            { id: 19, time: -10000, title: "Neolithische Revolution", subtitle: "Sesshaftigkeit", desc: "Menschen werden sesshaft, beginnen Ackerbau und Viehzucht - der größte Wandel der Menschheitsgeschichte.", cat: "ereignis", imp: 1 },
 
-            // Ancient History
-            { id: 20, time: -3500, title: "Erfindung der Schrift", subtitle: "Keilschrift", desc: "In Mesopotamien entsteht die Schrift.", cat: "wissenschaft", imp: 1 },
-            { id: 21, time: -2560, title: "Cheops-Pyramide", subtitle: "Weltwunder", desc: "Die größte Pyramide wird erbaut.", cat: "kultur", imp: 1 },
-            { id: 22, time: -776, title: "Olympische Spiele", subtitle: "Erste Olympiade", desc: "Die ersten gesamtgriechischen Spiele.", cat: "kultur", imp: 2 },
-            { id: 23, time: -469, title: "Sokrates geboren", subtitle: "Philosoph", desc: "Begründer der westlichen Philosophie.", cat: "person", imp: 2 },
-            { id: 24, time: -356, title: "Alexander der Große", subtitle: "Welteneroberer", desc: "Der makedonische König wird geboren.", cat: "person", imp: 1 },
-            { id: 25, time: -44, title: "Caesar ermordet", subtitle: "Iden des März", desc: "Julius Caesar wird im Senat erstochen.", cat: "ereignis", imp: 1 },
-            { id: 26, time: 0, title: "Zeitenwende", subtitle: "Jahr 0", desc: "Beginn unserer Zeitrechnung.", cat: "ereignis", imp: 1 },
-            { id: 27, time: 79, title: "Vesuv-Ausbruch", subtitle: "Pompeji", desc: "Der Vulkan begräbt Pompeji unter Asche.", cat: "ereignis", imp: 2 },
-            { id: 28, time: 476, title: "Fall Westroms", subtitle: "Ende der Antike", desc: "Das Weströmische Reich endet.", cat: "ereignis", imp: 1 },
+            // Ancient Civilizations
+            { id: 20, time: -3500, title: "Erfindung der Schrift", subtitle: "Keilschrift in Sumer", desc: "In Mesopotamien entsteht die Schrift zur Buchführung - der Beginn der aufgezeichneten Geschichte.", cat: "wissenschaft", imp: 1 },
+            { id: 21, time: -3100, title: "Vereinigung Ägyptens", subtitle: "König Narmer", desc: "Ober- und Unterägypten werden vereinigt, die pharaonische Zivilisation beginnt.", cat: "politik", imp: 2 },
+            { id: 22, time: -2560, title: "Cheops-Pyramide", subtitle: "Weltwunder", desc: "Die Große Pyramide von Gizeh wird erbaut - 4.500 Jahre lang das höchste Bauwerk der Welt.", cat: "kultur", imp: 1 },
+            { id: 23, time: -1754, title: "Codex Hammurabi", subtitle: "Erstes Gesetzbuch", desc: "Der babylonische König Hammurabi verfasst eines der ältesten erhaltenen Gesetzbücher der Welt.", cat: "politik", imp: 2 },
+            { id: 24, time: -1500, title: "Vedische Schriften", subtitle: "Hinduismus", desc: "Die Veden, die ältesten religiösen Texte Indiens, werden verfasst.", cat: "kultur", imp: 2 },
+            { id: 25, time: -1200, title: "Trojanischer Krieg", subtitle: "Mythos & Geschichte", desc: "Der legendäre Krieg zwischen Griechen und Trojanern - Grundlage der Ilias.", cat: "ereignis", imp: 2 },
+            { id: 26, time: -776, title: "Olympische Spiele", subtitle: "Erste Olympiade", desc: "Die ersten gesamtgriechischen Spiele werden in Olympia zu Ehren des Zeus abgehalten.", cat: "kultur", imp: 2 },
+            { id: 27, time: -753, title: "Gründung Roms", subtitle: "Romulus und Remus", desc: "Der Legende nach wird Rom durch Romulus gegründet - Beginn einer Weltmacht.", cat: "ereignis", imp: 2 },
+            { id: 28, time: -551, title: "Konfuzius geboren", subtitle: "Chinesischer Philosoph", desc: "Der einflussreichste Denker Chinas, dessen Lehren bis heute das ostasiatische Denken prägen.", cat: "person", imp: 1 },
+            { id: 29, time: -509, title: "Römische Republik", subtitle: "Ende der Königszeit", desc: "Rom wird zur Republik - Grundlage für spätere demokratische Systeme.", cat: "politik", imp: 2 },
+            { id: 30, time: -500, title: "Buddha erlangt Erleuchtung", subtitle: "Siddhartha Gautama", desc: "Der Begründer des Buddhismus erreicht unter dem Bodhi-Baum das Nirvana.", cat: "person", imp: 1 },
+            { id: 31, time: -490, title: "Schlacht bei Marathon", subtitle: "Perserkriege", desc: "Die Athener besiegen die persische Übermacht und retten die griechische Freiheit.", cat: "ereignis", imp: 2 },
+            { id: 32, time: -469, title: "Sokrates geboren", subtitle: "Vater der Philosophie", desc: "Der Begründer der westlichen Philosophie, bekannt für seine maieutische Methode.", cat: "person", imp: 2 },
+            { id: 33, time: -447, title: "Parthenon", subtitle: "Athen", desc: "Der Bau des Parthenon beginnt - Meisterwerk der klassischen griechischen Architektur.", cat: "kultur", imp: 2 },
+            { id: 34, time: -427, title: "Platon geboren", subtitle: "Philosoph", desc: "Schüler des Sokrates, Lehrer des Aristoteles, Gründer der Akademie.", cat: "person", imp: 2 },
+            { id: 35, time: -384, title: "Aristoteles geboren", subtitle: "Universalgelehrter", desc: "Der einflussreichste Denker der Antike, prägte die Wissenschaft für 2000 Jahre.", cat: "person", imp: 2 },
+            { id: 36, time: -356, title: "Alexander der Große", subtitle: "Welteneroberer", desc: "Der makedonische Prinz wird geboren, der später das größte Reich der Antike erschaffen wird.", cat: "person", imp: 1 },
+            { id: 37, time: -323, title: "Alexanders Tod", subtitle: "Babel", desc: "Alexander stirbt mit 32 Jahren in Babylon, sein Reich zerfällt in Diadochenreiche.", cat: "ereignis", imp: 2 },
+            { id: 38, time: -264, title: "Erster Punischer Krieg", subtitle: "Rom vs. Karthago", desc: "Beginn der Kriege zwischen Rom und Karthago um die Vorherrschaft im Mittelmeer.", cat: "ereignis", imp: 2 },
+            { id: 39, time: -221, title: "Qin Shihuangdi", subtitle: "Erster Kaiser Chinas", desc: "China wird erstmals vereinigt, die Chinesische Mauer wird erweitert.", cat: "politik", imp: 2 },
+            { id: 40, time: -44, title: "Caesar ermordet", subtitle: "Iden des März", desc: "Julius Caesar wird im Senat von Verschwörern um Brutus erstochen - das Ende der Republik naht.", cat: "ereignis", imp: 1 },
+            { id: 41, time: -31, title: "Schlacht bei Actium", subtitle: "Octavian vs. Antonius", desc: "Octavian besiegt Marcus Antonius und Kleopatra - Beginn des Römischen Kaiserreichs.", cat: "ereignis", imp: 2 },
+            { id: 42, time: 0, title: "Zeitenwende", subtitle: "Jahr 0/1", desc: "Beginn unserer Zeitrechnung, basierend auf der Geburt Jesu Christi.", cat: "ereignis", imp: 1 },
+            { id: 43, time: 30, title: "Kreuzigung Jesu", subtitle: "Jerusalem", desc: "Die Kreuzigung Jesu von Nazareth wird zum Ursprung des Christentums.", cat: "ereignis", imp: 1 },
+            { id: 44, time: 79, title: "Vesuv-Ausbruch", subtitle: "Pompeji zerstört", desc: "Der Vulkan begräbt Pompeji und Herculaneum unter Asche und konserviert sie für die Nachwelt.", cat: "ereignis", imp: 2 },
+            { id: 45, time: 105, title: "Papier erfunden", subtitle: "Cai Lun", desc: "Der chinesische Beamte Cai Lun verbessert die Papierherstellung grundlegend.", cat: "wissenschaft", imp: 2 },
+            { id: 46, time: 313, title: "Mailänder Edikt", subtitle: "Konstantins Toleranz", desc: "Kaiser Konstantin gewährt Religionsfreiheit - das Christentum steigt zur Staatsreligion auf.", cat: "politik", imp: 2 },
+            { id: 47, time: 476, title: "Fall Westroms", subtitle: "Ende der Antike", desc: "Der letzte weströmische Kaiser wird abgesetzt - Beginn des Mittelalters in Europa.", cat: "ereignis", imp: 1 },
 
             // Medieval
-            { id: 30, time: 622, title: "Beginn des Islam", subtitle: "Hidschra", desc: "Mohammed flieht nach Medina.", cat: "ereignis", imp: 1 },
-            { id: 31, time: 800, title: "Karl der Große", subtitle: "Kaiserkrönung", desc: "Karl wird zum Kaiser gekrönt.", cat: "politik", imp: 1 },
-            { id: 32, time: 1096, title: "Erster Kreuzzug", subtitle: "Heiliges Land", desc: "Die Kreuzzüge beginnen.", cat: "ereignis", imp: 1 },
-            { id: 33, time: 1347, title: "Schwarzer Tod", subtitle: "Pest", desc: "Ein Drittel Europas stirbt.", cat: "ereignis", imp: 1 },
-            { id: 34, time: 1453, title: "Fall Konstantinopels", subtitle: "Ende Byzanz", desc: "Die Osmanen erobern die Stadt.", cat: "ereignis", imp: 1 },
+            { id: 48, time: 570, title: "Mohammed geboren", subtitle: "Prophet des Islam", desc: "Der Begründer des Islam wird in Mekka geboren.", cat: "person", imp: 1 },
+            { id: 49, time: 622, title: "Hidschra", subtitle: "Beginn des Islam", desc: "Mohammed flieht von Mekka nach Medina - Beginn der islamischen Zeitrechnung.", cat: "ereignis", imp: 1 },
+            { id: 50, time: 732, title: "Schlacht bei Tours", subtitle: "Karl Martell", desc: "Die Franken stoppen den islamischen Vormarsch in Europa.", cat: "ereignis", imp: 2 },
+            { id: 51, time: 800, title: "Karl der Große", subtitle: "Kaiserkrönung", desc: "Karl wird in Rom zum Kaiser gekrönt - Grundstein für das Heilige Römische Reich.", cat: "politik", imp: 1 },
+            { id: 52, time: 868, title: "Erstes gedrucktes Buch", subtitle: "Diamant-Sutra", desc: "Das älteste datierte gedruckte Buch entsteht in China.", cat: "kultur", imp: 2 },
+            { id: 53, time: 1066, title: "Schlacht bei Hastings", subtitle: "Wilhelm der Eroberer", desc: "Die Normannen erobern England - tiefgreifende Veränderung der englischen Kultur.", cat: "ereignis", imp: 2 },
+            { id: 54, time: 1096, title: "Erster Kreuzzug", subtitle: "Deus lo vult", desc: "Die Kreuzzüge beginnen - jahrhundertelange religiöse Konflikte zwischen Christentum und Islam.", cat: "ereignis", imp: 1 },
+            { id: 55, time: 1215, title: "Magna Carta", subtitle: "Grundrechte", desc: "König Johann von England unterzeichnet die Magna Carta - Grundstein für konstitutionelle Rechte.", cat: "politik", imp: 2 },
+            { id: 56, time: 1271, title: "Marco Polo reist nach China", subtitle: "Seidenstraße", desc: "Der venezianische Händler beginnt seine legendäre Reise an den Hof des Kublai Khan.", cat: "ereignis", imp: 2 },
+            { id: 57, time: 1347, title: "Schwarzer Tod", subtitle: "Pest in Europa", desc: "Die Beulenpest tötet ein Drittel der europäischen Bevölkerung und verändert die Gesellschaft grundlegend.", cat: "ereignis", imp: 1 },
+            { id: 58, time: 1431, title: "Jeanne d'Arc verbrannt", subtitle: "Märtyrerin", desc: "Die französische Nationalheldin wird als Ketzerin auf dem Scheiterhaufen verbrannt.", cat: "person", imp: 2 },
+            { id: 59, time: 1453, title: "Fall Konstantinopels", subtitle: "Ende von Byzanz", desc: "Die Osmanen erobern Konstantinopel - das Ende des Oströmischen Reiches nach 1000 Jahren.", cat: "ereignis", imp: 1 },
 
             // Renaissance & Early Modern
-            { id: 40, time: 1440, title: "Buchdruck", subtitle: "Gutenberg", desc: "Erfindung des Buchdrucks mit beweglichen Lettern.", cat: "wissenschaft", imp: 1 },
-            { id: 41, time: 1452, title: "Leonardo da Vinci", subtitle: "Universalgenie", desc: "Das Renaissance-Genie wird geboren.", cat: "person", imp: 1 },
-            { id: 42, time: 1492, title: "Amerika entdeckt", subtitle: "Kolumbus", desc: "Kolumbus erreicht die Neue Welt.", cat: "ereignis", imp: 1 },
-            { id: 43, time: 1503, title: "Mona Lisa", subtitle: "Leonardo", desc: "Das berühmteste Gemälde entsteht.", cat: "kultur", imp: 1 },
-            { id: 44, time: 1517, title: "95 Thesen", subtitle: "Luther", desc: "Die Reformation beginnt.", cat: "ereignis", imp: 1 },
-            { id: 45, time: 1543, title: "Heliozentrisches Weltbild", subtitle: "Kopernikus", desc: "Die Erde dreht sich um die Sonne.", cat: "wissenschaft", imp: 1 },
-            { id: 46, time: 1564, title: "Shakespeare geboren", subtitle: "Dramatiker", desc: "Der größte Dichter der englischen Sprache.", cat: "person", imp: 1 },
-            { id: 47, time: 1564, title: "Galileo geboren", subtitle: "Wissenschaftler", desc: "Vater der modernen Naturwissenschaft.", cat: "person", imp: 2 },
-            { id: 48, time: 1618, title: "30-jähriger Krieg", subtitle: "Religionskrieg", desc: "Der verheerendste Krieg vor dem 20. Jh.", cat: "ereignis", imp: 1 },
-            { id: 49, time: 1687, title: "Newtons Principia", subtitle: "Physik", desc: "Grundlagen der klassischen Mechanik.", cat: "wissenschaft", imp: 1 },
+            { id: 60, time: 1440, title: "Buchdruck", subtitle: "Gutenberg", desc: "Johannes Gutenberg erfindet den Buchdruck mit beweglichen Lettern - die Informationsrevolution beginnt.", cat: "wissenschaft", imp: 1 },
+            { id: 61, time: 1452, title: "Leonardo da Vinci", subtitle: "Universalgenie", desc: "Das Renaissance-Genie wird geboren - Maler, Erfinder, Wissenschaftler in einer Person.", cat: "person", imp: 1 },
+            { id: 62, time: 1473, title: "Kopernikus geboren", subtitle: "Astronom", desc: "Der Begründer des heliozentrischen Weltbildes wird in Thorn geboren.", cat: "person", imp: 2 },
+            { id: 63, time: 1475, title: "Michelangelo geboren", subtitle: "Künstler", desc: "Einer der größten Künstler aller Zeiten - Schöpfer der Sixtinischen Decke.", cat: "person", imp: 2 },
+            { id: 64, time: 1492, title: "Amerika entdeckt", subtitle: "Kolumbus", desc: "Christoph Kolumbus erreicht die Bahamas - der Beginn der europäischen Kolonisierung Amerikas.", cat: "ereignis", imp: 1 },
+            { id: 65, time: 1498, title: "Seeweg nach Indien", subtitle: "Vasco da Gama", desc: "Der portugiesische Seefahrer erreicht Indien auf dem Seeweg um Afrika.", cat: "ereignis", imp: 2 },
+            { id: 66, time: 1503, title: "Mona Lisa", subtitle: "Leonardo", desc: "Leonardo da Vinci beginnt das berühmteste Gemälde der Welt.", cat: "kultur", imp: 1 },
+            { id: 67, time: 1508, title: "Sixtinische Kapelle", subtitle: "Michelangelo", desc: "Michelangelo beginnt die Ausmalung der Decke der Sixtinischen Kapelle.", cat: "kultur", imp: 2 },
+            { id: 68, time: 1517, title: "95 Thesen", subtitle: "Luther", desc: "Martin Luther schlägt seine Thesen an - die Reformation beginnt und spaltet die Christenheit.", cat: "ereignis", imp: 1 },
+            { id: 69, time: 1519, title: "Magellan-Expedition", subtitle: "Weltumsegelung", desc: "Die erste Weltumsegelung beginnt - der Beweis, dass die Erde eine Kugel ist.", cat: "ereignis", imp: 2 },
+            { id: 70, time: 1543, title: "Heliozentrisches Weltbild", subtitle: "Kopernikus", desc: "Kopernikus veröffentlicht 'De revolutionibus' - die Erde ist nicht mehr Mittelpunkt des Universums.", cat: "wissenschaft", imp: 1 },
+            { id: 71, time: 1564, title: "Shakespeare geboren", subtitle: "Dramatiker", desc: "Der größte Dichter der englischen Sprache wird in Stratford-upon-Avon geboren.", cat: "person", imp: 1 },
+            { id: 72, time: 1564, title: "Galileo Galilei geboren", subtitle: "Wissenschaftler", desc: "Der Vater der modernen Naturwissenschaft wird in Pisa geboren.", cat: "person", imp: 2 },
+            { id: 73, time: 1582, title: "Gregorianischer Kalender", subtitle: "Kalenderreform", desc: "Papst Gregor XIII. führt den bis heute gültigen Kalender ein.", cat: "wissenschaft", imp: 3 },
+            { id: 74, time: 1600, title: "Giordano Bruno verbrannt", subtitle: "Ketzer", desc: "Der Philosoph wird wegen seiner Lehren vom unendlichen Universum hingerichtet.", cat: "person", imp: 3 },
+            { id: 75, time: 1609, title: "Keplers Gesetze", subtitle: "Planetenbewegung", desc: "Johannes Kepler veröffentlicht seine Gesetze der Planetenbewegung.", cat: "wissenschaft", imp: 2 },
+            { id: 76, time: 1610, title: "Galileos Teleskop", subtitle: "Jupiter-Monde", desc: "Galileo entdeckt mit seinem Teleskop die Monde des Jupiter.", cat: "wissenschaft", imp: 2 },
+            { id: 77, time: 1618, title: "30-jähriger Krieg", subtitle: "Religionskrieg", desc: "Der verheerendste Krieg vor dem 20. Jahrhundert beginnt - Europa wird verwüstet.", cat: "ereignis", imp: 1 },
+            { id: 78, time: 1637, title: "Descartes' Discours", subtitle: "Cogito ergo sum", desc: "'Ich denke, also bin ich' - Descartes begründet die moderne Philosophie.", cat: "wissenschaft", imp: 2 },
+            { id: 79, time: 1642, title: "Newton geboren", subtitle: "Physiker", desc: "Der größte Wissenschaftler aller Zeiten wird in Woolsthorpe geboren.", cat: "person", imp: 1 },
+            { id: 80, time: 1648, title: "Westfälischer Frieden", subtitle: "Ende des 30j. Krieges", desc: "Der Friedensvertrag beendet den 30-jährigen Krieg und begründet das moderne Völkerrecht.", cat: "politik", imp: 2 },
+            { id: 81, time: 1687, title: "Newtons Principia", subtitle: "Physik", desc: "Newton veröffentlicht die Grundlagen der klassischen Mechanik und das Gravitationsgesetz.", cat: "wissenschaft", imp: 1 },
 
             // 18th Century
-            { id: 50, time: 1685, title: "J.S. Bach geboren", subtitle: "Komponist", desc: "Der Meister des Barock.", cat: "person", imp: 2 },
-            { id: 51, time: 1756, title: "Mozart geboren", subtitle: "Wunderkind", desc: "Wolfgang Amadeus Mozart.", cat: "person", imp: 1 },
-            { id: 52, time: 1769, title: "Napoleon geboren", subtitle: "Kaiser", desc: "Der Mann, der Europa umgestaltete.", cat: "person", imp: 1 },
-            { id: 53, time: 1770, title: "Beethoven geboren", subtitle: "Komponist", desc: "Ludwig van Beethoven.", cat: "person", imp: 1 },
-            { id: 54, time: 1776, title: "US-Unabhängigkeit", subtitle: "Neue Nation", desc: "Die USA entstehen.", cat: "politik", imp: 1 },
-            { id: 55, time: 1789, title: "Französische Revolution", subtitle: "Bastille", desc: "Die Revolution verändert Europa.", cat: "politik", imp: 1 },
+            { id: 82, time: 1685, title: "J.S. Bach geboren", subtitle: "Komponist", desc: "Der Meister des Barock wird in Eisenach geboren.", cat: "person", imp: 2 },
+            { id: 83, time: 1694, title: "Voltaire geboren", subtitle: "Aufklärer", desc: "Der einflussreichste Denker der französischen Aufklärung.", cat: "person", imp: 2 },
+            { id: 84, time: 1724, title: "Kant geboren", subtitle: "Philosoph", desc: "Immanuel Kant, der Begründer der kritischen Philosophie.", cat: "person", imp: 2 },
+            { id: 85, time: 1751, title: "Encyclopédie", subtitle: "Diderot & d'Alembert", desc: "Das große Werk der Aufklärung beginnt zu erscheinen.", cat: "kultur", imp: 2 },
+            { id: 86, time: 1756, title: "Mozart geboren", subtitle: "Wunderkind", desc: "Wolfgang Amadeus Mozart wird in Salzburg geboren.", cat: "person", imp: 1 },
+            { id: 87, time: 1769, title: "Napoleon geboren", subtitle: "Kaiser", desc: "Der Mann, der Europa umgestalten wird, wird auf Korsika geboren.", cat: "person", imp: 1 },
+            { id: 88, time: 1769, title: "Dampfmaschine", subtitle: "James Watt", desc: "Watt verbessert die Dampfmaschine entscheidend - die industrielle Revolution beginnt.", cat: "wissenschaft", imp: 1 },
+            { id: 89, time: 1770, title: "Beethoven geboren", subtitle: "Komponist", desc: "Ludwig van Beethoven wird in Bonn geboren.", cat: "person", imp: 1 },
+            { id: 90, time: 1776, title: "US-Unabhängigkeit", subtitle: "Declaration", desc: "Die USA erklären ihre Unabhängigkeit von Großbritannien - die erste moderne Demokratie entsteht.", cat: "politik", imp: 1 },
+            { id: 91, time: 1781, title: "Kritik der reinen Vernunft", subtitle: "Kant", desc: "Kants Hauptwerk revolutioniert die Philosophie.", cat: "wissenschaft", imp: 2 },
+            { id: 92, time: 1789, title: "Französische Revolution", subtitle: "Bastille", desc: "Der Sturm auf die Bastille - die Revolution verändert Europa für immer.", cat: "politik", imp: 1 },
+            { id: 93, time: 1791, title: "Mozart stirbt", subtitle: "Wien", desc: "Das Musikgenie stirbt mit nur 35 Jahren - 600 Werke hinterlässt er.", cat: "person", imp: 2 },
+            { id: 94, time: 1796, title: "Jenners Impfung", subtitle: "Pockenimpfung", desc: "Edward Jenner entwickelt die erste erfolgreiche Impfung der Geschichte.", cat: "wissenschaft", imp: 2 },
 
             // 19th Century
-            { id: 60, time: 1804, title: "Napoleon Kaiser", subtitle: "Kaiserkrönung", desc: "Napoleon krönt sich selbst.", cat: "politik", imp: 2 },
-            { id: 61, time: 1815, title: "Waterloo", subtitle: "Napoleons Ende", desc: "Die endgültige Niederlage.", cat: "ereignis", imp: 1 },
-            { id: 62, time: 1824, title: "9. Symphonie", subtitle: "Beethoven", desc: "Mit der Ode an die Freude.", cat: "kultur", imp: 2 },
-            { id: 63, time: 1839, title: "Fotografie erfunden", subtitle: "Daguerre", desc: "Die Daguerreotypie wird vorgestellt.", cat: "wissenschaft", imp: 2 },
-            { id: 64, time: 1848, title: "Kommunistisches Manifest", subtitle: "Marx & Engels", desc: "Das Manifest verändert die Politik.", cat: "politik", imp: 1 },
-            { id: 65, time: 1859, title: "Evolutionstheorie", subtitle: "Darwin", desc: "Die Entstehung der Arten.", cat: "wissenschaft", imp: 1 },
+            { id: 95, time: 1804, title: "Napoleon Kaiser", subtitle: "Kaiserkrönung", desc: "Napoleon krönt sich selbst zum Kaiser der Franzosen.", cat: "politik", imp: 2 },
+            { id: 96, time: 1805, title: "Trafalgar", subtitle: "Seeschlacht", desc: "Nelson besiegt die französisch-spanische Flotte und sichert Britanniens Seeherrschaft.", cat: "ereignis", imp: 2 },
+            { id: 97, time: 1815, title: "Waterloo", subtitle: "Napoleons Ende", desc: "Napoleon wird endgültig besiegt - das Ende einer Ära.", cat: "ereignis", imp: 1 },
+            { id: 98, time: 1818, title: "Marx geboren", subtitle: "Philosoph", desc: "Karl Marx, der Begründer des wissenschaftlichen Sozialismus.", cat: "person", imp: 2 },
+            { id: 99, time: 1824, title: "9. Symphonie", subtitle: "Beethoven", desc: "Beethovens monumentales Werk mit der Ode an die Freude wird uraufgeführt.", cat: "kultur", imp: 2 },
+            { id: 100, time: 1831, title: "Darwin auf der Beagle", subtitle: "Forschungsreise", desc: "Charles Darwin beginnt seine Reise, die zur Evolutionstheorie führen wird.", cat: "wissenschaft", imp: 2 },
+            { id: 101, time: 1837, title: "Viktorianisches Zeitalter", subtitle: "Queen Victoria", desc: "Victoria wird Königin - Beginn einer prägenden Epoche.", cat: "politik", imp: 2 },
+            { id: 102, time: 1839, title: "Fotografie erfunden", subtitle: "Daguerre", desc: "Louis Daguerre stellt die Daguerreotypie vor - die Welt kann festgehalten werden.", cat: "wissenschaft", imp: 2 },
+            { id: 103, time: 1848, title: "Kommunistisches Manifest", subtitle: "Marx & Engels", desc: "'Ein Gespenst geht um in Europa' - das Manifest verändert die Politik.", cat: "politik", imp: 1 },
+            { id: 104, time: 1848, title: "Märzrevolution", subtitle: "Europa revoltiert", desc: "Revolutionen erschüttern ganz Europa - der Ruf nach Freiheit und Demokratie.", cat: "politik", imp: 2 },
+            { id: 105, time: 1859, title: "Evolutionstheorie", subtitle: "Darwin", desc: "'Die Entstehung der Arten' erscheint und revolutioniert unser Verständnis des Lebens.", cat: "wissenschaft", imp: 1 },
+            { id: 106, time: 1861, title: "Amerikanischer Bürgerkrieg", subtitle: "Union vs. Konföderation", desc: "Der blutigste Krieg Amerikas beginnt - um Sklaverei und Einheit der Nation.", cat: "ereignis", imp: 2 },
+            { id: 107, time: 1865, title: "Lincoln ermordet", subtitle: "Ford's Theatre", desc: "Abraham Lincoln wird erschossen - kurz nach Ende des Bürgerkriegs.", cat: "ereignis", imp: 2 },
+            { id: 108, time: 1869, title: "Periodensystem", subtitle: "Mendelejew", desc: "Dmitri Mendelejew ordnet die Elemente - eine Revolution der Chemie.", cat: "wissenschaft", imp: 2 },
 
             // Impressionism Era
-            { id: 70, time: 1840, title: "Monet geboren", subtitle: "Impressionist", desc: "Claude Monet, Begründer des Impressionismus.", cat: "person", imp: 2 },
-            { id: 71, time: 1841, title: "Renoir geboren", subtitle: "Impressionist", desc: "Pierre-Auguste Renoir.", cat: "person", imp: 3 },
-            { id: 72, time: 1855, title: "Das Atelier des Malers", subtitle: "Courbet", desc: "Programmatisches Werk des Realismus.", cat: "kultur", imp: 3 },
-            { id: 73, time: 1863, title: "Frühstück im Grünen", subtitle: "Manet", desc: "Édouard Manet schockiert Paris.", cat: "kultur", imp: 2 },
-            { id: 74, time: 1872, title: "Impression, Sonnenaufgang", subtitle: "Monet", desc: "Das namensgebende Werk.", cat: "kultur", imp: 1 },
-            { id: 75, time: 1874, title: "Erste Impressionisten-Ausstellung", subtitle: "Paris", desc: "Monet, Renoir, Degas stellen aus.", cat: "kultur", imp: 1 },
-            { id: 76, time: 1876, title: "Telefon erfunden", subtitle: "Bell", desc: "Revolution der Kommunikation.", cat: "wissenschaft", imp: 1 },
-            { id: 77, time: 1879, title: "Glühbirne", subtitle: "Edison", desc: "Elektrisches Licht verändert den Alltag.", cat: "wissenschaft", imp: 1 },
-            { id: 78, time: 1886, title: "Grande Jatte", subtitle: "Seurat", desc: "Pointillismus als neue Technik.", cat: "kultur", imp: 2 },
-            { id: 79, time: 1888, title: "Sternennacht", subtitle: "Van Gogh", desc: "Van Goghs berühmtestes Werk.", cat: "kultur", imp: 1 },
-            { id: 80, time: 1889, title: "Eiffelturm", subtitle: "Paris", desc: "Zur Weltausstellung errichtet.", cat: "kultur", imp: 1 },
-            { id: 81, time: 1893, title: "Der Schrei", subtitle: "Munch", desc: "Expressionistisches Meisterwerk.", cat: "kultur", imp: 1 },
-            { id: 82, time: 1895, title: "Erster Film", subtitle: "Lumière", desc: "Die Geburt des Kinos.", cat: "kultur", imp: 1 },
-            { id: 83, time: 1895, title: "Röntgenstrahlen", subtitle: "Röntgen", desc: "Revolution der Medizin.", cat: "wissenschaft", imp: 1 },
-            { id: 84, time: 1900, title: "Der Kuss", subtitle: "Klimt", desc: "Jugendstil-Meisterwerk.", cat: "kultur", imp: 2 },
-            { id: 85, time: 1900, title: "Traumdeutung", subtitle: "Freud", desc: "Beginn der Psychoanalyse.", cat: "wissenschaft", imp: 1 },
+            { id: 109, time: 1840, title: "Monet geboren", subtitle: "Impressionist", desc: "Claude Monet, der Begründer des Impressionismus, wird in Paris geboren.", cat: "person", imp: 2 },
+            { id: 110, time: 1841, title: "Renoir geboren", subtitle: "Impressionist", desc: "Pierre-Auguste Renoir, Meister des Lichts und der Farbe.", cat: "person", imp: 3 },
+            { id: 111, time: 1853, title: "Van Gogh geboren", subtitle: "Post-Impressionist", desc: "Vincent van Gogh, dessen tragisches Leben unsterbliche Kunst hervorbrachte.", cat: "person", imp: 2 },
+            { id: 112, time: 1855, title: "Das Atelier des Malers", subtitle: "Courbet", desc: "Gustave Courbets programmatisches Werk des Realismus.", cat: "kultur", imp: 3 },
+            { id: 113, time: 1863, title: "Frühstück im Grünen", subtitle: "Manet", desc: "Édouard Manets skandalöses Gemälde schockiert den Pariser Salon.", cat: "kultur", imp: 2 },
+            { id: 114, time: 1869, title: "La Grenouillère", subtitle: "Monet & Renoir", desc: "Monet und Renoir malen gemeinsam - die Geburtsstunde des Impressionismus.", cat: "kultur", imp: 3 },
+            { id: 115, time: 1872, title: "Impression, Sonnenaufgang", subtitle: "Monet", desc: "Das namensgebende Werk des Impressionismus - ein Hafen im Morgennebel.", cat: "kultur", imp: 1 },
+            { id: 116, time: 1874, title: "Erste Impressionisten-Ausstellung", subtitle: "Paris", desc: "Monet, Renoir, Degas, Pissarro und andere stellen aus - ein Skandal und eine Revolution.", cat: "kultur", imp: 1 },
+            { id: 117, time: 1876, title: "Telefon erfunden", subtitle: "Alexander Graham Bell", desc: "Das Telefon revolutioniert die Kommunikation der Menschheit.", cat: "wissenschaft", imp: 1 },
+            { id: 118, time: 1877, title: "Phonograph", subtitle: "Edison", desc: "Thomas Edison erfindet den Phonographen - Klang kann aufgezeichnet werden.", cat: "wissenschaft", imp: 2 },
+            { id: 119, time: 1879, title: "Glühbirne", subtitle: "Edison", desc: "Edison präsentiert die praktische Glühbirne - elektrisches Licht verändert den Alltag.", cat: "wissenschaft", imp: 1 },
+            { id: 120, time: 1880, title: "Der Denker", subtitle: "Rodin", desc: "Auguste Rodin beginnt seine berühmteste Skulptur.", cat: "kultur", imp: 3 },
+            { id: 121, time: 1881, title: "Picasso geboren", subtitle: "Künstler", desc: "Pablo Picasso, der einflussreichste Künstler des 20. Jahrhunderts.", cat: "person", imp: 1 },
+            { id: 122, time: 1883, title: "Orient-Express", subtitle: "Erste Fahrt", desc: "Der legendäre Luxuszug verbindet Paris mit Konstantinopel.", cat: "ereignis", imp: 3 },
+            { id: 123, time: 1886, title: "Grande Jatte", subtitle: "Seurat", desc: "Georges Seurat vollendet sein Meisterwerk des Pointillismus.", cat: "kultur", imp: 2 },
+            { id: 124, time: 1886, title: "Freiheitsstatue", subtitle: "New York", desc: "Das Geschenk Frankreichs wird im Hafen von New York eingeweiht.", cat: "kultur", imp: 2 },
+            { id: 125, time: 1888, title: "Sternennacht", subtitle: "Van Gogh", desc: "Van Gogh malt in Saint-Rémy sein berühmtestes Werk.", cat: "kultur", imp: 1 },
+            { id: 126, time: 1889, title: "Eiffelturm", subtitle: "Paris", desc: "Zur Weltausstellung wird das 324m hohe Wahrzeichen eingeweiht.", cat: "kultur", imp: 1 },
+            { id: 127, time: 1890, title: "Van Gogh stirbt", subtitle: "Auvers-sur-Oise", desc: "Das verkannte Genie stirbt mit nur 37 Jahren.", cat: "person", imp: 2 },
+            { id: 128, time: 1893, title: "Der Schrei", subtitle: "Edvard Munch", desc: "Munchs expressionistisches Meisterwerk drückt existentielle Angst aus.", cat: "kultur", imp: 1 },
+            { id: 129, time: 1895, title: "Erster Film", subtitle: "Lumière-Brüder", desc: "Die Geburt des Kinos - 'Arbeiter verlassen die Lumière-Werke' wird gezeigt.", cat: "kultur", imp: 1 },
+            { id: 130, time: 1895, title: "Röntgenstrahlen", subtitle: "Wilhelm Röntgen", desc: "Die Entdeckung revolutioniert die Medizin - man kann ins Innere des Körpers blicken.", cat: "wissenschaft", imp: 1 },
+            { id: 131, time: 1896, title: "Erste Olympiade der Neuzeit", subtitle: "Athen", desc: "Die modernen Olympischen Spiele werden in Athen wiederbelebt.", cat: "ereignis", imp: 2 },
+            { id: 132, time: 1897, title: "Drahtlose Telegrafie", subtitle: "Marconi", desc: "Guglielmo Marconi sendet Signale über den Atlantik.", cat: "wissenschaft", imp: 2 },
+            { id: 133, time: 1900, title: "Der Kuss", subtitle: "Gustav Klimt", desc: "Klimts goldenes Meisterwerk des Jugendstils.", cat: "kultur", imp: 2 },
+            { id: 134, time: 1900, title: "Traumdeutung", subtitle: "Sigmund Freud", desc: "Freud veröffentlicht sein Hauptwerk - die Geburt der Psychoanalyse.", cat: "wissenschaft", imp: 1 },
+            { id: 135, time: 1900, title: "Quantenhypothese", subtitle: "Max Planck", desc: "Planck begründet die Quantenphysik - eine Revolution des Weltbildes.", cat: "wissenschaft", imp: 2 },
 
             // 20th Century
-            { id: 90, time: 1903, title: "Erster Motorflug", subtitle: "Wright", desc: "Der Mensch fliegt.", cat: "wissenschaft", imp: 1 },
-            { id: 91, time: 1905, title: "Relativitätstheorie", subtitle: "Einstein", desc: "E=mc² revolutioniert die Physik.", cat: "wissenschaft", imp: 1 },
-            { id: 92, time: 1907, title: "Demoiselles d'Avignon", subtitle: "Picasso", desc: "Beginn des Kubismus.", cat: "kultur", imp: 1 },
-            { id: 93, time: 1912, title: "Titanic sinkt", subtitle: "Katastrophe", desc: "Das unsinkbare Schiff geht unter.", cat: "ereignis", imp: 1 },
-            { id: 94, time: 1914, title: "Erster Weltkrieg", subtitle: "Sarajevo", desc: "Die Urkatastrophe beginnt.", cat: "ereignis", imp: 1 },
-            { id: 95, time: 1917, title: "Russische Revolution", subtitle: "Lenin", desc: "Der Kommunismus siegt.", cat: "politik", imp: 1 },
-            { id: 96, time: 1918, title: "Kriegsende", subtitle: "11. November", desc: "17 Millionen Tote.", cat: "ereignis", imp: 1 },
-            { id: 97, time: 1919, title: "Bauhaus gegründet", subtitle: "Gropius", desc: "Revolutionäre Designschule.", cat: "kultur", imp: 1 },
-            { id: 98, time: 1928, title: "Penicillin", subtitle: "Fleming", desc: "Beginn der Antibiotika-Ära.", cat: "wissenschaft", imp: 1 },
-            { id: 99, time: 1929, title: "Börsencrash", subtitle: "Schwarzer Freitag", desc: "Weltwirtschaftskrise beginnt.", cat: "ereignis", imp: 1 },
-            { id: 100, time: 1933, title: "Hitler Reichskanzler", subtitle: "NS-Diktatur", desc: "Der Weg in die Katastrophe.", cat: "politik", imp: 1 },
-            { id: 101, time: 1937, title: "Guernica", subtitle: "Picasso", desc: "Anti-Kriegs-Meisterwerk.", cat: "kultur", imp: 1 },
-            { id: 102, time: 1939, title: "Zweiter Weltkrieg", subtitle: "Überfall Polen", desc: "Der verheerendste Krieg beginnt.", cat: "ereignis", imp: 1 },
-            { id: 103, time: 1945, title: "Hiroshima", subtitle: "Atombombe", desc: "Erste Atombombe auf eine Stadt.", cat: "ereignis", imp: 1 },
-            { id: 104, time: 1945, title: "Kriegsende", subtitle: "Kapitulation", desc: "60 Millionen Tote.", cat: "ereignis", imp: 1 },
-            { id: 105, time: 1948, title: "Menschenrechtserklärung", subtitle: "UN", desc: "Universelle Menschenrechte.", cat: "politik", imp: 1 },
-            { id: 106, time: 1953, title: "DNA-Struktur", subtitle: "Watson & Crick", desc: "Die Doppelhelix entdeckt.", cat: "wissenschaft", imp: 1 },
-            { id: 107, time: 1957, title: "Sputnik", subtitle: "Erster Satellit", desc: "Beginn des Weltraumzeitalters.", cat: "wissenschaft", imp: 1 },
-            { id: 108, time: 1961, title: "Berliner Mauer", subtitle: "Teilung", desc: "Die Mauer wird gebaut.", cat: "ereignis", imp: 1 },
-            { id: 109, time: 1961, title: "Gagarin im All", subtitle: "Erster Mensch", desc: "Juri Gagarin umrundet die Erde.", cat: "wissenschaft", imp: 1 },
-            { id: 110, time: 1963, title: "Kennedy ermordet", subtitle: "Dallas", desc: "JFKs Tod traumatisiert Amerika.", cat: "ereignis", imp: 1 },
-            { id: 111, time: 1963, title: "I Have a Dream", subtitle: "MLK", desc: "Historische Bürgerrechtsrede.", cat: "politik", imp: 1 },
-            { id: 112, time: 1969, title: "Mondlandung", subtitle: "Apollo 11", desc: "Der Mensch betritt den Mond.", cat: "wissenschaft", imp: 1 },
-            { id: 113, time: 1989, title: "Mauerfall", subtitle: "9. November", desc: "Die Berliner Mauer fällt.", cat: "ereignis", imp: 1 },
-            { id: 114, time: 1991, title: "Ende der UdSSR", subtitle: "Kalter Krieg vorbei", desc: "Die Sowjetunion löst sich auf.", cat: "politik", imp: 1 },
-            { id: 115, time: 1991, title: "World Wide Web", subtitle: "Internet", desc: "Das WWW wird öffentlich.", cat: "wissenschaft", imp: 1 },
+            { id: 136, time: 1903, title: "Erster Motorflug", subtitle: "Wright-Brüder", desc: "Der Mensch fliegt zum ersten Mal kontrolliert - 12 Sekunden, 37 Meter.", cat: "wissenschaft", imp: 1 },
+            { id: 137, time: 1905, title: "Relativitätstheorie", subtitle: "Albert Einstein", desc: "E=mc² - Einstein revolutioniert unser Verständnis von Raum, Zeit und Energie.", cat: "wissenschaft", imp: 1 },
+            { id: 138, time: 1905, title: "Russische Revolution", subtitle: "Blutsonntag", desc: "Die erste russische Revolution erschüttert das Zarenreich.", cat: "politik", imp: 2 },
+            { id: 139, time: 1907, title: "Demoiselles d'Avignon", subtitle: "Picasso", desc: "Picassos revolutionäres Werk begründet den Kubismus.", cat: "kultur", imp: 1 },
+            { id: 140, time: 1908, title: "Ford Model T", subtitle: "Massenproduktion", desc: "Henry Ford beginnt die Fließbandproduktion - das Auto für jedermann.", cat: "wissenschaft", imp: 2 },
+            { id: 141, time: 1912, title: "Titanic sinkt", subtitle: "Nordatlantik", desc: "Das 'unsinkbare' Schiff geht unter - 1.500 Menschen sterben.", cat: "ereignis", imp: 1 },
+            { id: 142, time: 1913, title: "Frühlingsopfer", subtitle: "Strawinsky", desc: "Strawinskys Ballett löst einen Skandal aus und revolutioniert die Musik.", cat: "kultur", imp: 2 },
+            { id: 143, time: 1914, title: "Erster Weltkrieg", subtitle: "Sarajevo", desc: "Die Ermordung von Erzherzog Franz Ferdinand löst die 'Urkatastrophe des 20. Jahrhunderts' aus.", cat: "ereignis", imp: 1 },
+            { id: 144, time: 1915, title: "Allgemeine Relativitätstheorie", subtitle: "Einstein", desc: "Einstein vollendet seine Theorie der Gravitation - Raum und Zeit sind gekrümmt.", cat: "wissenschaft", imp: 2 },
+            { id: 145, time: 1916, title: "Schlacht an der Somme", subtitle: "1 Million Tote", desc: "Eine der verlustreichsten Schlachten der Geschichte.", cat: "ereignis", imp: 2 },
+            { id: 146, time: 1917, title: "Russische Revolution", subtitle: "Lenin ergreift Macht", desc: "Die Bolschewiki stürzen die Provisorische Regierung - der Kommunismus siegt.", cat: "politik", imp: 1 },
+            { id: 147, time: 1918, title: "Kriegsende", subtitle: "11. November", desc: "Der Erste Weltkrieg endet - 17 Millionen Tote, eine zerstörte Weltordnung.", cat: "ereignis", imp: 1 },
+            { id: 148, time: 1918, title: "Spanische Grippe", subtitle: "Pandemie", desc: "Die Grippe-Pandemie tötet mehr Menschen als der Krieg - bis zu 50 Millionen.", cat: "ereignis", imp: 2 },
+            { id: 149, time: 1919, title: "Bauhaus gegründet", subtitle: "Walter Gropius", desc: "Die revolutionäre Designschule in Weimar vereint Kunst und Handwerk.", cat: "kultur", imp: 1 },
+            { id: 150, time: 1920, title: "Frauenwahlrecht USA", subtitle: "19. Amendment", desc: "Amerikanische Frauen erhalten endlich das Wahlrecht.", cat: "politik", imp: 2 },
+            { id: 151, time: 1922, title: "Tutanchamuns Grab", subtitle: "Howard Carter", desc: "Die Entdeckung des unberührten Pharaonengrabs fasziniert die Welt.", cat: "ereignis", imp: 2 },
+            { id: 152, time: 1924, title: "Stalin an der Macht", subtitle: "Sowjetunion", desc: "Nach Lenins Tod übernimmt Stalin die Führung.", cat: "politik", imp: 2 },
+            { id: 153, time: 1927, title: "Lindberghs Atlantikflug", subtitle: "Spirit of St. Louis", desc: "Der erste Non-Stop-Flug über den Atlantik von New York nach Paris.", cat: "ereignis", imp: 2 },
+            { id: 154, time: 1928, title: "Penicillin", subtitle: "Alexander Fleming", desc: "Fleming entdeckt das erste Antibiotikum - eine Revolution der Medizin.", cat: "wissenschaft", imp: 1 },
+            { id: 155, time: 1929, title: "Börsencrash", subtitle: "Schwarzer Freitag", desc: "Der Zusammenbruch der Wall Street löst die Weltwirtschaftskrise aus.", cat: "ereignis", imp: 1 },
+            { id: 156, time: 1929, title: "Museum of Modern Art", subtitle: "New York", desc: "Das MoMA öffnet und wird zum wichtigsten Museum moderner Kunst.", cat: "kultur", imp: 3 },
+            { id: 157, time: 1933, title: "Hitler Reichskanzler", subtitle: "NS-Diktatur beginnt", desc: "Adolf Hitler wird zum Reichskanzler ernannt - der Weg in die Katastrophe.", cat: "politik", imp: 1 },
+            { id: 158, time: 1933, title: "Bücherverbrennungen", subtitle: "Nazi-Deutschland", desc: "Die Nazis verbrennen 'undeutsche' Bücher - ein Zeichen kommender Barbarei.", cat: "ereignis", imp: 2 },
+            { id: 159, time: 1936, title: "Spanischer Bürgerkrieg", subtitle: "Franco vs. Republik", desc: "Der Vorspiel zum Zweiten Weltkrieg - faschistische gegen demokratische Kräfte.", cat: "ereignis", imp: 2 },
+            { id: 160, time: 1937, title: "Guernica", subtitle: "Picasso", desc: "Picassos Anti-Kriegs-Meisterwerk als Reaktion auf die Bombardierung der Stadt.", cat: "kultur", imp: 1 },
+            { id: 161, time: 1938, title: "Reichspogromnacht", subtitle: "Novemberpogrome", desc: "Organisierte Gewalt gegen Juden in Deutschland - der Auftakt zum Holocaust.", cat: "ereignis", imp: 1 },
+            { id: 162, time: 1939, title: "Zweiter Weltkrieg", subtitle: "Überfall auf Polen", desc: "Der verheerendste Krieg der Geschichte beginnt mit dem deutschen Angriff.", cat: "ereignis", imp: 1 },
+            { id: 163, time: 1941, title: "Pearl Harbor", subtitle: "USA treten ein", desc: "Japan greift an - Amerika tritt in den Krieg ein.", cat: "ereignis", imp: 2 },
+            { id: 164, time: 1942, title: "Wannseekonferenz", subtitle: "Holocaust", desc: "Die Nazis planen die systematische Ermordung der europäischen Juden.", cat: "ereignis", imp: 1 },
+            { id: 165, time: 1944, title: "D-Day", subtitle: "Landung in der Normandie", desc: "Die größte amphibische Operation der Geschichte - die Befreiung Europas beginnt.", cat: "ereignis", imp: 1 },
+            { id: 166, time: 1945, title: "Hiroshima", subtitle: "Atombombe", desc: "Die erste Atombombe auf eine Stadt tötet 80.000 Menschen sofort.", cat: "ereignis", imp: 1 },
+            { id: 167, time: 1945, title: "Kriegsende", subtitle: "8. Mai / 15. August", desc: "Der Zweite Weltkrieg endet - 60 Millionen Tote, die Welt ist verändert.", cat: "ereignis", imp: 1 },
+            { id: 168, time: 1945, title: "Vereinte Nationen", subtitle: "UN gegründet", desc: "Die UN wird gegründet, um künftige Kriege zu verhindern.", cat: "politik", imp: 2 },
+            { id: 169, time: 1947, title: "Indien unabhängig", subtitle: "Ende der Kolonialzeit", desc: "Indien und Pakistan werden unabhängig - die Entkolonialisierung beginnt.", cat: "politik", imp: 2 },
+            { id: 170, time: 1948, title: "Menschenrechtserklärung", subtitle: "UN", desc: "Die Allgemeine Erklärung der Menschenrechte wird verabschiedet.", cat: "politik", imp: 1 },
+            { id: 171, time: 1948, title: "Gründung Israels", subtitle: "Naher Osten", desc: "Der Staat Israel wird ausgerufen - der Beginn des Nahostkonflikts.", cat: "politik", imp: 2 },
+            { id: 172, time: 1949, title: "NATO gegründet", subtitle: "Westliche Allianz", desc: "Das nordatlantische Verteidigungsbündnis entsteht.", cat: "politik", imp: 2 },
+            { id: 173, time: 1949, title: "Volksrepublik China", subtitle: "Mao Zedong", desc: "Die Kommunisten siegen im Bürgerkrieg - China wird kommunistisch.", cat: "politik", imp: 1 },
+            { id: 174, time: 1950, title: "Koreakrieg", subtitle: "Kalter Krieg wird heiß", desc: "Der erste Stellvertreterkrieg des Kalten Krieges beginnt.", cat: "ereignis", imp: 2 },
+            { id: 175, time: 1953, title: "DNA-Struktur", subtitle: "Watson & Crick", desc: "Die Doppelhelix-Struktur der DNA wird entdeckt - das Geheimnis des Lebens.", cat: "wissenschaft", imp: 1 },
+            { id: 176, time: 1954, title: "Rock 'n' Roll", subtitle: "Elvis Presley", desc: "Elvis' erste Aufnahmen - die Geburt einer Jugendkultur.", cat: "kultur", imp: 2 },
+            { id: 177, time: 1955, title: "Rosa Parks", subtitle: "Bürgerrechtsbewegung", desc: "Rosa Parks weigert sich aufzustehen - der Montgomery Bus Boycott beginnt.", cat: "politik", imp: 2 },
+            { id: 178, time: 1957, title: "Sputnik", subtitle: "Erster Satellit", desc: "Die Sowjetunion schießt den ersten Satelliten ins All - das Weltraumzeitalter beginnt.", cat: "wissenschaft", imp: 1 },
+            { id: 179, time: 1957, title: "Römische Verträge", subtitle: "EWG gegründet", desc: "Die Europäische Wirtschaftsgemeinschaft wird gegründet - Grundstein der EU.", cat: "politik", imp: 2 },
+            { id: 180, time: 1959, title: "Kubanische Revolution", subtitle: "Castro siegt", desc: "Fidel Castro stürzt Batista - Kuba wird kommunistisch.", cat: "politik", imp: 2 },
+            { id: 181, time: 1961, title: "Berliner Mauer", subtitle: "Teilung Deutschlands", desc: "Die Mauer teilt Berlin und symbolisiert den Eisernen Vorhang.", cat: "ereignis", imp: 1 },
+            { id: 182, time: 1961, title: "Gagarin im All", subtitle: "Erster Mensch", desc: "Juri Gagarin umrundet als erster Mensch die Erde.", cat: "wissenschaft", imp: 1 },
+            { id: 183, time: 1962, title: "Kubakrise", subtitle: "Am Rand des Atomkriegs", desc: "Die Welt steht am Rand der nuklearen Vernichtung.", cat: "ereignis", imp: 1 },
+            { id: 184, time: 1962, title: "Marilyn Monroe stirbt", subtitle: "Hollywood-Ikone", desc: "Der mysteriöse Tod der größten Filmikone ihrer Zeit.", cat: "person", imp: 3 },
+            { id: 185, time: 1963, title: "Kennedy ermordet", subtitle: "Dallas", desc: "JFK wird erschossen - ein Trauma für Amerika.", cat: "ereignis", imp: 1 },
+            { id: 186, time: 1963, title: "I Have a Dream", subtitle: "Martin Luther King", desc: "Kings historische Rede beim Marsch auf Washington.", cat: "politik", imp: 1 },
+            { id: 187, time: 1964, title: "Beatles in Amerika", subtitle: "British Invasion", desc: "Die Beatles erobern Amerika - die Musikwelt verändert sich.", cat: "kultur", imp: 2 },
+            { id: 188, time: 1965, title: "Vietnamkrieg eskaliert", subtitle: "US-Bodentruppen", desc: "Amerika verstrickt sich tiefer in den Vietnamkrieg.", cat: "ereignis", imp: 2 },
+            { id: 189, time: 1968, title: "MLK ermordet", subtitle: "Memphis", desc: "Martin Luther King wird erschossen - Unruhen erschüttern Amerika.", cat: "ereignis", imp: 1 },
+            { id: 190, time: 1968, title: "68er-Bewegung", subtitle: "Weltweite Proteste", desc: "Studentenproteste erschüttern Paris, Berlin, Prag und die Welt.", cat: "politik", imp: 2 },
+            { id: 191, time: 1969, title: "Mondlandung", subtitle: "Apollo 11", desc: "'Ein kleiner Schritt für einen Menschen...' - der Mensch betritt den Mond.", cat: "wissenschaft", imp: 1 },
+            { id: 192, time: 1969, title: "Woodstock", subtitle: "Festival", desc: "Das legendäre Festival definiert eine Generation.", cat: "kultur", imp: 2 },
+            { id: 193, time: 1971, title: "Ende des Goldstandards", subtitle: "Nixon-Schock", desc: "Der Dollar ist nicht mehr durch Gold gedeckt - das Ende von Bretton Woods.", cat: "politik", imp: 3 },
+            { id: 194, time: 1973, title: "Ölkrise", subtitle: "OPEC-Embargo", desc: "Die Ölkrise erschüttert die westlichen Volkswirtschaften.", cat: "ereignis", imp: 2 },
+            { id: 195, time: 1974, title: "Nixon tritt zurück", subtitle: "Watergate", desc: "Der Watergate-Skandal zwingt Nixon zum Rücktritt.", cat: "politik", imp: 2 },
+            { id: 196, time: 1975, title: "Ende Vietnamkrieg", subtitle: "Fall Saigons", desc: "Der letzte Hubschrauber verlässt Saigon - Amerika hat verloren.", cat: "ereignis", imp: 2 },
+            { id: 197, time: 1976, title: "Apple gegründet", subtitle: "Jobs & Wozniak", desc: "In einer Garage beginnt die Personal-Computer-Revolution.", cat: "wissenschaft", imp: 2 },
+            { id: 198, time: 1977, title: "Star Wars", subtitle: "George Lucas", desc: "Der Film verändert Hollywood und die Popkultur für immer.", cat: "kultur", imp: 2 },
+            { id: 199, time: 1979, title: "Iranische Revolution", subtitle: "Khomeini", desc: "Der Schah wird gestürzt - Iran wird zur Islamischen Republik.", cat: "politik", imp: 2 },
+            { id: 200, time: 1981, title: "AIDS identifiziert", subtitle: "Pandemie beginnt", desc: "Die erste AIDS-Fälle werden erkannt - eine neue Seuche.", cat: "wissenschaft", imp: 2 },
+            { id: 201, time: 1981, title: "IBM PC", subtitle: "Personal Computer", desc: "Der IBM PC wird zum Standard - Computer für jeden.", cat: "wissenschaft", imp: 2 },
+            { id: 202, time: 1985, title: "Gorbatschow", subtitle: "Glasnost & Perestroika", desc: "Der neue sowjetische Führer beginnt Reformen.", cat: "politik", imp: 2 },
+            { id: 203, time: 1986, title: "Tschernobyl", subtitle: "Nuklearkatastrophe", desc: "Der GAU im Atomkraftwerk - die schlimmste Nuklearkatastrophe der Geschichte.", cat: "ereignis", imp: 1 },
+            { id: 204, time: 1989, title: "Tiananmen", subtitle: "Massaker in Peking", desc: "Die chinesische Demokratiebewegung wird brutal niedergeschlagen.", cat: "ereignis", imp: 2 },
+            { id: 205, time: 1989, title: "Mauerfall", subtitle: "9. November", desc: "Die Berliner Mauer fällt - das Ende des Kalten Krieges beginnt.", cat: "ereignis", imp: 1 },
+            { id: 206, time: 1990, title: "Deutsche Einheit", subtitle: "3. Oktober", desc: "Deutschland ist nach 45 Jahren wieder vereint.", cat: "politik", imp: 2 },
+            { id: 207, time: 1990, title: "Hubble-Teleskop", subtitle: "Weltraumteleskop", desc: "Das Teleskop revolutioniert unseren Blick ins All.", cat: "wissenschaft", imp: 2 },
+            { id: 208, time: 1991, title: "Ende der UdSSR", subtitle: "Kalter Krieg vorbei", desc: "Die Sowjetunion löst sich auf - das Ende einer Supermacht.", cat: "politik", imp: 1 },
+            { id: 209, time: 1991, title: "World Wide Web", subtitle: "Tim Berners-Lee", desc: "Das WWW wird öffentlich - der Beginn des Internet-Zeitalters.", cat: "wissenschaft", imp: 1 },
+            { id: 210, time: 1993, title: "Maastricht-Vertrag", subtitle: "EU gegründet", desc: "Die Europäische Union entsteht.", cat: "politik", imp: 2 },
+            { id: 211, time: 1994, title: "Mandela Präsident", subtitle: "Ende der Apartheid", desc: "Nelson Mandela wird der erste schwarze Präsident Südafrikas.", cat: "politik", imp: 1 },
+            { id: 212, time: 1997, title: "Dolly das Schaf", subtitle: "Erstes Klon-Säugetier", desc: "Das erste geklonte Säugetier wirft ethische Fragen auf.", cat: "wissenschaft", imp: 2 },
+            { id: 213, time: 1997, title: "Prinzessin Diana stirbt", subtitle: "Paris", desc: "Der tragische Unfalltod erschüttert die Welt.", cat: "ereignis", imp: 2 },
+            { id: 214, time: 1998, title: "Google gegründet", subtitle: "Suchmaschine", desc: "Page und Brin gründen Google - die Informationsrevolution.", cat: "wissenschaft", imp: 2 },
 
             // 21st Century
-            { id: 120, time: 2001, title: "9/11", subtitle: "Terror", desc: "Die Anschläge auf das WTC.", cat: "ereignis", imp: 1 },
-            { id: 121, time: 2007, title: "iPhone", subtitle: "Smartphones", desc: "Apple revolutioniert die Kommunikation.", cat: "wissenschaft", imp: 1 },
-            { id: 122, time: 2008, title: "Finanzkrise", subtitle: "Lehman Brothers", desc: "Größte Wirtschaftskrise seit 1929.", cat: "ereignis", imp: 1 },
-            { id: 123, time: 2011, title: "Arabischer Frühling", subtitle: "Revolutionen", desc: "Aufstände erschüttern die arabische Welt.", cat: "politik", imp: 2 },
-            { id: 124, time: 2020, title: "COVID-19", subtitle: "Pandemie", desc: "Das Coronavirus legt die Welt lahm.", cat: "ereignis", imp: 1 },
-            { id: 125, time: 2022, title: "Ukraine-Krieg", subtitle: "Invasion", desc: "Russland greift die Ukraine an.", cat: "ereignis", imp: 1 },
-            { id: 126, time: 2023, title: "ChatGPT", subtitle: "KI-Revolution", desc: "Künstliche Intelligenz wird Mainstream.", cat: "wissenschaft", imp: 1 }
+            { id: 215, time: 2001, title: "9/11", subtitle: "Terroranschläge", desc: "Die Anschläge auf das World Trade Center verändern die Welt.", cat: "ereignis", imp: 1 },
+            { id: 216, time: 2001, title: "Wikipedia", subtitle: "Freies Wissen", desc: "Die freie Enzyklopädie wird gestartet.", cat: "wissenschaft", imp: 3 },
+            { id: 217, time: 2003, title: "Irakkrieg", subtitle: "Sturz Saddams", desc: "Die USA stürzen Saddam Hussein - ein kontroverser Krieg.", cat: "ereignis", imp: 2 },
+            { id: 218, time: 2004, title: "Facebook", subtitle: "Social Media", desc: "Mark Zuckerberg gründet Facebook - soziale Medien entstehen.", cat: "wissenschaft", imp: 2 },
+            { id: 219, time: 2004, title: "Tsunami Asien", subtitle: "230.000 Tote", desc: "Eine der tödlichsten Naturkatastrophen der Geschichte.", cat: "ereignis", imp: 2 },
+            { id: 220, time: 2007, title: "iPhone", subtitle: "Smartphone-Revolution", desc: "Apple revolutioniert mit dem iPhone die mobile Kommunikation.", cat: "wissenschaft", imp: 1 },
+            { id: 221, time: 2008, title: "Finanzkrise", subtitle: "Lehman Brothers", desc: "Die größte Wirtschaftskrise seit 1929 erschüttert die Welt.", cat: "ereignis", imp: 1 },
+            { id: 222, time: 2008, title: "Obama gewählt", subtitle: "Erster schwarzer Präsident", desc: "Barack Obama wird als erster Afroamerikaner US-Präsident.", cat: "politik", imp: 2 },
+            { id: 223, time: 2010, title: "Arabischer Frühling", subtitle: "Revolutionen beginnen", desc: "Protestwellen erfassen die arabische Welt.", cat: "politik", imp: 2 },
+            { id: 224, time: 2011, title: "Fukushima", subtitle: "Nuklearkatastrophe", desc: "Ein Tsunami löst die schlimmste Nuklearkatastrophe seit Tschernobyl aus.", cat: "ereignis", imp: 2 },
+            { id: 225, time: 2011, title: "Bin Laden getötet", subtitle: "US-Operation", desc: "Der Anführer von Al-Qaida wird in Pakistan getötet.", cat: "ereignis", imp: 2 },
+            { id: 226, time: 2012, title: "Higgs-Boson", subtitle: "CERN", desc: "Das 'Gottesteilchen' wird am CERN nachgewiesen.", cat: "wissenschaft", imp: 2 },
+            { id: 227, time: 2013, title: "Snowden-Enthüllungen", subtitle: "NSA-Überwachung", desc: "Edward Snowden enthüllt das Ausmaß der globalen Überwachung.", cat: "politik", imp: 2 },
+            { id: 228, time: 2014, title: "Krim-Annexion", subtitle: "Russland", desc: "Russland annektiert die Krim - eine neue Ära der Konfrontation.", cat: "politik", imp: 2 },
+            { id: 229, time: 2015, title: "Flüchtlingskrise", subtitle: "Europa", desc: "Millionen Flüchtlinge kommen nach Europa.", cat: "ereignis", imp: 2 },
+            { id: 230, time: 2015, title: "Pariser Klimaabkommen", subtitle: "COP21", desc: "195 Staaten einigen sich auf Klimaziele.", cat: "politik", imp: 2 },
+            { id: 231, time: 2016, title: "Brexit", subtitle: "UK verlässt EU", desc: "Großbritannien stimmt für den Austritt aus der EU.", cat: "politik", imp: 2 },
+            { id: 232, time: 2016, title: "Trump gewählt", subtitle: "US-Präsident", desc: "Donald Trump wird überraschend zum US-Präsidenten gewählt.", cat: "politik", imp: 2 },
+            { id: 233, time: 2017, title: "Gravitationswellen", subtitle: "LIGO", desc: "Erstmals werden Gravitationswellen direkt nachgewiesen - Einstein bestätigt.", cat: "wissenschaft", imp: 2 },
+            { id: 234, time: 2019, title: "Erstes Bild Schwarzes Loch", subtitle: "Event Horizon", desc: "Das erste Foto eines schwarzen Lochs wird veröffentlicht.", cat: "wissenschaft", imp: 2 },
+            { id: 235, time: 2020, title: "COVID-19", subtitle: "Pandemie", desc: "Das Coronavirus legt die Welt lahm - die größte Pandemie seit 1918.", cat: "ereignis", imp: 1 },
+            { id: 236, time: 2020, title: "George Floyd", subtitle: "Black Lives Matter", desc: "Sein Tod löst weltweite Proteste gegen Rassismus aus.", cat: "ereignis", imp: 2 },
+            { id: 237, time: 2021, title: "Sturm auf das Kapitol", subtitle: "6. Januar", desc: "Trump-Anhänger stürmen das US-Kapitol.", cat: "ereignis", imp: 2 },
+            { id: 238, time: 2021, title: "Taliban übernehmen", subtitle: "Afghanistan", desc: "Nach 20 Jahren Krieg übernehmen die Taliban erneut die Macht.", cat: "politik", imp: 2 },
+            { id: 239, time: 2022, title: "Ukraine-Krieg", subtitle: "Russische Invasion", desc: "Russland greift die Ukraine an - der größte Krieg in Europa seit 1945.", cat: "ereignis", imp: 1 },
+            { id: 240, time: 2022, title: "James Webb Teleskop", subtitle: "Erste Bilder", desc: "Das leistungsstärkste Weltraumteleskop zeigt das frühe Universum.", cat: "wissenschaft", imp: 2 },
+            { id: 241, time: 2022, title: "Queen Elizabeth II. stirbt", subtitle: "70 Jahre Herrschaft", desc: "Die am längsten regierende britische Monarchin stirbt mit 96.", cat: "person", imp: 2 },
+            { id: 242, time: 2023, title: "ChatGPT", subtitle: "KI-Revolution", desc: "Künstliche Intelligenz wird Mainstream - eine neue Ära beginnt.", cat: "wissenschaft", imp: 1 },
+            { id: 243, time: 2023, title: "Hamas-Angriff", subtitle: "Nahostkonflikt", desc: "Der überraschende Angriff löst einen neuen Krieg in Gaza aus.", cat: "ereignis", imp: 2 },
+            { id: 244, time: 2024, title: "Superwahljahr", subtitle: "Globale Wahlen", desc: "In über 60 Ländern finden Wahlen statt - die Hälfte der Menschheit wählt.", cat: "politik", imp: 2 }
         ];
 
         // ============================================
@@ -1202,6 +1713,18 @@
         let lastDragTime = 0;
         let animationFrame = null;
         let highlightedEventId = null;
+        let apiKey = localStorage.getItem('openai_api_key') || '';
+        let aiGeneratedEvents = JSON.parse(localStorage.getItem('ai_events') || '[]');
+        let nextEventId = 1000;
+
+        // Quiz state
+        let quizState = {
+            active: false,
+            questions: [],
+            currentQuestion: 0,
+            score: 0,
+            answered: false
+        };
 
         // ============================================
         // DOM
@@ -1215,14 +1738,21 @@
         const searchContainer = document.getElementById('searchContainer');
         const searchInput = document.getElementById('searchInput');
         const searchResults = document.getElementById('searchResults');
+        const toast = document.getElementById('toast');
 
         // ============================================
         // INIT
         // ============================================
         function init() {
+            // Load AI events
+            events = [...events, ...aiGeneratedEvents];
+            nextEventId = Math.max(...events.map(e => e.id)) + 1;
+
             buildEpochs();
             buildEvents();
             bindEvents();
+            updateApiKeyStatus();
+            updateStats();
             update();
             setTimeout(() => loading.classList.add('hidden'), 300);
         }
@@ -1247,7 +1777,6 @@
                     e.stopPropagation();
                     showPanel(ep, 'epoch');
                 });
-
                 const rowEl = epochRows.querySelector(`[data-row="${ep.row}"]`);
                 if (rowEl) rowEl.appendChild(bar);
             });
@@ -1263,7 +1792,6 @@
             sortedEvents.forEach(ev => {
                 let bestRow = 0;
                 let minEnd = rowEndTimes[0];
-
                 for (let r = 0; r < rowEndTimes.length; r++) {
                     if (rowEndTimes[r] < ev.time) {
                         bestRow = r;
@@ -1274,14 +1802,14 @@
                         bestRow = r;
                     }
                 }
-
                 ev.row = bestRow;
-                rowEndTimes[bestRow] = ev.time + 50; // Buffer
+                rowEndTimes[bestRow] = ev.time + 50;
             });
 
             events.forEach(ev => {
                 const el = document.createElement('div');
                 el.className = 'timeline-event';
+                if (ev.aiGenerated) el.classList.add('ai-generated');
                 el.dataset.id = ev.id;
                 el.dataset.time = ev.time;
                 el.dataset.category = ev.cat;
@@ -1330,7 +1858,6 @@
         function update() {
             const z = zoomLevels[zoomIndex];
 
-            // Clamp center time so we don't go past today
             const minCenter = -13800000000 + z.halfRange;
             const maxCenter = MAX_TIME - z.halfRange;
             centerTime = Math.max(minCenter, Math.min(maxCenter, centerTime));
@@ -1339,7 +1866,6 @@
             const viewEnd = Math.min(centerTime + z.halfRange, MAX_TIME);
             const viewRange = viewEnd - viewStart;
 
-            // Update header
             document.getElementById('currentTime').textContent = formatTimeDisplay(centerTime);
             document.getElementById('zoomInfo').textContent = `±${formatTime(z.halfRange)} sichtbar`;
             document.getElementById('zoomIn').disabled = zoomIndex >= zoomLevels.length - 1;
@@ -1371,15 +1897,13 @@
                 const imp = +el.dataset.importance;
                 const cat = el.dataset.category;
                 const id = +el.dataset.id;
-
                 const inRange = time >= viewStart && time <= viewEnd;
                 const impOk = imp <= z.maxImp;
                 const catOk = categories.has(cat);
                 const isHighlighted = id === highlightedEventId;
-
                 const left = ((time - viewStart) / viewRange) * 100;
-                el.style.left = `${left}%`;
 
+                el.style.left = `${left}%`;
                 el.classList.toggle('highlight', isHighlighted);
 
                 if ((inRange && impOk && catOk) || isHighlighted) {
@@ -1451,23 +1975,21 @@
             const q = query.toLowerCase();
             const results = [];
 
-            // Search events
             events.forEach(ev => {
-                if (ev.title.toLowerCase().includes(q) ||
-                    ev.subtitle.toLowerCase().includes(q) ||
-                    ev.desc.toLowerCase().includes(q)) {
-                    results.push({ type: 'event', item: ev });
+                const score = calculateSearchScore(ev, q);
+                if (score > 0) {
+                    results.push({ type: 'event', item: ev, score });
                 }
             });
 
-            // Search epochs
             epochs.forEach(ep => {
                 if (ep.title.toLowerCase().includes(q)) {
-                    results.push({ type: 'epoch', item: ep });
+                    results.push({ type: 'epoch', item: ep, score: 10 });
                 }
             });
 
-            // Render results
+            results.sort((a, b) => b.score - a.score);
+
             if (results.length === 0) {
                 searchResults.innerHTML = '<div class="search-no-results">Keine Ergebnisse gefunden</div>';
             } else {
@@ -1477,10 +1999,10 @@
                         ? `${formatTime(item.start)} - ${formatTime(item.end)}`
                         : formatTime(item.time);
                     const cat = r.type === 'epoch' ? 'Epoche' : catName(item.cat);
-
+                    const aiIcon = item.aiGenerated ? ' ✨' : '';
                     return `
                         <div class="search-result" data-type="${r.type}" data-id="${item.id}">
-                            <div class="search-result-title">${item.title}</div>
+                            <div class="search-result-title">${item.title}${aiIcon}</div>
                             <div class="search-result-meta">
                                 <span>${time}</span>
                                 <span class="search-result-cat">${cat}</span>
@@ -1489,8 +2011,22 @@
                     `;
                 }).join('');
             }
-
             searchResults.classList.add('active');
+        }
+
+        function calculateSearchScore(ev, query) {
+            let score = 0;
+            const q = query.toLowerCase();
+
+            if (ev.title.toLowerCase().includes(q)) score += 20;
+            if (ev.title.toLowerCase().startsWith(q)) score += 10;
+            if (ev.subtitle && ev.subtitle.toLowerCase().includes(q)) score += 10;
+            if (ev.desc && ev.desc.toLowerCase().includes(q)) score += 5;
+
+            // Boost important events
+            if (score > 0) score += (4 - ev.imp) * 2;
+
+            return score;
         }
 
         function handleSearchResultClick(e) {
@@ -1499,7 +2035,6 @@
 
             const type = result.dataset.type;
             const id = result.dataset.id;
-
             closeSearch();
 
             if (type === 'event') {
@@ -1532,7 +2067,8 @@
                 cat.textContent = 'Epoche';
                 cat.style.background = item.color;
             } else {
-                document.getElementById('infoTime').textContent = formatTime(item.time);
+                document.getElementById('infoTime').innerHTML = formatTime(item.time) +
+                    (item.aiGenerated ? '<span class="info-ai-badge">✨ KI</span>' : '');
                 document.getElementById('infoTitle').textContent = item.title;
                 document.getElementById('infoSubtitle').textContent = item.subtitle || '';
                 document.getElementById('infoDescription').textContent = item.desc || '';
@@ -1591,8 +2127,8 @@
             const duration = 500;
             const startTs = performance.now();
 
-            // Adjust zoom
             const targetTime = Math.min(t, MAX_TIME);
+
             if (Math.abs(targetTime) > 1e8) zoomIndex = Math.min(2, zoomIndex);
             else if (Math.abs(targetTime) > 1e6) zoomIndex = Math.max(3, Math.min(4, zoomIndex));
             else if (Math.abs(targetTime) > 5000) zoomIndex = Math.max(5, Math.min(6, zoomIndex));
@@ -1602,10 +2138,8 @@
                 const elapsed = ts - startTs;
                 const progress = Math.min(elapsed / duration, 1);
                 const eased = 1 - Math.pow(1 - progress, 3);
-
                 centerTime = startTime + (targetTime - startTime) * eased;
                 update();
-
                 if (progress < 1) requestAnimationFrame(animate);
             }
             requestAnimationFrame(animate);
@@ -1621,7 +2155,6 @@
             lastDragX = x;
             lastDragTime = performance.now();
             velocity = 0;
-
             if (animationFrame) {
                 cancelAnimationFrame(animationFrame);
                 animationFrame = null;
@@ -1634,7 +2167,6 @@
             const z = zoomLevels[zoomIndex];
             const viewportWidth = viewport.offsetWidth;
             const timePerPixel = (z.halfRange * 2) / viewportWidth;
-
             const deltaX = dragStartX - x;
             centerTime = dragStartTime + deltaX * timePerPixel;
 
@@ -1645,14 +2177,12 @@
             }
             lastDragX = x;
             lastDragTime = now;
-
             update();
         }
 
         function endDrag() {
             if (!isDragging) return;
             isDragging = false;
-
             if (Math.abs(velocity) > 0.5) {
                 applyMomentum();
             }
@@ -1660,20 +2190,470 @@
 
         function applyMomentum() {
             const friction = 0.92;
-
             function animate() {
                 if (Math.abs(velocity) < 0.5 || isDragging) {
                     animationFrame = null;
                     return;
                 }
-
                 centerTime += velocity;
                 velocity *= friction;
                 update();
-
                 animationFrame = requestAnimationFrame(animate);
             }
             animationFrame = requestAnimationFrame(animate);
+        }
+
+        // ============================================
+        // TOAST
+        // ============================================
+        function showToast(message, type = 'success') {
+            toast.textContent = (type === 'success' ? '✓ ' : '⚠ ') + message;
+            toast.className = `toast ${type} visible`;
+            setTimeout(() => toast.classList.remove('visible'), 3000);
+        }
+
+        // ============================================
+        // SETTINGS
+        // ============================================
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('active');
+            document.getElementById('apiKeyInput').value = apiKey ? '••••••••••••••••' : '';
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        function updateApiKeyStatus() {
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('apiKeyText');
+            const statusContainer = document.getElementById('apiKeyStatus');
+
+            if (apiKey) {
+                statusDot.className = 'status-dot connected';
+                statusText.textContent = 'API-Key konfiguriert';
+                statusContainer.className = 'api-key-status connected';
+            } else {
+                statusDot.className = 'status-dot disconnected';
+                statusText.textContent = 'Kein API-Key konfiguriert';
+                statusContainer.className = 'api-key-status disconnected';
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('eventCount').textContent = events.length;
+            document.getElementById('aiEventCount').textContent = aiGeneratedEvents.length;
+        }
+
+        function saveApiKey() {
+            const input = document.getElementById('apiKeyInput');
+            const newKey = input.value.trim();
+
+            if (newKey && !newKey.startsWith('••')) {
+                apiKey = newKey;
+                localStorage.setItem('openai_api_key', apiKey);
+                updateApiKeyStatus();
+                showToast('API-Key gespeichert');
+            }
+        }
+
+        function clearApiKey() {
+            apiKey = '';
+            localStorage.removeItem('openai_api_key');
+            document.getElementById('apiKeyInput').value = '';
+            updateApiKeyStatus();
+            showToast('API-Key gelöscht');
+        }
+
+        function clearAiEvents() {
+            aiGeneratedEvents = [];
+            localStorage.setItem('ai_events', '[]');
+            events = events.filter(e => !e.aiGenerated);
+            buildEvents();
+            updateStats();
+            update();
+            showToast('KI-Ereignisse gelöscht');
+        }
+
+        // ============================================
+        // AI GENERATOR
+        // ============================================
+        function openAiModal() {
+            if (!apiKey) {
+                showToast('Bitte zuerst API-Key in den Einstellungen hinzufügen', 'error');
+                openSettings();
+                return;
+            }
+            document.getElementById('aiModal').classList.add('active');
+            document.getElementById('aiPrompt').value = '';
+            document.getElementById('aiModalBody').innerHTML = getAiFormHtml();
+            bindAiFormEvents();
+        }
+
+        function closeAiModal() {
+            document.getElementById('aiModal').classList.remove('active');
+        }
+
+        function getAiFormHtml() {
+            return `
+                <div class="ai-prompt-area">
+                    <div class="form-group">
+                        <label class="form-label">Beschreibe das Ereignis, das du hinzufügen möchtest</label>
+                        <textarea class="form-textarea" id="aiPrompt" placeholder="z.B. 'Die Erfindung des Telefons' oder 'Leben von Marie Curie' oder 'Wichtige Ereignisse der Französischen Revolution'"></textarea>
+                    </div>
+                    <div class="ai-suggestions">
+                        <button class="ai-suggestion" data-prompt="Die wichtigsten Erfindungen des 20. Jahrhunderts">Erfindungen 20. Jh.</button>
+                        <button class="ai-suggestion" data-prompt="Berühmte Wissenschaftlerinnen der Geschichte">Wissenschaftlerinnen</button>
+                        <button class="ai-suggestion" data-prompt="Die Geschichte der Raumfahrt">Raumfahrt</button>
+                        <button class="ai-suggestion" data-prompt="Wichtige Kunstbewegungen">Kunstbewegungen</button>
+                        <button class="ai-suggestion" data-prompt="Die Geschichte des Internets">Internet</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Anzahl Ereignisse</label>
+                    <select class="form-select" id="aiCount">
+                        <option value="1">1 Ereignis</option>
+                        <option value="3" selected>3 Ereignisse</option>
+                        <option value="5">5 Ereignisse</option>
+                        <option value="10">10 Ereignisse</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-full" id="generateAi">
+                    ✨ Mit KI generieren
+                </button>
+                <p class="form-hint" style="margin-top: 8px; text-align: center;">
+                    Verwendet OpenAI GPT-4o-mini für die Generierung.
+                </p>
+            `;
+        }
+
+        function bindAiFormEvents() {
+            document.getElementById('generateAi')?.addEventListener('click', generateWithAi);
+            document.querySelectorAll('.ai-suggestion').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('aiPrompt').value = btn.dataset.prompt;
+                });
+            });
+        }
+
+        async function generateWithAi() {
+            const prompt = document.getElementById('aiPrompt').value.trim();
+            const count = document.getElementById('aiCount').value;
+
+            if (!prompt) {
+                showToast('Bitte Beschreibung eingeben', 'error');
+                return;
+            }
+
+            document.getElementById('aiModalBody').innerHTML = `
+                <div class="ai-loading">
+                    <div class="ai-loading-spinner"></div>
+                    <div class="ai-loading-text">Generiere ${count} Ereignis(se)...</div>
+                </div>
+            `;
+
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4o-mini',
+                        messages: [{
+                            role: 'system',
+                            content: `Du bist ein Historiker, der präzise historische Ereignisse im JSON-Format liefert. Antworte NUR mit validem JSON ohne Markdown-Formatierung.`
+                        }, {
+                            role: 'user',
+                            content: `Erstelle ${count} historische(s) Ereignis(se) zum Thema: "${prompt}".
+
+Format für JEDES Ereignis:
+{
+  "time": <Jahr als Zahl, negative Werte für v.Chr.>,
+  "title": "<Kurzer Titel, max 30 Zeichen>",
+  "subtitle": "<Untertitel, max 25 Zeichen>",
+  "desc": "<Beschreibung, 50-150 Zeichen>",
+  "cat": "<ereignis|wissenschaft|kultur|politik|person>",
+  "imp": <1=sehr wichtig, 2=wichtig, 3=interessant>
+}
+
+Antworte mit einem JSON-Array: [...]`
+                        }],
+                        temperature: 0.7,
+                        max_tokens: 2000
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Fehler: ${response.status}`);
+                }
+
+                const data = await response.json();
+                let content = data.choices[0].message.content;
+
+                // Clean up response
+                content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+                const newEvents = JSON.parse(content);
+
+                if (!Array.isArray(newEvents) || newEvents.length === 0) {
+                    throw new Error('Ungültige Antwort');
+                }
+
+                // Add events
+                const addedEvents = [];
+                newEvents.forEach(ev => {
+                    const newEvent = {
+                        id: nextEventId++,
+                        time: ev.time,
+                        title: ev.title,
+                        subtitle: ev.subtitle,
+                        desc: ev.desc,
+                        cat: ev.cat || 'ereignis',
+                        imp: ev.imp || 2,
+                        aiGenerated: true
+                    };
+                    events.push(newEvent);
+                    aiGeneratedEvents.push(newEvent);
+                    addedEvents.push(newEvent);
+                });
+
+                localStorage.setItem('ai_events', JSON.stringify(aiGeneratedEvents));
+                buildEvents();
+                updateStats();
+                update();
+
+                // Show results
+                document.getElementById('aiModalBody').innerHTML = `
+                    <div style="text-align: center; margin-bottom: 16px;">
+                        <div style="font-size: 2rem; margin-bottom: 8px;">✨</div>
+                        <div style="font-size: 1rem; font-weight: 600;">${addedEvents.length} Ereignis(se) hinzugefügt!</div>
+                    </div>
+                    ${addedEvents.map(ev => `
+                        <div class="ai-result">
+                            <div class="ai-result-title">${ev.title}</div>
+                            <div class="ai-result-meta">${formatTime(ev.time)} • ${catName(ev.cat)}</div>
+                            <div class="ai-result-desc">${ev.desc}</div>
+                        </div>
+                    `).join('')}
+                    <button class="btn btn-primary btn-full" onclick="goToTime(${addedEvents[0].time}); closeAiModal();">
+                        Zum ersten Ereignis
+                    </button>
+                    <button class="btn btn-secondary btn-full" style="margin-top: 8px;" onclick="document.getElementById('aiModalBody').innerHTML = getAiFormHtml(); bindAiFormEvents();">
+                        Weitere generieren
+                    </button>
+                `;
+
+                showToast(`${addedEvents.length} Ereignis(se) hinzugefügt`);
+
+            } catch (error) {
+                console.error('AI Error:', error);
+                document.getElementById('aiModalBody').innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 2rem; margin-bottom: 12px;">⚠️</div>
+                        <div style="font-size: 0.85rem; color: var(--error); margin-bottom: 16px;">
+                            Fehler: ${error.message}
+                        </div>
+                        <button class="btn btn-secondary" onclick="document.getElementById('aiModalBody').innerHTML = getAiFormHtml(); bindAiFormEvents();">
+                            Erneut versuchen
+                        </button>
+                    </div>
+                `;
+                showToast('Generierung fehlgeschlagen', 'error');
+            }
+        }
+
+        // ============================================
+        // QUIZ
+        // ============================================
+        function openQuiz() {
+            document.getElementById('quizModal').classList.add('active');
+            startQuiz();
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('active');
+            quizState.active = false;
+        }
+
+        function startQuiz() {
+            // Get important events for quiz
+            const quizEvents = events.filter(e => e.imp <= 2 && e.time > -10000 && e.time <= 2024);
+
+            // Shuffle and pick 10
+            const shuffled = quizEvents.sort(() => Math.random() - 0.5);
+            const selected = shuffled.slice(0, 10);
+
+            quizState = {
+                active: true,
+                questions: selected.map(ev => generateQuestion(ev)),
+                currentQuestion: 0,
+                score: 0,
+                answered: false
+            };
+
+            renderQuiz();
+        }
+
+        function generateQuestion(event) {
+            const types = ['year', 'event', 'category'];
+            const type = types[Math.floor(Math.random() * types.length)];
+
+            if (type === 'year') {
+                // When did X happen?
+                const correctYear = event.time;
+                const options = [correctYear];
+
+                while (options.length < 4) {
+                    const offset = (Math.random() - 0.5) * Math.abs(correctYear) * 0.3;
+                    const wrongYear = Math.round(correctYear + offset);
+                    if (!options.includes(wrongYear) && wrongYear <= 2024) {
+                        options.push(wrongYear);
+                    }
+                }
+
+                options.sort((a, b) => a - b);
+
+                return {
+                    question: `Wann war "${event.title}"?`,
+                    hint: event.subtitle,
+                    options: options.map(y => formatTime(y)),
+                    correct: options.indexOf(correctYear),
+                    event: event
+                };
+            } else if (type === 'event') {
+                // What happened in year X?
+                const year = event.time;
+                const sameEra = events.filter(e =>
+                    Math.abs(e.time - year) < Math.abs(year) * 0.5 &&
+                    e.id !== event.id &&
+                    e.imp <= 2
+                );
+
+                const wrongEvents = sameEra.sort(() => Math.random() - 0.5).slice(0, 3);
+                const options = [event, ...wrongEvents].sort(() => Math.random() - 0.5);
+
+                if (options.length < 4) {
+                    // Fallback to year question
+                    return generateQuestion(event);
+                }
+
+                return {
+                    question: `Was geschah im Jahr ${formatTime(year)}?`,
+                    hint: event.cat ? catName(event.cat) : null,
+                    options: options.map(e => e.title),
+                    correct: options.indexOf(event),
+                    event: event
+                };
+            } else {
+                // What category?
+                const cats = ['ereignis', 'wissenschaft', 'kultur', 'politik', 'person'];
+                const options = [...cats].sort(() => Math.random() - 0.5);
+
+                return {
+                    question: `Zu welcher Kategorie gehört "${event.title}"?`,
+                    hint: `${formatTime(event.time)} - ${event.subtitle}`,
+                    options: options.map(c => catName(c)),
+                    correct: options.indexOf(event.cat),
+                    event: event
+                };
+            }
+        }
+
+        function renderQuiz() {
+            const body = document.getElementById('quizModalBody');
+
+            if (quizState.currentQuestion >= quizState.questions.length) {
+                // Show results
+                const percentage = Math.round((quizState.score / quizState.questions.length) * 100);
+                let emoji, text;
+
+                if (percentage >= 80) {
+                    emoji = '🏆';
+                    text = 'Ausgezeichnet! Du bist ein Geschichtsexperte!';
+                } else if (percentage >= 60) {
+                    emoji = '🎉';
+                    text = 'Gut gemacht! Du kennst dich gut aus.';
+                } else if (percentage >= 40) {
+                    emoji = '📚';
+                    text = 'Nicht schlecht! Weiter lernen lohnt sich.';
+                } else {
+                    emoji = '🤔';
+                    text = 'Geschichte kann so spannend sein - probier es nochmal!';
+                }
+
+                body.innerHTML = `
+                    <div class="quiz-result">
+                        <div class="quiz-result-icon">${emoji}</div>
+                        <div class="quiz-result-title">Quiz beendet!</div>
+                        <div class="quiz-result-score">${quizState.score}/${quizState.questions.length}</div>
+                        <div class="quiz-result-text">${text}</div>
+                        <button class="btn btn-primary btn-full" onclick="startQuiz()">
+                            🔄 Nochmal spielen
+                        </button>
+                        <button class="btn btn-secondary btn-full" style="margin-top: 8px;" onclick="closeQuiz()">
+                            Schließen
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = quizState.questions[quizState.currentQuestion];
+            const progress = ((quizState.currentQuestion) / quizState.questions.length) * 100;
+
+            body.innerHTML = `
+                <div class="quiz-container">
+                    <div class="quiz-progress">
+                        <div class="quiz-progress-bar">
+                            <div class="quiz-progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                        <span class="quiz-progress-text">${quizState.currentQuestion + 1}/${quizState.questions.length}</span>
+                        <span class="quiz-score">⭐ ${quizState.score}</span>
+                    </div>
+                    <div class="quiz-question">${q.question}</div>
+                    ${q.hint ? `<div class="quiz-hint">💡 ${q.hint}</div>` : ''}
+                    <div class="quiz-options">
+                        ${q.options.map((opt, i) => `
+                            <button class="quiz-option" data-index="${i}">${opt}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Bind option clicks
+            body.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.addEventListener('click', () => answerQuiz(parseInt(btn.dataset.index)));
+            });
+        }
+
+        function answerQuiz(index) {
+            if (quizState.answered) return;
+            quizState.answered = true;
+
+            const q = quizState.questions[quizState.currentQuestion];
+            const buttons = document.querySelectorAll('.quiz-option');
+
+            buttons.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === q.correct) {
+                    btn.classList.add('correct');
+                } else if (i === index) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            if (index === q.correct) {
+                quizState.score++;
+            }
+
+            // Show next question after delay
+            setTimeout(() => {
+                quizState.currentQuestion++;
+                quizState.answered = false;
+                renderQuiz();
+            }, 1500);
         }
 
         // ============================================
@@ -1692,6 +2672,21 @@
 
             // Info panel
             document.getElementById('closeInfo').addEventListener('click', hidePanel);
+
+            // Settings
+            document.getElementById('settingsBtn').addEventListener('click', openSettings);
+            document.getElementById('closeSettings').addEventListener('click', closeSettings);
+            document.getElementById('saveApiKey').addEventListener('click', saveApiKey);
+            document.getElementById('clearApiKey').addEventListener('click', clearApiKey);
+            document.getElementById('clearAiEvents').addEventListener('click', clearAiEvents);
+
+            // AI
+            document.getElementById('aiBtn').addEventListener('click', openAiModal);
+            document.getElementById('closeAi').addEventListener('click', closeAiModal);
+
+            // Quiz
+            document.getElementById('quizBtn').addEventListener('click', openQuiz);
+            document.getElementById('closeQuiz').addEventListener('click', closeQuiz);
 
             // Navigation buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1739,12 +2734,15 @@
 
             // Keyboard
             document.addEventListener('keydown', (e) => {
-                if (searchContainer.classList.contains('active')) {
-                    if (e.key === 'Escape') closeSearch();
-                    return;
-                }
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-                if (e.key === 'Escape') hidePanel();
+                if (e.key === 'Escape') {
+                    closeSearch();
+                    closeSettings();
+                    closeAiModal();
+                    closeQuiz();
+                    hidePanel();
+                }
                 if (e.key === '+' || e.key === '=') zoomIn();
                 if (e.key === '-') zoomOut();
                 if (e.key === 'ArrowLeft') {
@@ -1761,17 +2759,35 @@
                 }
             });
 
-            // Click outside
+            // Click outside modals
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+
+            // Click outside info panel
             document.addEventListener('click', (e) => {
                 if (infoPanel.classList.contains('visible') &&
                     !e.target.closest('.info-panel') &&
                     !e.target.closest('.timeline-event') &&
                     !e.target.closest('.epoch-bar') &&
-                    !e.target.closest('.nav-btn')) {
+                    !e.target.closest('.nav-btn') &&
+                    !e.target.closest('.search-result')) {
                     hidePanel();
                 }
             });
         }
+
+        // Make functions available globally for onclick handlers
+        window.goToTime = goToTime;
+        window.closeAiModal = closeAiModal;
+        window.getAiFormHtml = getAiFormHtml;
+        window.bindAiFormEvents = bindAiFormEvents;
+        window.startQuiz = startQuiz;
+        window.closeQuiz = closeQuiz;
 
         // Start
         init();
