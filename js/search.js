@@ -1,104 +1,134 @@
-// Chronicle — search overlay: query scoring and result navigation.
+// Chronicle — search overlay: weighted scoring, keyboard navigation.
 
-        // ============================================
-        // SEARCH
-        // ============================================
-        function openSearch() {
-            searchContainer.classList.add('active');
-            searchInput.focus();
-        }
+import { epochs, catName, MAX_TIME } from './data.js';
+import { state } from './store.js';
+import { formatTime } from './time.js';
+import { escapeHtml } from './ui.js';
+import { showPanel } from './panel.js';
 
-        function closeSearch() {
-            searchContainer.classList.remove('active');
-            searchResults.classList.remove('active');
-            searchInput.value = '';
-        }
+let goTo = null;      // injected from main.js to avoid a module cycle
+let results = [];
+let selectedIndex = -1;
 
-        function performSearch(query) {
-            if (!query.trim()) {
-                searchResults.classList.remove('active');
-                return;
-            }
+const container = () => document.getElementById('searchContainer');
+const input = () => document.getElementById('searchInput');
+const resultsEl = () => document.getElementById('searchResults');
 
-            const q = query.toLowerCase();
-            const results = [];
+export function initSearch(goToFn) {
+    goTo = goToFn;
+    document.getElementById('searchBtn').addEventListener('click', openSearch);
+    document.getElementById('searchClose').addEventListener('click', closeSearch);
+    input().addEventListener('input', e => render(e.target.value));
+    input().addEventListener('keydown', onKey);
+    resultsEl().addEventListener('click', e => {
+        const el = e.target.closest('.search-result');
+        if (el) activate(+el.dataset.index);
+    });
+}
 
-            events.forEach(ev => {
-                const score = calculateSearchScore(ev, q);
-                if (score > 0) {
-                    results.push({ type: 'event', item: ev, score });
-                }
-            });
+export function openSearch() {
+    container().classList.add('active');
+    input().focus();
+}
 
-            epochs.forEach(ep => {
-                if (ep.title.toLowerCase().includes(q)) {
-                    results.push({ type: 'epoch', item: ep, score: 10 });
-                }
-            });
+export function closeSearch() {
+    container().classList.remove('active');
+    resultsEl().classList.remove('active');
+    input().value = '';
+    results = [];
+    selectedIndex = -1;
+}
 
-            results.sort((a, b) => b.score - a.score);
+export function isSearchOpen() {
+    return container().classList.contains('active');
+}
 
-            if (results.length === 0) {
-                searchResults.innerHTML = '<div class="search-no-results">Keine Ergebnisse gefunden</div>';
-            } else {
-                searchResults.innerHTML = results.slice(0, 20).map(r => {
-                    const item = r.item;
-                    const time = r.type === 'epoch'
-                        ? `${formatTime(item.start)} - ${formatTime(item.end)}`
-                        : formatTime(item.time);
-                    const cat = r.type === 'epoch' ? 'Epoche' : catName(item.cat);
-                    const aiIcon = item.aiGenerated ? ' ✨' : '';
-                    return `
-                        <div class="search-result" data-type="${r.type}" data-id="${item.id}">
-                            <div class="search-result-title">${item.title}${aiIcon}</div>
-                            <div class="search-result-meta">
-                                <span>${time}</span>
-                                <span class="search-result-cat">${cat}</span>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-            searchResults.classList.add('active');
-        }
+function score(ev, q) {
+    let s = 0;
+    const title = ev.title.toLowerCase();
+    if (title.includes(q)) s += 20;
+    if (title.startsWith(q)) s += 10;
+    if (ev.subtitle?.toLowerCase().includes(q)) s += 10;
+    if (ev.desc?.toLowerCase().includes(q)) s += 5;
+    if (s > 0) s += (4 - ev.imp) * 2;
+    return s;
+}
 
-        function calculateSearchScore(ev, query) {
-            let score = 0;
-            const q = query.toLowerCase();
+function render(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) {
+        resultsEl().classList.remove('active');
+        results = [];
+        return;
+    }
 
-            if (ev.title.toLowerCase().includes(q)) score += 20;
-            if (ev.title.toLowerCase().startsWith(q)) score += 10;
-            if (ev.subtitle && ev.subtitle.toLowerCase().includes(q)) score += 10;
-            if (ev.desc && ev.desc.toLowerCase().includes(q)) score += 5;
+    results = [];
+    for (const ev of state.events) {
+        const s = score(ev, q);
+        if (s > 0) results.push({ type: 'event', item: ev, score: s });
+    }
+    for (const ep of epochs) {
+        if (ep.title.toLowerCase().includes(q)) results.push({ type: 'epoch', item: ep, score: 10 });
+    }
+    results.sort((a, b) => b.score - a.score);
+    results = results.slice(0, 20);
+    selectedIndex = results.length ? 0 : -1;
 
-            // Boost important events
-            if (score > 0) score += (4 - ev.imp) * 2;
+    resultsEl().innerHTML = results.length === 0
+        ? '<div class="search-no-results">Keine Ergebnisse gefunden</div>'
+        : results.map((r, i) => {
+            const item = r.item;
+            const time = r.type === 'epoch'
+                ? `${formatTime(item.start)} – ${formatTime(Math.min(item.end, MAX_TIME))}`
+                : formatTime(item.time);
+            const cat = r.type === 'epoch' ? 'Epoche' : catName(item.cat);
+            return `
+                <div class="search-result${i === selectedIndex ? ' selected' : ''}" data-index="${i}">
+                    <div class="search-result-title">${escapeHtml(item.title)}${item.aiGenerated ? ' ✨' : ''}</div>
+                    <div class="search-result-meta">
+                        <span>${escapeHtml(time)}</span>
+                        <span class="search-result-cat">${escapeHtml(cat)}</span>
+                    </div>
+                </div>`;
+        }).join('');
+    resultsEl().classList.add('active');
+}
 
-            return score;
-        }
+function onKey(e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!results.length) return;
+        selectedIndex = (selectedIndex + (e.key === 'ArrowDown' ? 1 : -1) + results.length) % results.length;
+        resultsEl().querySelectorAll('.search-result').forEach((el, i) => {
+            el.classList.toggle('selected', i === selectedIndex);
+            if (i === selectedIndex) el.scrollIntoView({ block: 'nearest' });
+        });
+    } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        activate(selectedIndex);
+    }
+}
 
-        function handleSearchResultClick(e) {
-            const result = e.target.closest('.search-result');
-            if (!result) return;
+function activate(i) {
+    const r = results[i];
+    if (!r) return;
+    closeSearch();
+    if (r.type === 'event') {
+        state.highlightedEventId = r.item.id;
+        goTo(r.item.time, targetSpanFor(r.item.time));
+        setTimeout(() => showPanel(r.item, 'event'), 680);
+    } else {
+        const end = Math.min(r.item.end, MAX_TIME);
+        goTo((r.item.start + end) / 2, Math.max(60, (end - r.item.start) * 1.6));
+        setTimeout(() => showPanel(r.item, 'epoch'), 680);
+    }
+}
 
-            const type = result.dataset.type;
-            const id = result.dataset.id;
-            closeSearch();
-
-            if (type === 'event') {
-                const ev = events.find(e => e.id == id);
-                if (ev) {
-                    highlightedEventId = ev.id;
-                    goToTime(ev.time);
-                    setTimeout(() => showPanel(ev, 'event'), 700);
-                }
-            } else {
-                const ep = epochs.find(e => e.id == id);
-                if (ep) {
-                    const midTime = (ep.start + Math.min(ep.end, MAX_TIME)) / 2;
-                    goToTime(midTime);
-                    setTimeout(() => showPanel(ep, 'epoch'), 700);
-                }
-            }
-        }
-
+// A sensible zoom depth for jumping to a single event.
+export function targetSpanFor(time) {
+    const abs = Math.abs(time);
+    if (abs > 1e8) return abs * 1.2;
+    if (abs > 1e6) return 8e6;
+    if (abs > 20000) return 120000;
+    if (abs > 3000) return 8000;
+    return 300;
+}

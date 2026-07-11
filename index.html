@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chronicle - Vom Urknall bis Heute</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <title>Chronicle — Vom Urknall bis Heute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="bg-layer"></div>
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-    </div>
+    <div class="loading" id="loading"><div class="spinner"></div></div>
 
     <!-- Header -->
     <header class="header">
@@ -22,97 +20,82 @@
             </div>
         </div>
         <div class="header-center">
-            <div class="current-time" id="currentTime">2000</div>
-            <div class="zoom-info" id="zoomInfo">±100 Jahre sichtbar</div>
+            <div class="current-time" id="currentTime">1900</div>
+            <div class="zoom-info" id="zoomInfo"></div>
         </div>
         <div class="header-right">
-            <button class="ctrl-btn" id="searchBtn" title="Suchen">🔍</button>
+            <button class="ctrl-btn" id="searchBtn" title="Suchen (/)"​>🔍</button>
             <button class="ctrl-btn" id="quizBtn" title="Quiz">🎯</button>
             <button class="ctrl-btn" id="aiBtn" title="KI hinzufügen">✨</button>
             <button class="ctrl-btn" id="settingsBtn" title="Einstellungen">⚙️</button>
-            <button class="ctrl-btn" id="zoomOut" title="−">−</button>
-            <button class="ctrl-btn" id="zoomIn" title="+">+</button>
+            <button class="ctrl-btn" id="zoomOut" title="Herauszoomen (−)">−</button>
+            <button class="ctrl-btn" id="zoomIn" title="Hineinzoomen (+)">+</button>
         </div>
     </header>
 
-    <!-- Search -->
+    <!-- Search overlay -->
     <div class="search-container" id="searchContainer">
         <div class="search-box">
-            <input type="text" class="search-input" id="searchInput" placeholder="Ereignis, Person, Epoche suchen...">
+            <input type="text" class="search-input" id="searchInput" placeholder="Ereignis, Person, Epoche suchen…">
             <button class="search-close" id="searchClose">✕</button>
         </div>
         <div class="search-results" id="searchResults"></div>
     </div>
 
-    <!-- Filter Bar -->
+    <!-- Category filter -->
     <div class="filter-bar">
-        <button class="cat-btn active" data-category="epoche">
-            <span class="cat-icon">🏛️</span> Epochen
-        </button>
-        <button class="cat-btn active" data-category="ereignis">
-            <span class="cat-icon">⚡</span> Ereignisse
-        </button>
-        <button class="cat-btn active" data-category="wissenschaft">
-            <span class="cat-icon">🔬</span> Wissenschaft
-        </button>
-        <button class="cat-btn active" data-category="kultur">
-            <span class="cat-icon">🎨</span> Kultur
-        </button>
-        <button class="cat-btn active" data-category="politik">
-            <span class="cat-icon">⚖️</span> Politik
-        </button>
-        <button class="cat-btn active" data-category="person">
-            <span class="cat-icon">👤</span> Personen
-        </button>
+        <button class="cat-btn active" data-category="epoche"><span class="cat-icon">🏛️</span> Epochen</button>
+        <button class="cat-btn active" data-category="ereignis"><span class="cat-icon">⚡</span> Ereignisse</button>
+        <button class="cat-btn active" data-category="wissenschaft"><span class="cat-icon">🔬</span> Wissenschaft</button>
+        <button class="cat-btn active" data-category="kultur"><span class="cat-icon">🎨</span> Kultur</button>
+        <button class="cat-btn active" data-category="politik"><span class="cat-icon">⚖️</span> Politik</button>
+        <button class="cat-btn active" data-category="person"><span class="cat-icon">👤</span> Personen</button>
     </div>
 
-    <!-- Timeline -->
-    <main class="timeline-viewport" id="viewport">
-        <div class="center-indicator"></div>
-        <div class="timeline-container">
-            <section class="epochs-area">
-                <div class="epoch-rows" id="epochRows"></div>
-            </section>
-            <section class="axis-area">
-                <div class="timeline-axis"></div>
-                <div class="time-markers" id="timeMarkers"></div>
-            </section>
-            <section class="events-area" id="eventsArea"></section>
-        </div>
+    <!-- Timeline canvas -->
+    <main class="timeline-viewport">
+        <canvas id="timelineCanvas"></canvas>
     </main>
 
-    <!-- Info Panel -->
+    <!-- Quick navigation -->
+    <div class="nav-buttons">
+        <button class="nav-btn" data-goto="-13800000000" data-span="27600000000">🌌 Urknall</button>
+        <button class="nav-btn" data-goto="-66000000" data-span="150000000">🦖 Dinos</button>
+        <button class="nav-btn" data-goto="-3000" data-span="7000">🏛️ Antike</button>
+        <button class="nav-btn" data-goto="1500" data-span="400">🎨 Renaissance</button>
+        <button class="nav-btn" data-goto="1880" data-span="80">🖼️ Impressionismus</button>
+        <button class="nav-btn" data-goto="1943" data-span="40">💣 Weltkriege</button>
+        <button class="nav-btn" data-goto="2000" data-span="60">📱 Heute</button>
+    </div>
+
+    <!-- Minimap: all of time, log-compressed -->
+    <div class="minimap-wrap">
+        <canvas id="minimapCanvas"></canvas>
+        <div class="minimap-labels">
+            <span style="left:0">13,8 Mrd. Jahre</span>
+            <span style="left:11%">1 Mrd.</span>
+            <span style="left:41%">1 Mio.</span>
+            <span style="left:61%">10.000</span>
+            <span style="right:0">Heute</span>
+        </div>
+    </div>
+
+    <!-- Info panel -->
     <aside class="info-panel" id="infoPanel">
-        <div class="info-panel-handle"></div>
         <button class="info-close" id="closeInfo">✕</button>
         <div class="info-panel-content">
             <div class="info-header">
-                <div class="info-time" id="infoTime">2000</div>
-                <span class="info-category" id="infoCategory">Ereignis</span>
+                <div class="info-time" id="infoTime"></div>
+                <span class="info-ai-badge" id="infoAiBadge" hidden>✨ KI</span>
+                <span class="info-category" id="infoCategory"></span>
             </div>
-            <h2 class="info-title" id="infoTitle">Titel</h2>
-            <p class="info-subtitle" id="infoSubtitle">Untertitel</p>
-            <p class="info-description" id="infoDescription">Beschreibung</p>
+            <h2 class="info-title" id="infoTitle"></h2>
+            <p class="info-subtitle" id="infoSubtitle"></p>
+            <p class="info-description" id="infoDescription"></p>
         </div>
     </aside>
 
-    <!-- Navigation -->
-    <div class="nav-buttons" id="navButtons">
-        <button class="nav-btn" data-goto="-13800000000">🌌 Urknall</button>
-        <button class="nav-btn" data-goto="-66000000">🦖 Dinos</button>
-        <button class="nav-btn" data-goto="-3000">🏛️ Antike</button>
-        <button class="nav-btn" data-goto="1500">🎨 Renaissance</button>
-        <button class="nav-btn" data-goto="1870">🖼️ Impressionismus</button>
-        <button class="nav-btn" data-goto="1945">💣 1945</button>
-        <button class="nav-btn" data-goto="2023">📱 Heute</button>
-    </div>
-
-    <div class="scroll-hint" id="scrollHint">
-        <span class="scroll-hint-icon">↔</span>
-        <span>Ziehen zum Navigieren</span>
-    </div>
-
-    <!-- Settings Modal -->
+    <!-- Settings modal -->
     <div class="modal-overlay" id="settingsModal">
         <div class="modal">
             <div class="modal-header">
@@ -124,12 +107,12 @@
                     <div class="settings-section-title">🤖 OpenAI API</div>
                     <div class="api-key-status" id="apiKeyStatus">
                         <div class="status-dot disconnected" id="statusDot"></div>
-                        <span class="api-key-text" id="apiKeyText">Kein API-Key konfiguriert</span>
+                        <span id="apiKeyText">Kein API-Key konfiguriert</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">API-Key</label>
-                        <input type="password" class="form-input" id="apiKeyInput" placeholder="sk-...">
-                        <p class="form-hint">Dein Key wird nur lokal gespeichert und nie an Server gesendet.</p>
+                        <input type="password" class="form-input" id="apiKeyInput" placeholder="sk-…">
+                        <p class="form-hint">Dein Key wird nur lokal gespeichert und nur an api.openai.com gesendet.</p>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-primary" id="saveApiKey">Speichern</button>
@@ -151,73 +134,30 @@
         </div>
     </div>
 
-    <!-- AI Generator Modal -->
+    <!-- AI modal -->
     <div class="modal-overlay" id="aiModal">
         <div class="modal">
             <div class="modal-header">
                 <div class="modal-title">✨ KI-Ereignis erstellen</div>
                 <button class="modal-close" id="closeAi">✕</button>
             </div>
-            <div class="modal-body" id="aiModalBody">
-                <div class="ai-prompt-area">
-                    <div class="form-group">
-                        <label class="form-label">Beschreibe das Ereignis, das du hinzufügen möchtest</label>
-                        <textarea class="form-textarea" id="aiPrompt" placeholder="z.B. 'Die Erfindung des Telefons' oder 'Leben von Marie Curie' oder 'Wichtige Ereignisse der Französischen Revolution'"></textarea>
-                    </div>
-                    <div class="ai-suggestions">
-                        <button class="ai-suggestion" data-prompt="Die wichtigsten Erfindungen des 20. Jahrhunderts">Erfindungen 20. Jh.</button>
-                        <button class="ai-suggestion" data-prompt="Berühmte Wissenschaftlerinnen der Geschichte">Wissenschaftlerinnen</button>
-                        <button class="ai-suggestion" data-prompt="Die Geschichte der Raumfahrt">Raumfahrt</button>
-                        <button class="ai-suggestion" data-prompt="Wichtige Kunstbewegungen">Kunstbewegungen</button>
-                        <button class="ai-suggestion" data-prompt="Die Geschichte des Internets">Internet</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Anzahl Ereignisse</label>
-                    <select class="form-select" id="aiCount">
-                        <option value="1">1 Ereignis</option>
-                        <option value="3" selected>3 Ereignisse</option>
-                        <option value="5">5 Ereignisse</option>
-                        <option value="10">10 Ereignisse</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary btn-full" id="generateAi">
-                    ✨ Mit KI generieren
-                </button>
-                <p class="form-hint" style="margin-top: 8px; text-align: center;">
-                    Benötigt einen OpenAI API-Key in den Einstellungen.
-                </p>
-            </div>
+            <div class="modal-body" id="aiModalBody"></div>
         </div>
     </div>
 
-    <!-- Quiz Modal -->
+    <!-- Quiz modal -->
     <div class="modal-overlay" id="quizModal">
         <div class="modal">
             <div class="modal-header">
                 <div class="modal-title">🎯 Geschichts-Quiz</div>
                 <button class="modal-close" id="closeQuiz">✕</button>
             </div>
-            <div class="modal-body" id="quizModalBody">
-                <!-- Quiz content inserted dynamically -->
-            </div>
+            <div class="modal-body" id="quizModalBody"></div>
         </div>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <!-- Scripts: classic scripts share one global scope; load order = dependency order, main.js last. -->
-    <script src="js/data.js"></script>
-    <script src="js/state.js"></script>
-    <script src="js/timeline.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/panel.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/ai.js"></script>
-    <script src="js/quiz.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

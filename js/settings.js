@@ -1,65 +1,52 @@
-// Chronicle — settings panel: API key + AI-event persistence and stats.
+// Chronicle — settings modal: API key, stats, AI-event cleanup.
 
-        // ============================================
-        // SETTINGS
-        // ============================================
-        function openSettings() {
-            document.getElementById('settingsModal').classList.add('active');
-            document.getElementById('apiKeyInput').value = apiKey ? '••••••••••••••••' : '';
-        }
+import { state, setApiKey, clearAiEvents } from './store.js';
+import { showToast, openModal, closeModal } from './ui.js';
 
-        function closeSettings() {
-            document.getElementById('settingsModal').classList.remove('active');
-        }
+export function initSettings() {
+    document.getElementById('settingsBtn').addEventListener('click', openSettings);
+    document.getElementById('closeSettings').addEventListener('click', () => closeModal('settingsModal'));
+    document.getElementById('saveApiKey').addEventListener('click', saveKey);
+    document.getElementById('clearApiKey').addEventListener('click', clearKey);
+    document.getElementById('clearAiEvents').addEventListener('click', () => {
+        clearAiEvents();
+        updateStats();
+        showToast('KI-Ereignisse gelöscht');
+    });
+    updateKeyStatus();
+    updateStats();
+}
 
-        function updateApiKeyStatus() {
-            const statusDot = document.getElementById('statusDot');
-            const statusText = document.getElementById('apiKeyText');
-            const statusContainer = document.getElementById('apiKeyStatus');
+export function openSettings() {
+    document.getElementById('apiKeyInput').value = state.apiKey ? '••••••••••••••••' : '';
+    updateStats();
+    openModal('settingsModal');
+}
 
-            if (apiKey) {
-                statusDot.className = 'status-dot connected';
-                statusText.textContent = 'API-Key konfiguriert';
-                statusContainer.className = 'api-key-status connected';
-            } else {
-                statusDot.className = 'status-dot disconnected';
-                statusText.textContent = 'Kein API-Key konfiguriert';
-                statusContainer.className = 'api-key-status disconnected';
-            }
-        }
+function saveKey() {
+    const val = document.getElementById('apiKeyInput').value.trim();
+    if (val && !val.startsWith('••')) {
+        setApiKey(val);
+        updateKeyStatus();
+        showToast('API-Key gespeichert');
+    }
+}
 
-        function updateStats() {
-            document.getElementById('eventCount').textContent = events.length;
-            document.getElementById('aiEventCount').textContent = aiGeneratedEvents.length;
-        }
+function clearKey() {
+    setApiKey('');
+    document.getElementById('apiKeyInput').value = '';
+    updateKeyStatus();
+    showToast('API-Key gelöscht');
+}
 
-        function saveApiKey() {
-            const input = document.getElementById('apiKeyInput');
-            const newKey = input.value.trim();
+function updateKeyStatus() {
+    const has = !!state.apiKey;
+    document.getElementById('statusDot').className = `status-dot ${has ? 'connected' : 'disconnected'}`;
+    document.getElementById('apiKeyText').textContent = has ? 'API-Key konfiguriert' : 'Kein API-Key konfiguriert';
+    document.getElementById('apiKeyStatus').className = `api-key-status ${has ? 'connected' : 'disconnected'}`;
+}
 
-            if (newKey && !newKey.startsWith('••')) {
-                apiKey = newKey;
-                localStorage.setItem('openai_api_key', apiKey);
-                updateApiKeyStatus();
-                showToast('API-Key gespeichert');
-            }
-        }
-
-        function clearApiKey() {
-            apiKey = '';
-            localStorage.removeItem('openai_api_key');
-            document.getElementById('apiKeyInput').value = '';
-            updateApiKeyStatus();
-            showToast('API-Key gelöscht');
-        }
-
-        function clearAiEvents() {
-            aiGeneratedEvents = [];
-            localStorage.setItem('ai_events', '[]');
-            events = events.filter(e => !e.aiGenerated);
-            buildEvents();
-            updateStats();
-            update();
-            showToast('KI-Ereignisse gelöscht');
-        }
-
+export function updateStats() {
+    document.getElementById('eventCount').textContent = state.events.length;
+    document.getElementById('aiEventCount').textContent = state.aiEvents.length;
+}

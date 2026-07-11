@@ -1,53 +1,42 @@
-// Chronicle — info panel and category label/color helpers.
+// Chronicle — info panel for events and epochs.
 
-        // ============================================
-        // INFO PANEL
-        // ============================================
-        function showPanel(item, type) {
-            if (type === 'epoch') {
-                document.getElementById('infoTime').textContent = `${formatTime(item.start)} – ${formatTime(Math.min(item.end, MAX_TIME))}`;
-                document.getElementById('infoTitle').textContent = item.title;
-                document.getElementById('infoSubtitle').textContent = '';
-                document.getElementById('infoDescription').textContent = item.desc || '';
-                const cat = document.getElementById('infoCategory');
-                cat.textContent = 'Epoche';
-                cat.style.background = item.color;
-            } else {
-                document.getElementById('infoTime').innerHTML = formatTime(item.time) +
-                    (item.aiGenerated ? '<span class="info-ai-badge">✨ KI</span>' : '');
-                document.getElementById('infoTitle').textContent = item.title;
-                document.getElementById('infoSubtitle').textContent = item.subtitle || '';
-                document.getElementById('infoDescription').textContent = item.desc || '';
-                const cat = document.getElementById('infoCategory');
-                cat.textContent = catName(item.cat);
-                cat.style.background = catColor(item.cat);
-            }
-            infoPanel.classList.add('visible');
-        }
+import { catName, catColor, MAX_TIME } from './data.js';
+import { state, notify } from './store.js';
+import { formatTime, formatTimeLong } from './time.js';
 
-        function hidePanel() {
-            infoPanel.classList.remove('visible');
-            highlightedEventId = null;
-            update();
-        }
+const panel = () => document.getElementById('infoPanel');
 
-        function catName(c) {
-            return {
-                ereignis: 'Ereignis',
-                wissenschaft: 'Wissenschaft',
-                kultur: 'Kultur',
-                politik: 'Politik',
-                person: 'Person'
-            }[c] || c;
-        }
+export function showPanel(item, type) {
+    const set = (id, text) => { document.getElementById(id).textContent = text; };
+    const catEl = document.getElementById('infoCategory');
+    const aiBadge = document.getElementById('infoAiBadge');
 
-        function catColor(c) {
-            return {
-                ereignis: '#f43f5e',
-                wissenschaft: '#3b82f6',
-                kultur: '#f59e0b',
-                politik: '#10b981',
-                person: '#ec4899'
-            }[c] || '#6366f1';
-        }
+    if (type === 'epoch') {
+        set('infoTime', `${formatTime(item.start)} – ${formatTime(Math.min(item.end, MAX_TIME))}`);
+        catEl.textContent = 'Epoche';
+        catEl.style.background = item.color;
+        aiBadge.hidden = true;
+        set('infoTitle', item.title);
+        set('infoSubtitle', '');
+        set('infoDescription', item.desc || '');
+    } else {
+        set('infoTime', formatTimeLong(item.time));
+        catEl.textContent = catName(item.cat);
+        catEl.style.background = catColor(item.cat);
+        aiBadge.hidden = !item.aiGenerated;
+        set('infoTitle', item.title);
+        set('infoSubtitle', item.subtitle || '');
+        set('infoDescription', item.desc || '');
+        state.highlightedEventId = item.id;
+        notify();
+    }
+    panel().classList.add('visible');
+}
 
+export function hidePanel() {
+    panel().classList.remove('visible');
+    if (state.highlightedEventId !== null) {
+        state.highlightedEventId = null;
+        notify();
+    }
+}

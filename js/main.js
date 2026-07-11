@@ -1,154 +1,109 @@
-// Chronicle — entry point: init(), event binding, global handler exposure, bootstrap.
+// Chronicle — entry point: wiring between store, renderer, minimap and UI.
 
-// ============================================
-// INIT
-// ============================================
-        function init() {
-            // Load AI events
-            events = [...events, ...aiGeneratedEvents];
-            nextEventId = Math.max(...events.map(e => e.id)) + 1;
+import { state, subscribe, notify, rebuildEvents, toggleCategory, readHash, scheduleHashUpdate } from './store.js';
+import { formatTime, formatSpan, spanName } from './time.js';
+import { TimelineRenderer } from './renderer.js';
+import { Minimap } from './minimap.js';
+import { Interaction } from './interaction.js';
+import { showPanel, hidePanel } from './panel.js';
+import { initSearch, openSearch, closeSearch, isSearchOpen, targetSpanFor } from './search.js';
+import { initSettings } from './settings.js';
+import { initAi } from './ai.js';
+import { initQuiz, closeQuiz } from './quiz.js';
+import { closeModal } from './ui.js';
 
-            buildEpochs();
-            buildEvents();
-            bindEvents();
-            updateApiKeyStatus();
-            updateStats();
-            update();
-            setTimeout(() => loading.classList.add('hidden'), 300);
+rebuildEvents();
+readHash();
+
+const canvas = document.getElementById('timelineCanvas');
+const renderer = new TimelineRenderer(canvas);
+const minimap = new Minimap(document.getElementById('minimapCanvas'));
+
+const interaction = new Interaction(canvas, renderer, {
+    onItemClick: (item, type) => showPanel(item, type),
+    onBackgroundClick: () => hidePanel(),
+    onHover: (item) => {
+        if (item !== renderer.hoverItem) {
+            renderer.hoverItem = item;
+            requestRender();
         }
+    }
+});
 
-        // ============================================
-        // EVENTS
-        // ============================================
-        function bindEvents() {
-            // Zoom
-            document.getElementById('zoomIn').addEventListener('click', zoomIn);
-            document.getElementById('zoomOut').addEventListener('click', zoomOut);
+const goTo = (time, span) => interaction.goTo(time, span);
 
-            // Search
-            document.getElementById('searchBtn').addEventListener('click', openSearch);
-            document.getElementById('searchClose').addEventListener('click', closeSearch);
-            searchInput.addEventListener('input', (e) => performSearch(e.target.value));
-            searchResults.addEventListener('click', handleSearchResultClick);
+// --- render loop: draw at most once per frame, only when something changed ---
+let renderQueued = false;
+function requestRender() {
+    if (renderQueued) return;
+    renderQueued = true;
+    requestAnimationFrame(() => {
+        renderQueued = false;
+        renderer.render();
+        minimap.render();
+        updateHeader();
+    });
+}
 
-            // Info panel
-            document.getElementById('closeInfo').addEventListener('click', hidePanel);
+subscribe(() => {
+    requestRender();
+    scheduleHashUpdate();
+});
 
-            // Settings
-            document.getElementById('settingsBtn').addEventListener('click', openSettings);
-            document.getElementById('closeSettings').addEventListener('click', closeSettings);
-            document.getElementById('saveApiKey').addEventListener('click', saveApiKey);
-            document.getElementById('clearApiKey').addEventListener('click', clearApiKey);
-            document.getElementById('clearAiEvents').addEventListener('click', clearAiEvents);
+function updateHeader() {
+    document.getElementById('currentTime').textContent = formatTime(state.center);
+    document.getElementById('zoomInfo').textContent = `${spanName(state.span)} · ${formatSpan(state.span)} sichtbar`;
+}
 
-            // AI
-            document.getElementById('aiBtn').addEventListener('click', openAiModal);
-            document.getElementById('closeAi').addEventListener('click', closeAiModal);
+// --- static UI wiring ---
+document.getElementById('zoomIn').addEventListener('click', () => interaction.zoomBy(1 / 1.6));
+document.getElementById('zoomOut').addEventListener('click', () => interaction.zoomBy(1.6));
+document.getElementById('closeInfo').addEventListener('click', hidePanel);
 
-            // Quiz
-            document.getElementById('quizBtn').addEventListener('click', openQuiz);
-            document.getElementById('closeQuiz').addEventListener('click', closeQuiz);
+document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () =>
+        goTo(+btn.dataset.goto, btn.dataset.span ? +btn.dataset.span : targetSpanFor(+btn.dataset.goto)));
+});
 
-            // Navigation buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.addEventListener('click', () => goToTime(+btn.dataset.goto));
-            });
+document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        toggleCategory(btn.dataset.category);
+        btn.classList.toggle('active', state.activeCats.has(btn.dataset.category));
+    });
+});
 
-            // Category filters
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const c = btn.dataset.category;
-                    if (categories.has(c)) {
-                        categories.delete(c);
-                        btn.classList.remove('active');
-                    } else {
-                        categories.add(c);
-                        btn.classList.add('active');
-                    }
-                    update();
-                });
-            });
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) overlay.classList.remove('active');
+    });
+});
 
-            // Mouse drag
-            viewport.addEventListener('mousedown', (e) => {
-                if (e.target.closest('.timeline-event') || e.target.closest('.epoch-bar')) return;
-                startDrag(e.clientX);
-            });
-            document.addEventListener('mousemove', (e) => doDrag(e.clientX));
-            document.addEventListener('mouseup', endDrag);
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        closeSearch();
+        closeModal('settingsModal');
+        closeModal('aiModal');
+        closeQuiz();
+        hidePanel();
+        return;
+    }
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if ((e.key === '/' || e.key === 'f') && !e.metaKey && !e.ctrlKey && !isSearchOpen()) {
+        e.preventDefault();
+        openSearch();
+    }
+});
 
-            // Touch drag
-            viewport.addEventListener('touchstart', (e) => {
-                if (e.target.closest('.timeline-event') || e.target.closest('.epoch-bar')) return;
-                startDrag(e.touches[0].clientX);
-            }, { passive: true });
-            viewport.addEventListener('touchmove', (e) => {
-                doDrag(e.touches[0].clientX);
-            }, { passive: true });
-            viewport.addEventListener('touchend', endDrag);
+window.addEventListener('resize', () => {
+    renderer.resize();
+    minimap.resize();
+    requestRender();
+});
 
-            // Wheel zoom
-            viewport.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                e.deltaY > 0 ? zoomOut() : zoomIn();
-            }, { passive: false });
+initSearch(goTo);
+initSettings();
+initAi(goTo);
+initQuiz();
 
-            // Keyboard
-            document.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-                if (e.key === 'Escape') {
-                    closeSearch();
-                    closeSettings();
-                    closeAiModal();
-                    closeQuiz();
-                    hidePanel();
-                }
-                if (e.key === '+' || e.key === '=') zoomIn();
-                if (e.key === '-') zoomOut();
-                if (e.key === 'ArrowLeft') {
-                    centerTime -= zoomLevels[zoomIndex].halfRange * 0.15;
-                    update();
-                }
-                if (e.key === 'ArrowRight') {
-                    centerTime += zoomLevels[zoomIndex].halfRange * 0.15;
-                    update();
-                }
-                if (e.key === '/' || e.key === 'f') {
-                    e.preventDefault();
-                    openSearch();
-                }
-            });
-
-            // Click outside modals
-            document.querySelectorAll('.modal-overlay').forEach(overlay => {
-                overlay.addEventListener('click', (e) => {
-                    if (e.target === overlay) {
-                        overlay.classList.remove('active');
-                    }
-                });
-            });
-
-            // Click outside info panel
-            document.addEventListener('click', (e) => {
-                if (infoPanel.classList.contains('visible') &&
-                    !e.target.closest('.info-panel') &&
-                    !e.target.closest('.timeline-event') &&
-                    !e.target.closest('.epoch-bar') &&
-                    !e.target.closest('.nav-btn') &&
-                    !e.target.closest('.search-result')) {
-                    hidePanel();
-                }
-            });
-        }
-
-        // Make functions available globally for onclick handlers
-        window.goToTime = goToTime;
-        window.closeAiModal = closeAiModal;
-        window.getAiFormHtml = getAiFormHtml;
-        window.bindAiFormEvents = bindAiFormEvents;
-        window.startQuiz = startQuiz;
-        window.closeQuiz = closeQuiz;
-
-        // Start
-        init();
+notify();
+document.getElementById('loading').classList.add('hidden');

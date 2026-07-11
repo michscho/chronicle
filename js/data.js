@@ -1,9 +1,9 @@
-// Chronicle — static data: epochs, events, and zoom levels.
+// Chronicle — static data: epochs and events.
 
-        // ============================================
-        // DATA - EPOCHS
-        // ============================================
-        const epochs = [
+export const MIN_TIME = -13800000000;
+export const MAX_TIME = 2026;
+
+export const epochs = [
             // Row 0 - Major geological/cosmic eras
             { id: "cosmic", title: "Kosmische Ära", start: -13800000000, end: -4600000000, color: "#8b5cf6", row: 0 },
             { id: "hadean", title: "Hadaikum", start: -4600000000, end: -4000000000, color: "#dc2626", row: 0 },
@@ -38,10 +38,7 @@
             { id: "coldwar", title: "Kalter Krieg", start: 1947, end: 1991, color: "#1e40af", row: 0 }
         ];
 
-        // ============================================
-        // DATA - EVENTS (Expanded)
-        // ============================================
-        let events = [
+export const baseEvents = [
             // Cosmic & Geological
             { id: 1, time: -13800000000, title: "Urknall", subtitle: "Beginn von allem", desc: "Der Urknall markiert den Beginn des Universums - Raum, Zeit, Materie und Energie entstehen in einer gewaltigen Explosion aus einem unendlich dichten Punkt.", cat: "ereignis", imp: 1 },
             { id: 2, time: -13400000000, title: "Erste Sterne", subtitle: "Kosmische Dämmerung", desc: "Die ersten Sterne entstehen aus Wasserstoff und Helium und beenden das dunkle Zeitalter des Universums.", cat: "wissenschaft", imp: 2 },
@@ -305,21 +302,16 @@
             { id: 242, time: 2023, title: "ChatGPT", subtitle: "KI-Revolution", desc: "Künstliche Intelligenz wird Mainstream - eine neue Ära beginnt.", cat: "wissenschaft", imp: 1 },
             { id: 243, time: 2023, title: "Hamas-Angriff", subtitle: "Nahostkonflikt", desc: "Der überraschende Angriff löst einen neuen Krieg in Gaza aus.", cat: "ereignis", imp: 2 },
             { id: 244, time: 2024, title: "Superwahljahr", subtitle: "Globale Wahlen", desc: "In über 60 Ländern finden Wahlen statt - die Hälfte der Menschheit wählt.", cat: "politik", imp: 2 }
-        ];
+];
 
-        // ============================================
-        // ZOOM LEVELS
-        // ============================================
-        const zoomLevels = [
-            { halfRange: 14000000000, maxImp: 1, name: "Kosmisch" },
-            { halfRange: 500000000, maxImp: 1, name: "Geologisch" },
-            { halfRange: 50000000, maxImp: 1, name: "Erdgeschichte" },
-            { halfRange: 2000000, maxImp: 1, name: "Prähistorisch" },
-            { halfRange: 50000, maxImp: 1, name: "Urzeit" },
-            { halfRange: 3000, maxImp: 1, name: "Geschichte" },
-            { halfRange: 800, maxImp: 2, name: "Epochen" },
-            { halfRange: 200, maxImp: 2, name: "Jahrhundert" },
-            { halfRange: 50, maxImp: 3, name: "Detailliert" },
-            { halfRange: 15, maxImp: 3, name: "Fein" }
-        ];
+export const categories = {
+    ereignis: { name: 'Ereignis', color: '#f43f5e', icon: '⚡' },
+    wissenschaft: { name: 'Wissenschaft', color: '#38bdf8', icon: '🔬' },
+    kultur: { name: 'Kultur', color: '#fbbf24', icon: '🎨' },
+    politik: { name: 'Politik', color: '#34d399', icon: '⚖️' },
+    person: { name: 'Person', color: '#f472b6', icon: '👤' }
+};
+
+export const catName = c => categories[c]?.name ?? c;
+export const catColor = c => categories[c]?.color ?? '#818cf8';
 
