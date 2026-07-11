@@ -3,40 +3,78 @@
 export const MIN_TIME = -13800000000;
 export const MAX_TIME = 2026;
 
+// kind: geologie | vorgeschichte | geschichte | kunst | geistesgeschichte | politik
 export const epochs = [
-            // Row 0 - Major geological/cosmic eras
-            { id: "cosmic", title: "Kosmische Ära", start: -13800000000, end: -4600000000, color: "#8b5cf6", row: 0 },
-            { id: "hadean", title: "Hadaikum", start: -4600000000, end: -4000000000, color: "#dc2626", row: 0 },
-            { id: "archean", title: "Archaikum", start: -4000000000, end: -2500000000, color: "#10b981", row: 0 },
-            { id: "proterozoic", title: "Proterozoikum", start: -2500000000, end: -540000000, color: "#3b82f6", row: 0 },
-            { id: "phanerozoic", title: "Phanerozoikum", start: -540000000, end: 2025, color: "#ef4444", row: 0 },
-            // Row 1 - Human prehistory and medieval
-            { id: "paleolithic", title: "Altsteinzeit", start: -2500000, end: -10000, color: "#78716c", row: 1 },
-            { id: "neolithic", title: "Jungsteinzeit", start: -10000, end: -3000, color: "#84cc16", row: 1 },
-            { id: "bronze", title: "Bronzezeit", start: -3000, end: -1200, color: "#f59e0b", row: 1 },
-            { id: "iron", title: "Eisenzeit", start: -1200, end: -500, color: "#6b7280", row: 1 },
-            { id: "antiquity", title: "Antike", start: -500, end: 500, color: "#ef4444", row: 1 },
-            { id: "medieval", title: "Mittelalter", start: 500, end: 1500, color: "#8b5cf6", row: 1 },
-            { id: "modern", title: "Neuzeit", start: 1500, end: 2025, color: "#3b82f6", row: 1 },
-            // Row 2 - Cultural/Art movements
-            { id: "renaissance", title: "Renaissance", start: 1400, end: 1600, color: "#06b6d4", row: 2 },
-            { id: "baroque", title: "Barock", start: 1600, end: 1750, color: "#d946ef", row: 2 },
-            { id: "classicism", title: "Klassizismus", start: 1750, end: 1830, color: "#14b8a6", row: 2 },
-            { id: "romanticism", title: "Romantik", start: 1800, end: 1850, color: "#f472b6", row: 3 },
-            { id: "realism", title: "Realismus", start: 1840, end: 1880, color: "#78716c", row: 2 },
-            { id: "impressionism", title: "Impressionismus", start: 1860, end: 1910, color: "#38bdf8", row: 3 },
-            { id: "expressionism", title: "Expressionismus", start: 1905, end: 1930, color: "#ef4444", row: 2 },
-            { id: "modernism", title: "Moderne", start: 1900, end: 1970, color: "#6366f1", row: 3 },
-            { id: "postmodern", title: "Postmoderne", start: 1970, end: 2000, color: "#a855f7", row: 2 },
-            { id: "digital", title: "Digital", start: 1990, end: 2025, color: "#3b82f6", row: 3 },
-            // Row 3 - Political/Historical periods
-            { id: "enlightenment", title: "Aufklärung", start: 1685, end: 1800, color: "#fbbf24", row: 2 },
-            { id: "industrial", title: "Industrialisierung", start: 1760, end: 1914, color: "#64748b", row: 0 },
-            { id: "ww1", title: "1. Weltkrieg", start: 1914, end: 1918, color: "#991b1b", row: 0 },
-            { id: "interwar", title: "Zwischenkrieg", start: 1918, end: 1939, color: "#a16207", row: 0 },
-            { id: "ww2", title: "2. Weltkrieg", start: 1939, end: 1945, color: "#7f1d1d", row: 0 },
-            { id: "coldwar", title: "Kalter Krieg", start: 1947, end: 1991, color: "#1e40af", row: 0 }
-        ];
+    // Row 0 - Major geological/cosmic eras
+    { id: "cosmic", title: "Kosmische Ära", start: -13800000000, end: -4600000000, color: "#8b5cf6", row: 0, kind: "geologie",
+      desc: "Vom Urknall bis zur Entstehung des Sonnensystems: Die ersten Sterne und Galaxien bilden sich, in ihren Kernen entstehen die schweren Elemente, aus denen später Planeten und Leben bestehen werden. Über neun Milliarden Jahre kosmischer Entwicklung, bevor die Erde überhaupt existiert." },
+    { id: "hadean", title: "Hadaikum", start: -4600000000, end: -4000000000, color: "#dc2626", row: 0, kind: "geologie",
+      desc: "Das älteste Erdzeitalter, benannt nach Hades, dem Gott der Unterwelt: Die junge Erde ist ein glühender Ball aus Magma, bombardiert von Asteroiden. Der Mond entsteht durch eine gewaltige Kollision, die Ozeane bilden sich aus kondensierendem Wasserdampf." },
+    { id: "archean", title: "Archaikum", start: -4000000000, end: -2500000000, color: "#10b981", row: 0, kind: "geologie",
+      desc: "Die Erdkruste stabilisiert sich, die ersten Kontinente wachsen – und in den Urmeeren entsteht das Leben. Einzellige Mikroben und später Cyanobakterien beherrschen den Planeten; ihre Stromatolithen sind die ältesten Spuren von Leben." },
+    { id: "proterozoic", title: "Proterozoikum", start: -2500000000, end: -540000000, color: "#3b82f6", row: 0, kind: "geologie",
+      desc: "Das Zeitalter des 'frühen Lebens': Sauerstoff reichert die Atmosphäre an, komplexe Zellen mit Zellkern und schließlich erste mehrzellige Organismen entstehen. Am Ende steht die 'Schneeball-Erde' – globale Vereisungen, die das Leben fast auslöschen." },
+    { id: "phanerozoic", title: "Phanerozoikum", start: -540000000, end: 2025, color: "#ef4444", row: 0, kind: "geologie",
+      desc: "Das Zeitalter des 'sichtbaren Lebens', das bis heute andauert: Von der Kambrischen Explosion über Fische, Landpflanzen, Dinosaurier und Säugetiere bis zum Menschen. Fünf Massenaussterben veränderten den Kurs der Evolution grundlegend." },
+    // Row 1 - Human prehistory and history
+    { id: "paleolithic", title: "Altsteinzeit", start: -2500000, end: -10000, color: "#78716c", row: 1, kind: "vorgeschichte",
+      desc: "Die längste Epoche der Menschheitsgeschichte: Frühmenschen entwickeln Steinwerkzeuge, zähmen das Feuer und leben als Jäger und Sammler. Homo sapiens entsteht, verlässt Afrika, malt Höhlenbilder – und bleibt am Ende als einzige Menschenart übrig." },
+    { id: "neolithic", title: "Jungsteinzeit", start: -10000, end: -3000, color: "#84cc16", row: 1, kind: "vorgeschichte",
+      desc: "Die Neolithische Revolution verändert alles: Menschen werden sesshaft, betreiben Ackerbau und Viehzucht, gründen die ersten Dörfer und Städte wie Jericho und Çatalhöyük. Töpferei, Webkunst und Megalithbauten wie Stonehenge entstehen." },
+    { id: "bronze", title: "Bronzezeit", start: -3000, end: -1200, color: "#f59e0b", row: 1, kind: "vorgeschichte",
+      desc: "Die Legierung aus Kupfer und Zinn gibt der Epoche ihren Namen: Erste Hochkulturen blühen in Mesopotamien, Ägypten, am Indus und in China. Schrift, Städte, Fernhandel und die ersten Großreiche entstehen – bis ein rätselhafter Kollaps viele Kulturen um 1200 v. Chr. hinwegfegt." },
+    { id: "iron", title: "Eisenzeit", start: -1200, end: -500, color: "#6b7280", row: 1, kind: "vorgeschichte",
+      desc: "Eisen verdrängt die Bronze und demokratisiert Werkzeuge und Waffen. Neue Mächte steigen auf: Assyrer, Perser, Phönizier mit ihrem Alphabet, die griechischen Stadtstaaten und das frühe Rom. Die Grundlagen der klassischen Welt werden gelegt." },
+    { id: "antiquity", title: "Antike", start: -500, end: 500, color: "#ef4444", row: 1, kind: "geschichte",
+      desc: "Die klassische Epoche des Mittelmeerraums: Griechenland erfindet Demokratie, Philosophie und Theater, Rom baut ein Weltreich mit Recht, Straßen und Städten. Christentum und andere Weltreligionen entstehen. Mit dem Fall Westroms endet die Epoche." },
+    { id: "medieval", title: "Mittelalter", start: 500, end: 1500, color: "#8b5cf6", row: 1, kind: "geschichte",
+      desc: "Tausend Jahre zwischen Antike und Neuzeit: Klöster bewahren das Wissen, der Islam blüht zur Wissenschaftsmacht auf, Kathedralen, Universitäten und Städte entstehen. Ritter, Kreuzzüge, Hanse und Pest prägen Europa, bis Buchdruck und Entdeckungsfahrten eine neue Zeit einläuten." },
+    { id: "modern", title: "Neuzeit", start: 1500, end: 2025, color: "#3b82f6", row: 1, kind: "geschichte",
+      desc: "Von Kolumbus bis heute: Reformation, wissenschaftliche Revolution, Aufklärung, Industrialisierung und Globalisierung formen die moderne Welt. Nie zuvor veränderte sich das Leben der Menschen so schnell und so tiefgreifend." },
+    // Row 2/3 - Art and intellectual movements
+    { id: "renaissance", title: "Renaissance", start: 1400, end: 1600, color: "#06b6d4", row: 2, kind: "kunst",
+      desc: "Die 'Wiedergeburt' der Antike, ausgehend von Florenz: Künstler wie Leonardo, Michelangelo und Raffael stellen den Menschen ins Zentrum, entdecken Perspektive und Anatomie. Humanismus, Buchdruck und Naturforschung beenden das mittelalterliche Weltbild." },
+    { id: "baroque", title: "Barock", start: 1600, end: 1750, color: "#d946ef", row: 2, kind: "kunst",
+      desc: "Kunst der Fülle und Bewegung: Prunkvolle Kirchen und Schlösser wie Versailles, dramatisches Licht bei Caravaggio und Rembrandt, die Musik von Bach, Händel und Vivaldi. Kirche und Absolutismus inszenieren ihre Macht in überwältigender Pracht." },
+    { id: "classicism", title: "Klassizismus", start: 1750, end: 1830, color: "#14b8a6", row: 2, kind: "kunst",
+      desc: "Als Gegenbewegung zum verspielten Barock kehrt die Kunst zur klaren Formensprache der Antike zurück: strenge Säulenarchitektur, Goethe und Schiller in Weimar, die Wiener Klassik von Haydn, Mozart und Beethoven. Vernunft und Harmonie werden zum Ideal." },
+    { id: "romanticism", title: "Romantik", start: 1800, end: 1850, color: "#f472b6", row: 3, kind: "kunst",
+      desc: "Gefühl gegen Vernunft: Die Romantik feiert Natur, Nacht, Sehnsucht und das Unheimliche. Caspar David Friedrichs einsame Landschaften, die Lyrik von Novalis und Eichendorff, die Musik von Schubert und Chopin – eine Gegenwelt zur beginnenden Industrialisierung." },
+    { id: "realism", title: "Realismus", start: 1840, end: 1880, color: "#78716c", row: 2, kind: "kunst",
+      desc: "Die Kunst wendet sich dem wirklichen Leben zu: Courbet malt Steinklopfer statt Götter, Millet die Feldarbeit, Dickens und Flaubert beschreiben die Gesellschaft ungeschönt. Alltag, Arbeit und soziale Frage werden erstmals kunstwürdig." },
+    { id: "impressionism", title: "Impressionismus", start: 1860, end: 1910, color: "#38bdf8", row: 3, kind: "kunst",
+      desc: "Monet, Renoir, Degas und ihre Mitstreiter verlassen das Atelier und malen Licht und Augenblick in freier Natur – mit lockeren Pinselstrichen und reinen Farben. Vom Pariser Salon verspottet, wird die Bewegung zum Wendepunkt hin zur modernen Kunst." },
+    { id: "expressionism", title: "Expressionismus", start: 1905, end: 1930, color: "#ef4444", row: 2, kind: "kunst",
+      desc: "Innere Wahrheit statt äußerer Schönheit: Künstlergruppen wie 'Die Brücke' und 'Der Blaue Reiter' malen mit grellen Farben und verzerrten Formen das Lebensgefühl einer zerrissenen Zeit. Auch Literatur und Film (Caligari, Nosferatu) werden expressionistisch." },
+    { id: "modernism", title: "Moderne", start: 1900, end: 1970, color: "#6366f1", row: 3, kind: "kunst",
+      desc: "Das radikale Jahrhundert der Avantgarden: Kubismus, Abstraktion, Dada, Surrealismus und Bauhaus brechen mit allen Traditionen. Picasso, Kandinsky und Duchamp definieren neu, was Kunst überhaupt sein kann – Form folgt Funktion, das Neue wird Programm." },
+    { id: "postmodern", title: "Postmoderne", start: 1970, end: 2000, color: "#a855f7", row: 2, kind: "kunst",
+      desc: "Nach dem Fortschrittsglauben der Moderne: Zitat, Ironie und Stilmix statt reiner Lehre. Pop Art und Konzeptkunst verwischen die Grenze zwischen Hoch- und Alltagskultur, Architektur wird wieder verspielt und vielstimmig – 'anything goes'." },
+    { id: "digital", title: "Digital", start: 1990, end: 2025, color: "#3b82f6", row: 3, kind: "kunst",
+      desc: "Computer, Internet und Smartphone verändern Kunst und Kultur grundlegend: digitale Bildwelten, Games, Netzkunst, Streaming und soziale Medien. Jeder kann publizieren, Bilder werden unendlich reproduzierbar, zuletzt malt auch die KI mit." },
+    { id: "enlightenment", title: "Aufklärung", start: 1685, end: 1800, color: "#fbbf24", row: 2, kind: "geistesgeschichte",
+      desc: "'Habe Mut, dich deines eigenen Verstandes zu bedienen': Denker wie Locke, Voltaire, Rousseau und Kant stellen Vernunft über Tradition und Dogma. Menschenrechte, Gewaltenteilung und Toleranz werden gedacht – die geistige Grundlage der amerikanischen und französischen Revolution." },
+    // Row 0 - Political/historical periods
+    { id: "industrial", title: "Industrialisierung", start: 1760, end: 1914, color: "#64748b", row: 0, kind: "geschichte",
+      desc: "Dampfmaschine, Fabrik und Eisenbahn verwandeln Agrargesellschaften in Industrienationen: Städte explodieren, eine Arbeiterklasse entsteht, mit ihr die soziale Frage und die Arbeiterbewegung. Der größte wirtschaftliche Umbruch seit der Sesshaftwerdung." },
+    { id: "ww1", title: "1. Weltkrieg", start: 1914, end: 1918, color: "#991b1b", row: 0, kind: "politik",
+      desc: "Die 'Urkatastrophe des 20. Jahrhunderts': Ein Attentat in Sarajevo entfesselt den ersten industrialisierten Massenkrieg – Stellungskrieg, Giftgas, 17 Millionen Tote. Vier Kaiserreiche gehen unter, die alte europäische Ordnung zerbricht." },
+    { id: "interwar", title: "Zwischenkrieg", start: 1918, end: 1939, color: "#a16207", row: 0, kind: "politik",
+      desc: "Zwei Jahrzehnte zwischen den Weltkriegen: Die 'Goldenen Zwanziger' bringen Demokratie, Jazz, Kino und künstlerische Blüte – doch Versailler Vertrag, Hyperinflation und Weltwirtschaftskrise untergraben die junge Ordnung. Faschismus und Nationalsozialismus steigen auf, Europa treibt in den nächsten Krieg." },
+    { id: "ww2", title: "2. Weltkrieg", start: 1939, end: 1945, color: "#7f1d1d", row: 0, kind: "politik",
+      desc: "Der verheerendste Krieg der Geschichte: Deutschlands Überfall auf Polen entfacht einen Weltenbrand mit über 60 Millionen Toten. Der Holocaust, der industrielle Völkermord an den europäischen Juden, wird zum Zivilisationsbruch; Hiroshima eröffnet das Atomzeitalter." },
+    { id: "coldwar", title: "Kalter Krieg", start: 1947, end: 1991, color: "#1e40af", row: 0, kind: "politik",
+      desc: "USA und Sowjetunion stehen sich vier Jahrzehnte in einem globalen Systemkonflikt gegenüber – nuklear hochgerüstet, aber ohne direkten Krieg. Mauerbau, Kubakrise, Stellvertreterkriege und Wettlauf ins All, bis der Ostblock 1989–1991 zusammenbricht." }
+];
+
+export const epochKindNames = {
+    geologie: 'Erdzeitalter',
+    vorgeschichte: 'Vorgeschichte',
+    geschichte: 'Historische Epoche',
+    kunst: 'Kunstepoche',
+    geistesgeschichte: 'Geistesgeschichte',
+    politik: 'Politische Epoche'
+};
 
 export const baseEvents = [
             // Cosmic & Geological
@@ -301,7 +339,63 @@ export const baseEvents = [
             { id: 241, time: 2022, title: "Queen Elizabeth II. stirbt", subtitle: "70 Jahre Herrschaft", desc: "Die am längsten regierende britische Monarchin stirbt mit 96.", cat: "person", imp: 2 },
             { id: 242, time: 2023, title: "ChatGPT", subtitle: "KI-Revolution", desc: "Künstliche Intelligenz wird Mainstream - eine neue Ära beginnt.", cat: "wissenschaft", imp: 1 },
             { id: 243, time: 2023, title: "Hamas-Angriff", subtitle: "Nahostkonflikt", desc: "Der überraschende Angriff löst einen neuen Krieg in Gaza aus.", cat: "ereignis", imp: 2 },
-            { id: 244, time: 2024, title: "Superwahljahr", subtitle: "Globale Wahlen", desc: "In über 60 Ländern finden Wahlen statt - die Hälfte der Menschheit wählt.", cat: "politik", imp: 2 }
+            { id: 244, time: 2024, title: "Superwahljahr", subtitle: "Globale Wahlen", desc: "In über 60 Ländern finden Wahlen statt - die Hälfte der Menschheit wählt.", cat: "politik", imp: 2 },
+
+            // Human evolution & prehistory (additions)
+            { id: 245, time: -3200000, title: "Lucy", subtitle: "Australopithecus", desc: "Das berühmteste Fossil der Menschheitsgeschichte: 'Lucy' belegt den aufrechten Gang unserer frühen Vorfahren in Äthiopien.", cat: "wissenschaft", imp: 2 },
+            { id: 246, time: -9600, title: "Göbekli Tepe", subtitle: "Ältester Tempel", desc: "In Anatolien errichten Jäger und Sammler die ältesten bekannten Monumentalbauten der Welt - noch vor Ackerbau und Töpferei.", cat: "kultur", imp: 2 },
+            { id: 247, time: -3300, title: "Ötzi", subtitle: "Mann aus dem Eis", desc: "Der Gletschermann aus den Ötztaler Alpen stirbt - seine Mumie gibt 5.000 Jahre später einzigartige Einblicke in die Kupferzeit.", cat: "person", imp: 3 },
+            { id: 248, time: -2600, title: "Indus-Kultur", subtitle: "Harappa & Mohenjo-Daro", desc: "Am Indus blüht eine Hochkultur mit geplanten Städten, Kanalisation und Schrift - die bis heute nicht entziffert ist.", cat: "ereignis", imp: 2 },
+            { id: 249, time: -2500, title: "Stonehenge", subtitle: "Steinkreis", desc: "In Südengland entsteht der berühmteste Megalithbau der Welt, astronomisch ausgerichtet auf die Sonnenwenden.", cat: "kultur", imp: 3 },
+
+            // Antiquity & non-European history (additions)
+            { id: 250, time: -750, title: "Ilias & Odyssee", subtitle: "Homer", desc: "Die homerischen Epen werden niedergeschrieben - der Beginn der europäischen Literatur.", cat: "kultur", imp: 2 },
+            { id: 251, time: -295, title: "Bibliothek von Alexandria", subtitle: "Wissenszentrum", desc: "Die größte Bibliothek der Antike sammelt das Wissen der Welt und macht Alexandria zum Zentrum der Gelehrsamkeit.", cat: "wissenschaft", imp: 2 },
+            { id: 252, time: -287, title: "Archimedes geboren", subtitle: "Mathematiker", desc: "Der größte Mathematiker und Ingenieur der Antike: Hebelgesetz, Auftrieb, Kreiszahl - 'Heureka!'.", cat: "person", imp: 3 },
+            { id: 253, time: -206, title: "Han-Dynastie", subtitle: "Chinas Blütezeit", desc: "Die Han-Dynastie prägt China vier Jahrhunderte: Seidenstraße, Konfuzianismus als Staatslehre, Erfindung des Papiers.", cat: "politik", imp: 2 },
+            { id: 254, time: 250, title: "Maya-Blütezeit", subtitle: "Mesoamerika", desc: "Die klassische Maya-Kultur beginnt: Pyramidenstädte wie Tikal, präzise Kalender, Schrift und Astronomie im Regenwald.", cat: "kultur", imp: 2 },
+            { id: 255, time: 537, title: "Hagia Sophia", subtitle: "Konstantinopel", desc: "Kaiser Justinian weiht die größte Kirche der Welt - fast tausend Jahre bleibt ihre Kuppel unübertroffen.", cat: "kultur", imp: 3 },
+            { id: 256, time: 541, title: "Justinianische Pest", subtitle: "Erste Pandemie", desc: "Die erste dokumentierte Pest-Pandemie entvölkert das Byzantinische Reich und den Mittelmeerraum.", cat: "ereignis", imp: 2 },
+            { id: 257, time: 793, title: "Überfall auf Lindisfarne", subtitle: "Wikingerzeit beginnt", desc: "Der Angriff auf das englische Kloster markiert den Beginn der Wikingerzeit - drei Jahrhunderte Raubzüge, Handel und Entdeckungen.", cat: "ereignis", imp: 3 },
+            { id: 258, time: 825, title: "Haus der Weisheit", subtitle: "Islamische Blütezeit", desc: "In Bagdad übersetzen und erweitern Gelehrte das Wissen der Antike: Al-Chwarizmi begründet die Algebra - die islamische Wissenschaft führt die Welt an.", cat: "wissenschaft", imp: 2 },
+            { id: 259, time: 1000, title: "Leif Eriksson in Amerika", subtitle: "Vinland", desc: "Der Wikinger erreicht als erster Europäer Nordamerika - fast 500 Jahre vor Kolumbus.", cat: "ereignis", imp: 3 },
+            { id: 260, time: 1088, title: "Universität Bologna", subtitle: "Erste Universität", desc: "In Bologna entsteht die erste Universität Europas - das Modell für die akademische Welt bis heute.", cat: "wissenschaft", imp: 2 },
+            { id: 261, time: 1150, title: "Angkor Wat", subtitle: "Khmer-Reich", desc: "In Kambodscha vollendet das Khmer-Reich den größten Tempelkomplex der Welt.", cat: "kultur", imp: 3 },
+            { id: 262, time: 1206, title: "Dschingis Khan", subtitle: "Mongolisches Reich", desc: "Temüdschin eint die Mongolen und erschafft das größte zusammenhängende Landreich der Geschichte - es verbindet Ost und West.", cat: "politik", imp: 2 },
+            { id: 263, time: 1299, title: "Osmanisches Reich", subtitle: "Gründung", desc: "Osman I. begründet ein Reich, das sechs Jahrhunderte drei Kontinente prägen wird.", cat: "politik", imp: 3 },
+            { id: 264, time: 1324, title: "Mansa Musas Pilgerreise", subtitle: "Reich von Mali", desc: "Der reichste Mann der Geschichte pilgert mit Tonnen von Gold nach Mekka - Westafrikas Reich von Mali wird weltberühmt.", cat: "person", imp: 3 },
+            { id: 265, time: 1325, title: "Tenochtitlan gegründet", subtitle: "Aztekenreich", desc: "Auf einer Insel im Texcoco-See gründen die Azteken ihre Hauptstadt - bald eine der größten Städte der Welt.", cat: "kultur", imp: 2 },
+            { id: 266, time: 1438, title: "Inkareich", subtitle: "Anden", desc: "Unter Pachacútec wird das Inkareich zum größten Staat Amerikas - mit Straßennetz, Terrassenfeldbau und Machu Picchu.", cat: "politik", imp: 3 },
+            { id: 267, time: 1521, title: "Fall Tenochtitlans", subtitle: "Cortés", desc: "Spanische Konquistadoren und ihre Verbündeten zerstören das Aztekenreich - der Beginn der europäischen Kolonialherrschaft in Amerika.", cat: "ereignis", imp: 2 },
+            { id: 268, time: 1526, title: "Mogulreich", subtitle: "Babur", desc: "Babur begründet das Mogulreich, das Indien drei Jahrhunderte prägt - Blütezeit von Kunst und Architektur.", cat: "politik", imp: 3 },
+            { id: 269, time: 1632, title: "Taj Mahal", subtitle: "Shah Jahan", desc: "Der Mogulkaiser lässt für seine verstorbene Frau das berühmteste Mausoleum der Welt errichten.", cat: "kultur", imp: 2 },
+
+            // Modern era (additions)
+            { id: 270, time: 1787, title: "US-Verfassung", subtitle: "We the People", desc: "Die älteste noch gültige geschriebene Verfassung wird verabschiedet - Vorbild für Demokratien weltweit.", cat: "politik", imp: 2 },
+            { id: 271, time: 1815, title: "Wiener Kongress", subtitle: "Europa neu geordnet", desc: "Nach Napoleons Niederlage ordnen die Großmächte Europa neu - ein Mächtegleichgewicht, das Jahrzehnte hält.", cat: "politik", imp: 2 },
+            { id: 272, time: 1865, title: "Sklaverei abgeschafft", subtitle: "13. Zusatzartikel", desc: "Die USA verbieten die Sklaverei per Verfassungszusatz - vier Millionen Menschen werden frei.", cat: "politik", imp: 2 },
+            { id: 273, time: 1865, title: "Maxwells Gleichungen", subtitle: "Elektromagnetismus", desc: "James Clerk Maxwell vereint Elektrizität, Magnetismus und Licht in vier Gleichungen - die Grundlage der modernen Technik.", cat: "wissenschaft", imp: 2 },
+            { id: 274, time: 1868, title: "Meiji-Restauration", subtitle: "Japan modernisiert", desc: "Japan beendet die Abschottung und modernisiert sich in Rekordzeit zur Industrie- und Großmacht.", cat: "politik", imp: 2 },
+            { id: 275, time: 1869, title: "Suezkanal", subtitle: "Weltmeere verbunden", desc: "Der Kanal verbindet Mittelmeer und Rotes Meer - der Seeweg nach Asien verkürzt sich um Wochen.", cat: "ereignis", imp: 3 },
+            { id: 276, time: 1871, title: "Deutsche Reichsgründung", subtitle: "Kaiserreich", desc: "Im Spiegelsaal von Versailles wird das Deutsche Reich ausgerufen - Bismarcks Werk verändert Europas Machtgefüge.", cat: "politik", imp: 2 },
+            { id: 277, time: 1898, title: "Radium entdeckt", subtitle: "Marie & Pierre Curie", desc: "Marie Curie entdeckt Polonium und Radium und prägt den Begriff 'Radioaktivität' - später erste Frau mit zwei Nobelpreisen.", cat: "wissenschaft", imp: 2 },
+            { id: 278, time: 1901, title: "Erste Nobelpreise", subtitle: "Stockholm & Oslo", desc: "Aus Alfred Nobels Vermächtnis werden erstmals die wichtigsten Wissenschaftspreise der Welt verliehen.", cat: "kultur", imp: 3 },
+            { id: 279, time: 1918, title: "Frauenwahlrecht", subtitle: "Deutschland", desc: "Deutschland führt das Frauenwahlrecht ein - im Januar 1919 wählen und kandidieren Frauen erstmals reichsweit.", cat: "politik", imp: 2 },
+            { id: 280, time: 1921, title: "Insulin entdeckt", subtitle: "Banting & Best", desc: "Die Isolierung des Insulins verwandelt Diabetes von einem Todesurteil in eine behandelbare Krankheit.", cat: "wissenschaft", imp: 2 },
+            { id: 281, time: 1930, title: "Salzmarsch", subtitle: "Gandhi", desc: "Mahatma Gandhis gewaltloser Protest gegen die britische Salzsteuer wird zum Symbol des indischen Unabhängigkeitskampfs.", cat: "politik", imp: 2 },
+            { id: 282, time: 1941, title: "Zuse Z3", subtitle: "Erster Computer", desc: "Konrad Zuse baut in Berlin den ersten funktionsfähigen programmierbaren Computer der Welt.", cat: "wissenschaft", imp: 2 },
+            { id: 283, time: 1947, title: "Transistor erfunden", subtitle: "Bell Labs", desc: "Der Transistor ersetzt die Elektronenröhre - der Grundbaustein aller modernen Elektronik und des digitalen Zeitalters.", cat: "wissenschaft", imp: 2 },
+            { id: 284, time: 1953, title: "Everest bestiegen", subtitle: "Hillary & Norgay", desc: "Edmund Hillary und Tenzing Norgay stehen als erste Menschen auf dem höchsten Berg der Erde.", cat: "ereignis", imp: 3 },
+            { id: 285, time: 1960, title: "Antibabypille", subtitle: "Verhütungsrevolution", desc: "Die Pille kommt auf den Markt und verändert Familienplanung, Rollenbilder und Gesellschaft tiefgreifend.", cat: "wissenschaft", imp: 2 },
+            { id: 286, time: 1963, title: "Erste Frau im All", subtitle: "Walentina Tereschkowa", desc: "Die Kosmonautin umrundet 48-mal die Erde - bis heute die einzige Frau auf einer Solo-Raumfahrtmission.", cat: "wissenschaft", imp: 3 },
+            { id: 287, time: 1967, title: "Erste Herztransplantation", subtitle: "Christiaan Barnard", desc: "In Kapstadt verpflanzt Barnard erstmals ein menschliches Herz - ein Meilenstein der Chirurgie.", cat: "wissenschaft", imp: 3 },
+            { id: 288, time: 1971, title: "Erste E-Mail", subtitle: "Ray Tomlinson", desc: "Ray Tomlinson verschickt die erste E-Mail zwischen zwei Computern und wählt das @-Zeichen als Adress-Trenner.", cat: "wissenschaft", imp: 3 },
+            { id: 289, time: 1983, title: "Erstes Mobiltelefon", subtitle: "Motorola DynaTAC", desc: "Das erste kommerzielle Handy kommt auf den Markt - 800 Gramm schwer, 4.000 Dollar teuer.", cat: "wissenschaft", imp: 3 },
+            { id: 290, time: 2002, title: "Euro-Bargeld", subtitle: "Gemeinsame Währung", desc: "Zwölf EU-Staaten führen den Euro als Bargeld ein - das größte Währungsprojekt der Geschichte.", cat: "politik", imp: 3 },
+            { id: 291, time: 2003, title: "Humangenom entschlüsselt", subtitle: "Genom-Projekt", desc: "Nach 13 Jahren ist die DNA-Sequenz des Menschen vollständig gelesen - der Bauplan des Lebens liegt offen.", cat: "wissenschaft", imp: 2 },
+            { id: 292, time: 2009, title: "Bitcoin", subtitle: "Satoshi Nakamoto", desc: "Der erste Bitcoin-Block wird berechnet - Kryptowährungen und Blockchain-Technologie entstehen.", cat: "wissenschaft", imp: 3 },
+            { id: 293, time: 2012, title: "CRISPR/Cas9", subtitle: "Gen-Schere", desc: "Charpentier und Doudna entwickeln die Gen-Schere - Erbgut lässt sich nun präzise umschreiben.", cat: "wissenschaft", imp: 2 },
+            { id: 294, time: 2016, title: "AlphaGo schlägt Lee Sedol", subtitle: "KI-Meilenstein", desc: "Eine KI besiegt den Go-Weltmeister - ein Jahrzehnt früher als erwartet und ein Vorbote der KI-Revolution.", cat: "wissenschaft", imp: 3 }
 ];
 
 export const categories = {

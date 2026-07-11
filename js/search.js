@@ -1,6 +1,6 @@
 // Chronicle — search overlay: weighted scoring, keyboard navigation.
 
-import { epochs, catName, MAX_TIME } from './data.js';
+import { epochs, catName, epochKindNames, MAX_TIME } from './data.js';
 import { state } from './store.js';
 import { formatTime } from './time.js';
 import { escapeHtml } from './ui.js';
@@ -69,6 +69,7 @@ function render(query) {
     }
     for (const ep of epochs) {
         if (ep.title.toLowerCase().includes(q)) results.push({ type: 'epoch', item: ep, score: 10 });
+        else if (ep.desc?.toLowerCase().includes(q)) results.push({ type: 'epoch', item: ep, score: 4 });
     }
     results.sort((a, b) => b.score - a.score);
     results = results.slice(0, 20);
@@ -81,7 +82,7 @@ function render(query) {
             const time = r.type === 'epoch'
                 ? `${formatTime(item.start)} – ${formatTime(Math.min(item.end, MAX_TIME))}`
                 : formatTime(item.time);
-            const cat = r.type === 'epoch' ? 'Epoche' : catName(item.cat);
+            const cat = r.type === 'epoch' ? (epochKindNames[item.kind] || 'Epoche') : catName(item.cat);
             return `
                 <div class="search-result${i === selectedIndex ? ' selected' : ''}" data-index="${i}">
                     <div class="search-result-title">${escapeHtml(item.title)}${item.aiGenerated ? ' ✨' : ''}</div>

@@ -1,6 +1,6 @@
 // Chronicle — info panel for events and epochs.
 
-import { catName, catColor, MAX_TIME } from './data.js';
+import { catName, catColor, epochKindNames, MAX_TIME } from './data.js';
 import { state, notify } from './store.js';
 import { formatTime, formatTimeLong } from './time.js';
 
@@ -13,7 +13,7 @@ export function showPanel(item, type) {
 
     if (type === 'epoch') {
         set('infoTime', `${formatTime(item.start)} – ${formatTime(Math.min(item.end, MAX_TIME))}`);
-        catEl.textContent = 'Epoche';
+        catEl.textContent = epochKindNames[item.kind] || 'Epoche';
         catEl.style.background = item.color;
         aiBadge.hidden = true;
         set('infoTitle', item.title);
